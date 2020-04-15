@@ -5,7 +5,6 @@
  */
 package com.brands.dto;
 
-import com.brands.dao.Cart;
 import com.brands.dao.Users;
 
 import java.util.List;
@@ -37,8 +36,6 @@ public interface UserDto {
 
     public boolean updateCreditWhenBuying(Users user);
 
- public boolean addUser(Users user);
-
  public boolean updateUser(Users user);
 
  public Users getUserById(int id);
@@ -47,8 +44,9 @@ public interface UserDto {
 
  public boolean login(Users user);
 
-    public boolean register(Users user, Cart cart);
+    public boolean register(Users user);
 
+    public int getUserIdByMail(String mail);
 
     public boolean logOut(Users user);
  /*nehal end*/

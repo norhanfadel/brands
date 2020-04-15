@@ -1,6 +1,6 @@
 package com.brands.dto;
 
-import com.brands.dao.Cart;
+import com.brands.dao.Orders;
 import com.brands.dao.Products;
 import com.brands.dao.Users;
 import com.brands.utils.ValidateUser;
@@ -13,7 +13,7 @@ import java.util.Set;
 public class UserImp implements UserDto {
     Session session = MySessionFactory.getMySession();
 
-    @Override
+    @Override // ok
     public boolean addCredit(String code, Users user) {
 
         String hql = "select value from com.brands.dao.CreditAdding c where c.code=?";
@@ -42,70 +42,55 @@ public class UserImp implements UserDto {
         }
     }
 
+    public Orders getCart(Users user) {
+        String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
+        Query query = session.createQuery(hql).setParameter(0, user.getUserId());
+        Set<Orders> userOrders = (Set<Orders>) query.uniqueResult();
+        if (userOrders != null) {
+            Orders currentOrder = null;
+            for (Orders order : userOrders) {
+                if (order.getBought() == 1) {
+                    return order;
+                }
+            }
+
+        }
+        return null;
+    }
+
     @Override
     public boolean updateCreditWhenBuying(Users user) {
-        String hql = "select cart from com.brands.dao.Users c where c.userId=?";
-
-        Query query = session.createQuery(hql).setParameter(0, user.getUserId());
-        Cart cart = (Cart) query.uniqueResult();
-
-        if (cart != null) {
-            Set<Products> products = cart.getProductses();
-            Double sum = 0.0;
-            Double amount = user.getCreditLimit();
-            for (Products aproducts : products) {
-                sum += aproducts.getPrice() * aproducts.getQuantity();
-
-            }
-            amount -= sum;
-            if (amount < 0) {
-                return false;
-            } else {
-                System.out.println(sum);
-                session.beginTransaction();
-                user.setCreditLimit(amount);
-                session.update(user);
-                session.getTransaction().commit();
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
-    @Override
-    public boolean addUser(Users user) {
-        return false;
-    }
-
-    @Override
-    public boolean updateUser(Users user) {
-        return false;
-    }
-
-    @Override
-    public Users getUserById(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Users> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public boolean login(Users user) {
-        if (!ValidateUser.isExist(user)) {
-
+        Orders currentOrder = getCart(user);
+        Double totalPrice = currentOrder.getAmount();
+        Double userCredit = user.getCreditLimit();
+        Double amount = userCredit - totalPrice;
+        if (amount < 0) {
+            System.out.println("credit not enough");
             return false;
         } else {
-
-            user.setStatus("ONLINE");
-
+            System.out.println("credit not enough" + "total is" + amount);
             session.beginTransaction();
-            if (user.getUserId() != null) {
+            user.setCreditLimit(amount);
+            session.update(user);
+            session.getTransaction().commit();
+            return true;
+        }
+    }
+
+    @Override
+    public int getUserIdByMail(String mail) {
+        String hql = "select id from com.brands.dao.Users c where c.email=?";
+        Query query = session.createQuery(hql).setParameter(0, mail);
+        return (int) query.uniqueResult();
+    }
+
+    @Override
+    public boolean updateUser(Users user) { // mail should be disabled in GUI
+        if (!ValidateUser.isExist(user)) {
+            return false;
+        } else {
+            session.beginTransaction();
+            if (user.getUserId() > 0) {
                 session.update(user);
                 session.getTransaction().commit();
             }
@@ -114,14 +99,47 @@ public class UserImp implements UserDto {
     }
 
     @Override
-    public boolean register(Users user, Cart cart) {
+    public Users getUserById(int id) {
+        Users user = (Users) session.get(Users.class, id);
+        if (ValidateUser.isExist(user)) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Users> getAllUsers() {
+        String hql = "from com.brands.dao.Users ";
+        Query query = session.createQuery(hql);
+        return query.list();
+    }
+
+    @Override
+    public boolean login(Users user) {
+        if (!ValidateUser.isExist(user)) {
+            return false;
+        } else {
+
+            user.setStatus("ONLINE");
+
+            session.beginTransaction();
+            if (user.getUserId() > 0) {
+                session.update(user);
+                session.getTransaction().commit();
+            }
+            return true;
+        }
+    }
+
+    @Override
+    public boolean register(Users user) {
         if (!ValidateUser.isExist(user)) {
 
             return false;
         } else {
 
             session.beginTransaction();
-            session.persist(cart);
             session.persist(user);
             session.getTransaction().commit();
             System.out.println("register here ");
@@ -140,7 +158,7 @@ public class UserImp implements UserDto {
             user.setStatus("OFFLINE");
 
             session.beginTransaction();
-            if (user.getUserId() != null) {
+            if (user.getUserId() > 0) {
                 session.update(user);
                 session.getTransaction().commit();
             }

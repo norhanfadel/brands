@@ -11,7 +11,6 @@ public class MySessionFactory {
 
     public static void configuration() {
         Configuration con = new Configuration();
-//        con.setListener("save", new UserListener());
         con.configure();
         sessionFactory = con.buildSessionFactory();
     }

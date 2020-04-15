@@ -1,5 +1,5 @@
 package com.brands.dao;
-// Generated Apr 15, 2020, 2:02:32 AM by Hibernate Tools 4.3.1
+// Generated Apr 16, 2020, 12:01:12 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -18,12 +18,16 @@ public class CreditAdding  implements java.io.Serializable {
 
 
      private String code;
-     private double value;
+     private Double value;
 
     public CreditAdding() {
     }
 
-    public CreditAdding(String code, double value) {
+	
+    public CreditAdding(String code) {
+        this.code = code;
+    }
+    public CreditAdding(String code, Double value) {
        this.code = code;
        this.value = value;
     }
@@ -41,12 +45,12 @@ public class CreditAdding  implements java.io.Serializable {
     }
 
     
-    @Column(name="value", nullable=false, precision=22, scale=0)
-    public double getValue() {
+    @Column(name="value", precision=22, scale=0)
+    public Double getValue() {
         return this.value;
     }
     
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
