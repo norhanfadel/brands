@@ -134,7 +134,7 @@ public class UserImp implements UserDto {
 
     @Override
     public boolean register(Users user) {
-        if (!ValidateUser.isExist(user)) {
+        if (ValidateUser.isExist(user)) {
 
             return false;
         } else {
