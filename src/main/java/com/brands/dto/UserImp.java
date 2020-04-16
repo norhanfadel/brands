@@ -134,17 +134,17 @@ public class UserImp implements UserDto {
 
     @Override
     public boolean register(Users user) {
-        if (ValidateUser.isExist(user)) {
-
-            return false;
-        } else {
+//        if (ValidateUser.isExist(user)) {
+//
+//            return false;
+//        } else {
 
             session.beginTransaction();
             session.persist(user);
             session.getTransaction().commit();
             System.out.println("register here ");
             return true;
-        }
+        //}
 
     }
 
