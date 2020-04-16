@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
         System.out.println("password is=" + password);
 
         Users user = new Users();
-        user.setEMail(email);
+        user.setEmail(email);
         user.setPassword(password);
 
         UserImp userImp = new UserImp();
