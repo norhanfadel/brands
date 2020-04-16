@@ -166,7 +166,7 @@ public class UserImp implements UserDto {
         }
     }
     public boolean loginNour(String EMail, String passwrod) {
-        String hql = "from com.brands.dao.Users c where c.EMail=? and c.password=?";
+        String hql = "from com.brands.dao.Users c where c.email=? and c.password=?";
 
         Query query = session.createQuery(hql);
         query.setString(0, EMail);
