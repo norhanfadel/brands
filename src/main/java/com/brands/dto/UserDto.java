@@ -49,6 +49,7 @@ public interface UserDto {
     public int getUserIdByMail(String mail);
 
     public boolean logOut(Users user);
+    public boolean loginNour(String EMail,String passwrod);
  /*nehal end*/
 
  /*badri*/
