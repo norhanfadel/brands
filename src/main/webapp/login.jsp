@@ -176,6 +176,8 @@ String paramValue = request.getParameter(paramName);
 
                     <cnour:if test="${!empty requestScope.register}"  var="res1">
                         <label id="labelID1" style="color:red;font-size: 20px">This Account is aleadry Exist! </label> </cnour:if>
+                    <cnour:if test="${!empty requestScope.true1}"  var="res2">
+                        <label id="labelID1" style="color:green;font-size: 20px">Regestration Done </label> </cnour:if>
 
                     <br>
 <br>
