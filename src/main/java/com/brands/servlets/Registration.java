@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class Registration extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,20 +52,37 @@ public class Registration extends HttpServlet {
         user.setPassword(password);
         user.setCreditLimit(welcomeCode);
         UserImp userImp = new UserImp();
-        if (userImp.register(user)) {
+        List<Users> usersList=userImp.getAllUsers();
+        for(Users userss:usersList) {
 
-            System.out.println("valid");
-            response.sendRedirect("login.jsp");
+            if (userss.getEmail().equals(email)) {
+                String paramName1 = "This Account is aleadry Exist!";
+                System.out.println("from else");
+                request.setAttribute("register", paramName1);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                dispatcher.forward(request, response);
 
-        } else {
-            String paramName1 = "This Account is aleadry Exist!";
-            System.out.println("from else");
-            request.setAttribute("register", paramName1);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
-
-
+            }
         }
-    }
 
-}
+
+                if(userImp.register(user)) {
+                    System.out.println("valid");
+                    String paramName2 = "true1";
+                    request.setAttribute("true1", paramName2);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                    dispatcher.forward(request, response);
+
+                }
+//        } else {
+//            String paramName1 = "This Account is aleadry Exist!";
+//            System.out.println("from else");
+//            request.setAttribute("register", paramName1);
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+//            dispatcher.forward(request, response);
+//
+//
+            }       }
+
+
+
