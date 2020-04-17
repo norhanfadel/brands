@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
         if (userImp.loginNour(email,password)) {
 
             System.out.println("valid");
-           response.sendRedirect("index.html?email="+email+"&password"+password);
+           response.sendRedirect("indexLogin.jsp?name"+ user.getUserName());
 
         } else {
             String paramName="Sorry UserName or Password Error!";
