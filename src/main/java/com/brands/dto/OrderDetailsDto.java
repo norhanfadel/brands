@@ -12,7 +12,7 @@ public interface OrderDetailsDto {
      OrderDetails insertOrderDetailForProduct(int product_id,int order_id,
             int quantity, double price, double amount);
 
-     boolean updateOrderDetailForProduct(OrderDetails orderDetails);
+     boolean updateOrderDetail(OrderDetails orderDetails);
 
      boolean deleteOrderDetail(int  orderDetail_id);
 }

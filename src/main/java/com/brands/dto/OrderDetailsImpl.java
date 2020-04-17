@@ -34,7 +34,7 @@ public class OrderDetailsImpl implements OrderDetailsDto {
     }
 
     @Override
-    public boolean updateOrderDetailForProduct(OrderDetails orderDetails) {
+    public boolean updateOrderDetail(OrderDetails orderDetails) {
         int numOfRiws = -1;
         String hql = "update OrderDetails od set od.amount = ?, od.price =? " +
                 ",od.quanity = ?, od.orders.id=?, od.products.id = ?  where od.id = ?";
