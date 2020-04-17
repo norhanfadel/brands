@@ -14,13 +14,16 @@ import java.util.List;
  */
 public interface ProductDto {
     /*nehal*/
+    public Products getProductById(int product_id);
     public List<Products> searchProductByName(String name);
     public List<Products> searchProductByPrice(Double price);
     public List<Products> getAllProducts();
     public List<Products> getAllProductsByCategoryId(int category_id);
-    public boolean addProduct(Products product);
-    public Users getUserById(int user_id);
-    public Products getProductById(int product_id);
+    public Products addProduct(Products product);
+    public boolean updateProduct(Products product);
+    public boolean deleteProduct(int product_id);
+//    public Users getUserById(int user_id);
+
 
     /*nehal end*/
 

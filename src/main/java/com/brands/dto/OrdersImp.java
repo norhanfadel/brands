@@ -1,6 +1,5 @@
 package com.brands.dto;
 
-
 import com.brands.dao.OrderDetails;
 import com.brands.dao.Orders;
 import com.brands.dao.Products;
@@ -18,7 +17,7 @@ public class OrdersImp implements OrdersDto {
 
     @Override
     public Orders getOrderByID(int order_id) {
-        String hql = "from Orders o where o.id = ?";
+        String hql = "from  com.brands.dao.Orders o where o.id = ?";
         Query query = session.createQuery(hql).setParameter(0,order_id);
         Orders order = (Orders) query.list().get(0);
         return order;
@@ -26,7 +25,7 @@ public class OrdersImp implements OrdersDto {
 
     @Override
     public List<Orders> getAllOrdersForUser() {
-        String hql = "from Orders";
+        String hql = "from  com.brands.dao.Orders";
         Query query = session.createQuery(hql);
         List<Orders> orders =  query.list();
         return orders;
@@ -46,7 +45,7 @@ public class OrdersImp implements OrdersDto {
     @Override
     public boolean updateOrder(Orders orders) {
         int numOfRiws = -1;
-        String hql = "update Orders o set o.amount=?, o.customerAddress=?, " +
+        String hql = "update  com.brands.dao.Orders o set o.amount=?, o.customerAddress=?, " +
                 "o.orderDate=?, o.bought=? where o.id=? and o.users.id=?";
         Query query = session.createQuery(hql);
         query.setParameter(0,orders.getAmount());
@@ -61,9 +60,9 @@ public class OrdersImp implements OrdersDto {
         if(numOfRiws == -1){
             return false;
         }else{
-            session.beginTransaction();
-            session.update(orders);
-            session.getTransaction().commit();
+//            session.beginTransaction();
+//            session.update(orders);
+//            session.getTransaction().commit();
             return true;
         }
     }
@@ -71,7 +70,7 @@ public class OrdersImp implements OrdersDto {
     @Override
     public boolean deleteOrder(int order_id) {
         int numOfRiws = -1;
-        String hql = "delete from Orders o where o.id =? " ;
+        String hql = "delete from  com.brands.dao.Orders o where o.id =? " ;
         Query query = session.createQuery(hql).setParameter(0, order_id);
         numOfRiws = query.executeUpdate();
         if(numOfRiws == -1){

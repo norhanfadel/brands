@@ -13,7 +13,7 @@ public class OrderDetailsImpl implements OrderDetailsDto {
 
     @Override
     public OrderDetails getOrderDetailById(int orderDetail_id) {
-        String hql = "from OrderDetails od where od.id = ?";
+        String hql = "from  com.brands.dao.OrderDetails od where od.id = ?";
         Query query = session.createQuery(hql).setParameter(0,orderDetail_id);
         OrderDetails orderDetails = (OrderDetails) query.list().get(0);
         return orderDetails;
@@ -35,7 +35,7 @@ public class OrderDetailsImpl implements OrderDetailsDto {
     @Override
     public boolean updateOrderDetail(OrderDetails orderDetails) {
         int numOfRiws = -1;
-        String hql = "update OrderDetails od set od.amount = ?, od.price =? " +
+        String hql = "update  com.brands.dao.OrderDetails od set od.amount = ?, od.price =? " +
                 ",od.quanity = ?, od.orders.id=?, od.products.id = ?  where od.id = ?";
         Query query = session.createQuery(hql);
         query.setParameter(0,orderDetails.getAmount());
@@ -50,9 +50,9 @@ public class OrderDetailsImpl implements OrderDetailsDto {
         if(numOfRiws == -1){
             return false;
         }else{
-            session.beginTransaction();
-            session.update(orderDetails);
-            session.getTransaction().commit();
+//            session.beginTransaction();
+//            session.update(orderDetails);
+//            session.getTransaction().commit();
             return true;
         }
     }
@@ -60,7 +60,7 @@ public class OrderDetailsImpl implements OrderDetailsDto {
     @Override
     public boolean deleteOrderDetail(int  orderDetail_id) {
         int numOfRiws = -1;
-        String hql = "delete from OrderDetails od where od.id =? " ;
+        String hql = "delete from  com.brands.dao.OrderDetails od where od.id =? " ;
         Query query = session.createQuery(hql).setParameter(0, orderDetail_id);
         numOfRiws = query.executeUpdate();
         if(numOfRiws == -1){
