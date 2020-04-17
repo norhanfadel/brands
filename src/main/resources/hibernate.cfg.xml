@@ -45,10 +45,11 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/brands?zeroDateTimeBehavior=CONVERT_TO_NULL</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
+    <mapping class="com.brands.dao.Orders"/>
+    <mapping class="com.brands.dao.OrderDetails"/>
     <mapping class="com.brands.dao.Users"/>
-    <mapping class="com.brands.dao.CreditAdding"/>
-    <mapping class="com.brands.dao.Products"/>
-    <mapping class="com.brands.dao.Cart"/>
     <mapping class="com.brands.dao.Category"/>
+    <mapping class="com.brands.dao.Products"/>
+    <mapping class="com.brands.dao.CreditAdding"/>
   </session-factory>
 </hibernate-configuration>
