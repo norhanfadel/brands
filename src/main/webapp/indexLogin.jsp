@@ -5,7 +5,10 @@
   Time: 3:32 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -31,6 +34,9 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
+
+
+
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -91,12 +97,20 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
+
                             <li><a href="account.html"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+
+    <cnour:if test="${!empty requestScope.username}"  >
+   <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}</a></li>
+    </cnour:if>
+
+
                         </ul>
+
+
                     </div>
                 </div>
             </div>
@@ -129,9 +143,12 @@
                                                                     </ul>
                                                                 </li> -->
                             <!--                                    check that role equal Admin start-->
-                            <li ><a href="manageUser.jsp">Manage Users</a>
+                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+
+                                  <li ><a href="manageUser.jsp">Manage Users</a>
                             </li>
                             <li><a href="manageProduct.jsp">Manage Products</a>
+                                </cnour:if>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
