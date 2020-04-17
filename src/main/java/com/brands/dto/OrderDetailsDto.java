@@ -6,7 +6,13 @@ import com.brands.dao.Products;
 import com.brands.dao.Users;
 
 public interface OrderDetailsDto {
-    public OrderDetails addOrderDetailForProduct(int product_id,Orders orders);
 
+     OrderDetails getOrderDetailById(int orderDetail_id);
 
+     OrderDetails insertOrderDetailForProduct(int product_id,int order_id,
+            int quantity, double price, double amount);
+
+     boolean updateOrderDetailForProduct(OrderDetails orderDetails);
+
+     boolean deleteOrderDetail(int  orderDetail_id);
 }

@@ -45,6 +45,5 @@ public class ProductImp implements ProductDto {
         String hql = " from com.brands.dao.Products p where p.productId=?";
         Query query = session.createQuery(hql).setParameter(0, product_id);
         return (Products) query.uniqueResult();
-
     }
 }
