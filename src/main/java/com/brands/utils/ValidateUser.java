@@ -11,10 +11,12 @@ import java.util.List;
 public class ValidateUser {
     public static boolean isExist(Users user) {
         Session session = MySessionFactory.getMySession();
+        System.out.println(user+"u----------ser");
         if (user != null) {
-            String hql = "from com.brands.dao.Users c where c.id=?";
-            Query query = session.createQuery(hql).setParameter(0, user.getUserId());
-
+            String hql = "from com.brands.dao.Users c where c.email=?";
+            System.out.println(hql+"u*****************ser");
+            Query query = session.createQuery(hql).setParameter(0, user.getEmail());
+            System.out.println(query+"u*****************ser");
             List<Users> listUser = query.list();
             if (listUser != null) {
 

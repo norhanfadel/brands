@@ -102,20 +102,18 @@
                                                                     </ul>
                                                                 </li> -->
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
+<%--                            <li><a href="manageUser.jsp">Manage Users</a>--%>
+<%--                            </li>--%>
+<%--                            <li><a href="manageProduct.jsp">Manage Products</a>--%>
+<%--                                <!--                                    check that role equal Admin end-->--%>
+<%--                            </li>--%>
                             <!--                                    <li><a href="404.html">404</a></li>-->
                             <li><a href="contact-us.html">Contact</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -165,20 +163,24 @@ String paramValue = request.getParameter(paramName);
             <div class="col-sm-4">
                 <div class="signup-form"><!--sign up form-->
                     <h2>New User Signup!</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Name"/>
-                        <input type="email" placeholder="Email Address"/>
-                        <input type="password" placeholder="Password"/>
-                        <input type="text" placeholder="Address">
-                        <input type="number" placeholder="Welcome Code">
-                        <input type="date" placeholder="Birthdate" onblur="(this.type='text')"
-                               onfocus="(this.type='date')">
-                        <input type="text" placeholder="Job">
-                        <br>
-                        <button type="submit" class="btn btn-default">Signup</button>
-                    </form>
-                    <br>
+                    <form  action="Registration"  method="post" >
+                        <input type="text" placeholder="Name" name="name" id="name"/>
+                        <input type="email" placeholder="Email Address"  name="emailRegistration" id="emailRegistration"/>
+                        <input type="password" placeholder="Password"  name="passwordRegistration" id="passwordRegistration"/>
+                        <input type="text" placeholder="Address" name="address"id="address">
+                        <input type="number" placeholder="Welcome Code"  name="welcomeCode" id="welcomeCode">
 
+                        <br>
+                        <button  type="submit" value = "Submit" class="btn btn-default">Signup</button>
+                    </form>
+
+                    <cnour:if test="${!empty requestScope.register}"  var="res1">
+                        <label id="labelID1" style="color:red;font-size: 20px">This Account is aleadry Exist! </label> </cnour:if>
+                    <cnour:if test="${!empty requestScope.true1}"  var="res2">
+                    <i class="fa-li fa fa-check-square">  <label id="labelID1" style="color:green;font-size: 20px">Regestration Done Lets Login </label> </cnour:if>
+
+                    <br>
+<br>
                 </div><!--/sign up form-->
             </div>
         </div>
@@ -187,7 +189,7 @@ String paramValue = request.getParameter(paramName);
 </section><!--/form-->
 
 
-<footer id="footer">
+<footer id="footer" style="position: absolute;bottom: 0px ;width: 100%;">
 
 
     <div class="footer-bottom" style="margin-top: 0px ">
