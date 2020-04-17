@@ -30,8 +30,8 @@ public class OrderDetails  implements java.io.Serializable {
     public OrderDetails() {
     }
 
-    public OrderDetails(int id, Orders orders, Products products, double amount, double price, int quanity) {
-       this.id = id;
+    public OrderDetails( Orders orders, Products products, double amount, double price, int quanity) {
+       //this.id = id;
        this.orders = orders;
        this.products = products;
        this.amount = amount;

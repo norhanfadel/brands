@@ -20,6 +20,8 @@ public interface ProductDto {
     public List<Products> getAllProductsByCategoryId(int category_id);
     public boolean addProduct(Products product);
     public Users getUserById(int user_id);
+    public Products getProductById(int product_id);
+
     /*nehal end*/
 
      /*badri*/

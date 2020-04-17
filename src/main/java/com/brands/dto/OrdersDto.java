@@ -5,6 +5,7 @@
  */
 package com.brands.dto;
 
+import com.brands.dao.OrderDetails;
 import com.brands.dao.Products;
 import com.brands.dao.Users;
 
@@ -14,14 +15,14 @@ import java.util.List;
  *
  * @author Shimaa Mohammed
  */
-public interface CartDto {
+public interface OrdersDto {
     /*nehal*/
     public Products getProductByProductId(int product_id);
-    public boolean addProductByProductIdToCart(int product_id, Users user);
-    public boolean removeProductByProductIdFromCart(int product_id, Users user);
+    public boolean addProductByProductIdToOrders(OrderDetails orderDetails, Users user);
+    public boolean removeProductByProductIdFromOrders(int product_id, Users user);
     public boolean updateQuantityByProductId(int product_id, Users user,int quantity);
     public List<Products> getAllProductByUserId(Users user); // should update buying date
-    public void updateNoOfProductsInCart(int product_id, Users user); // will be rethought when we change DB
+    public void updateNoOfProductsInOrders(int product_id, Users user); // will be rethought when we change DB
     public Double calculateSumOfProducts(Users user);
     /*nehal end*/
 
