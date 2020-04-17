@@ -168,16 +168,18 @@ String paramValue = request.getParameter(paramName);
                         <input type="email" placeholder="Email Address"  name="emailRegistration" id="emailRegistration"/>
                         <input type="password" placeholder="Password"  name="passwordRegistration" id="passwordRegistration"/>
                         <input type="text" placeholder="Address" name="address"id="address">
+                        <input type="text" placeholder="Phone" name="phone"id="phone">
                         <input type="number" placeholder="Welcome Code"  name="welcomeCode" id="welcomeCode">
 
                         <br>
                         <button  type="submit" value = "Submit" class="btn btn-default">Signup</button>
+                        <cnour:if test="${!empty requestScope.true1}"  var="res2">
+                        <i class="fa-li fa fa-check-square">  <label id="labelID1" style="color:green;font-size: 20px">Regestration Done Lets Login </label> </cnour:if>
                     </form>
 
                     <cnour:if test="${!empty requestScope.register}"  var="res1">
                         <label id="labelID1" style="color:red;font-size: 20px">This Account is aleadry Exist! </label> </cnour:if>
-                    <cnour:if test="${!empty requestScope.true1}"  var="res2">
-                    <i class="fa-li fa fa-check-square">  <label id="labelID1" style="color:green;font-size: 20px">Regestration Done Lets Login </label> </cnour:if>
+
 
                     <br>
 <br>
