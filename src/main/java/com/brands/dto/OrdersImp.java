@@ -2,66 +2,137 @@ package com.brands.dto;
 
 
 import com.brands.dao.OrderDetails;
+import com.brands.dao.Orders;
 import com.brands.dao.Products;
 import com.brands.dao.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.Date;
 import java.util.List;
+
+import static com.sun.tools.javac.main.Option.O;
 
 public class OrdersImp implements OrdersDto {
     Session session = MySessionFactory.getMySession();
 
     @Override
-    public Products getProductByProductId(int product_id) {
-        String hql = " from com.brands.dao.OrderDetails p where p.products.id=?";
-        Query query = session.createQuery(hql).setParameter(0, product_id);
-        Products products = (Products) query.uniqueResult();
-
-        return products;
-
-
+    public Orders getOrderByID(int order_id) {
+        String hql = "from Orders o where o.id = ?";
+        Query query = session.createQuery(hql).setParameter(0,order_id);
+        Orders order = (Orders) query.list().get(0);
+        return order;
     }
 
     @Override
-    public boolean addProductByProductIdToOrders(OrderDetails orderDetails, Users user) {
+    public List<Orders> getAllOrdersForUser() {
+        String hql = "from Orders";
+        Query query = session.createQuery(hql);
+        List<Orders> orders =  query.list();
+        return orders;
+    }
 
+    @Override
+    public Orders addNewOrder(int user_id, double amount, String customerAddress,
+                              Date orderDate, int orderNum) {
+        Users user= (Users) session.load(Users.class,user_id);
+        Orders order = new Orders(user, amount, customerAddress, orderDate, orderNum);
         session.beginTransaction();
-        Users users= (Users) session.load(Users.class,user.getUserId());
+        session.persist(order);
+        session.getTransaction().commit();
+        return order;
+    }
 
-//        session.persist(seller);
-//        session.getTransaction().commit();
+    @Override
+    public boolean updateOrder(Orders orders) {
+        int numOfRiws = -1;
+        String hql = "update Orders o set o.amount=?, o.customerAddress=?, " +
+                "o.orderDate=?, o.bought=? where o.id=? and o.users.id=?";
+        Query query = session.createQuery(hql);
+        query.setParameter(0,orders.getAmount());
+        query.setParameter(1,orders.getCustomerAddress());
+        query.setParameter(2,orders.getOrderDate());
+        query.setParameter(3,orders.getBought());
+        query.setParameter(4,orders.getId());
+        query.setParameter(5,orders.getUsers().getUserId());
+
+        numOfRiws = query.executeUpdate();
+
+        if(numOfRiws == -1){
+            return false;
+        }else{
+            session.beginTransaction();
+            session.update(orders);
+            session.getTransaction().commit();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean deleteOrder(int order_id) {
+        int numOfRiws = -1;
+        String hql = "delete from Orders o where o.id =? " ;
+        Query query = session.createQuery(hql).setParameter(0, order_id);
+        numOfRiws = query.executeUpdate();
+        if(numOfRiws == -1){
+            return false;
+        }else
+            return true;
+    }
+
+
+
+
+//    @Override
+//    public Products getProductByProductId(int product_id) {
 //        String hql = " from com.brands.dao.OrderDetails p where p.products.id=?";
 //        Query query = session.createQuery(hql).setParameter(0, product_id);
-        return false;
-    }
+//        Products products = (Products) query.uniqueResult();
+//
+//        return products;
+//
+//
+//    }
 
-    @Override
-    public boolean removeProductByProductIdFromOrders(int product_id, Users user) {
-        return false;
-    }
+//    @Override
+//    public boolean addProductByProductIdToOrders(OrderDetails orderDetails, Users user) {
+//
+//        session.beginTransaction();
+//        Users users= (Users) session.load(Users.class,user.getUserId());
+//
+////        session.persist(seller);
+////        session.getTransaction().commit();
+////        String hql = " from com.brands.dao.OrderDetails p where p.products.id=?";
+////        Query query = session.createQuery(hql).setParameter(0, product_id);
+//        return false;
+//    }
 
-
-    @Override
-    public boolean updateQuantityByProductId(int product_id, Users user, int quantity) {
-        return false;
-    }
-
-    @Override
-    public List<Products> getAllProductByUserId(Users user) {
-        return null;
-    }
-
-    @Override
-    public void updateNoOfProductsInOrders(int product_id, Users user) {
-
-    }
-
-
-    @Override
-    public Double calculateSumOfProducts(Users user) {
-        return null;
-    }
+//    @Override
+//    public boolean removeProductByProductIdFromOrders(int product_id, Users user) {
+//        return false;
+//    }
+//
+//
+//    @Override
+//    public boolean updateQuantityByProductId(int product_id, Users user, int quantity) {
+//        return false;
+//    }
+//
+//    @Override
+//    public List<Products> getAllProductByUserId(Users user) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void updateNoOfProductsInOrders(int product_id, Users user) {
+//
+//    }
+//
+//
+//    @Override
+//    public Double calculateSumOfProducts(Users user) {
+//        return null;
+//    }
 
 
 //    Session session = MySessionFactory.getMySession();

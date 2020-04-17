@@ -6,9 +6,11 @@
 package com.brands.dto;
 
 import com.brands.dao.OrderDetails;
+import com.brands.dao.Orders;
 import com.brands.dao.Products;
 import com.brands.dao.Users;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,17 +19,22 @@ import java.util.List;
  */
 public interface OrdersDto {
     /*nehal*/
-    public Products getProductByProductId(int product_id);
-    public boolean addProductByProductIdToOrders(OrderDetails orderDetails, Users user);
-    public boolean removeProductByProductIdFromOrders(int product_id, Users user);
-    public boolean updateQuantityByProductId(int product_id, Users user,int quantity);
-    public List<Products> getAllProductByUserId(Users user); // should update buying date
-    public void updateNoOfProductsInOrders(int product_id, Users user); // will be rethought when we change DB
-    public Double calculateSumOfProducts(Users user);
+//    public Products getProductByProductId(int product_id);
+//    public boolean addProductByProductIdToOrders(OrderDetails orderDetails, Users user);
+//    public boolean removeProductByProductIdFromOrders(int product_id, Users user);
+//    public boolean updateQuantityByProductId(int product_id, Users user,int quantity);
+//    public List<Products> getAllProductByUserId(Users user); // should update buying date
+//    public void updateNoOfProductsInOrders(int product_id, Users user); // will be rethought when we change DB
+//    public Double calculateSumOfProducts(Users user);
     /*nehal end*/
 
      /*badri*/
-    
+    Orders getOrderByID(int order_id);
+    List<Orders> getAllOrdersForUser();
+    Orders addNewOrder(int user_id, double amount, String customerAddress,
+                       Date orderDate, int orderNum);
+    boolean updateOrder(Orders orders);
+    boolean deleteOrder(int order_id);
      /*badri end*/
     
     

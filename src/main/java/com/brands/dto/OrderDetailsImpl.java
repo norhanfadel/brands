@@ -22,7 +22,6 @@ public class OrderDetailsImpl implements OrderDetailsDto {
     @Override
     public OrderDetails insertOrderDetailForProduct(int product_id, int order_id,
                                int quantity, double price, double amount) {
-        session.beginTransaction();
         Products product= (Products) session.load(Products.class,product_id);
         Orders order= (Orders) session.load(Orders.class,order_id);
         OrderDetails orderDetails=new OrderDetails(order,product,amount,price,quantity);
@@ -69,6 +68,4 @@ public class OrderDetailsImpl implements OrderDetailsDto {
         }else
             return true;
     }
-
-
 }

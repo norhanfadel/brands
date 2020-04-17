@@ -18,8 +18,8 @@ public class Registration extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        RequestDispatcher dispatcher =request.getRequestDispatcher("login.jsp");
-        dispatcher.forward(request,response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
 
     }
 
@@ -34,11 +34,11 @@ public class Registration extends HttpServlet {
         String email = request.getParameter("emailRegistration");
         String phone = request.getParameter("phone");
 
-       String password = request.getParameter("passwordRegistration");
+        String password = request.getParameter("passwordRegistration");
         String address = request.getParameter("address");
-        System.out.println("address-----"+address+name+email+phone);
+        System.out.println("address-----" + address + name + email + phone);
         String code = request.getParameter("welcomeCode");
-        System.out.println("code-----"+code);
+        System.out.println("code-----" + code);
         Double welcomeCode = Double.parseDouble(code);
         System.out.println("password is=" + password);
 
@@ -52,8 +52,8 @@ public class Registration extends HttpServlet {
         user.setPassword(password);
         user.setCreditLimit(welcomeCode);
         UserImp userImp = new UserImp();
-        List<Users> usersList=userImp.getAllUsers();
-        for(Users userss:usersList) {
+        List<Users> usersList = userImp.getAllUsers();
+        for (Users userss : usersList) {
 
             if (userss.getEmail().equals(email)) {
                 String paramName1 = "This Account is aleadry Exist!";
@@ -65,15 +65,14 @@ public class Registration extends HttpServlet {
             }
         }
 
+        if (userImp.register(user)) {
+            System.out.println("valid");
+            String paramName2 = "true1";
+            request.setAttribute("true1", paramName2);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
 
-                if(userImp.register(user)) {
-                    System.out.println("valid");
-                    String paramName2 = "true1";
-                    request.setAttribute("true1", paramName2);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-                    dispatcher.forward(request, response);
-
-                }
+        }
 //        } else {
 //            String paramName1 = "This Account is aleadry Exist!";
 //            System.out.println("from else");
@@ -82,7 +81,8 @@ public class Registration extends HttpServlet {
 //            dispatcher.forward(request, response);
 //
 //
-            }       }
+    }
+}
 
 
 
