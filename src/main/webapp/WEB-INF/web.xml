@@ -10,6 +10,17 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>logOut</servlet-name>
+        <servlet-class>com.brands.servlets.logOut</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>logOut</servlet-name>
+        <url-pattern>/logOut</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.brands.servlets.Registration</servlet-class>

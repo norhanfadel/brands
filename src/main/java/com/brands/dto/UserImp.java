@@ -187,5 +187,27 @@ public class UserImp implements UserDto {
         return false;
 
     }
+    @Override
+    public boolean updateStatus(int id) {
+        String hql = "from com.brands.dao.Users c where c.userId=?";
+
+        Query query = session.createQuery(hql);
+        query.setInteger(0, id);
+        List<Users> value = query.list();
+        if (value != null && value.size() > 0) {
+            Users user = value.get(0);
+            user.setStatus("OFFLINE");
+            System.out.println(user);
+            System.out.println(user);
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+            return true;
+        }
+        return false;
+    }
+
+
 
 }
+

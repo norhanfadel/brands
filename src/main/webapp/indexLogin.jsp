@@ -7,7 +7,7 @@
 --%>
 
 <%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
 <head>
@@ -36,6 +36,7 @@
 <body>
 
 
+
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -43,7 +44,7 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a><i class="fa fa-phone"></i> (20)+1061977417</a></li>
+                            <li><a ><i class="fa fa-phone"></i> (20)+1061977417</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> eshopper000@gmail.com</a></li>
                         </ul>
                     </div>
@@ -51,8 +52,7 @@
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="https://www.facebook.com/Eshopper-105586241114204/"><i
-                                    class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://www.facebook.com/Eshopper-105586241114204/"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="https://twitter.com/explore"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="https://www.linkedin.com/feed/"><i class="fa fa-linkedin"></i></a></li>
 
@@ -71,6 +71,27 @@
                         <a href="index.jsp"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
+                        <!--                                <div class="btn-group">
+                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                                                USA
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#">Canada</a></li>
+                                                                <li><a href="#">UK</a></li>
+                                                            </ul>
+                                                        </div>-->
+
+                        <!--                                <div class="btn-group">
+                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                                                DOLLAR
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#">Canadian Dollar</a></li>
+                                                                <li><a href="#">Pound</a></li>
+                                                            </ul>
+                                                        </div>-->
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -87,6 +108,13 @@
                                 </a></li>
                             </cnour:if>
 
+    <cnour:if test="${!empty requestScope.username}"  >
+   <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}</a></li>
+    </cnour:if>
+                            <cnour:if test="${!empty requestScope.id}" var="userId"  >
+                                <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
+
+                            </cnour:if>
 
                         </ul>
 
@@ -116,9 +144,9 @@
                             <li><a href="${pageContext.servletContext.contextPath}/HomeServlet" class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}">
+                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                            <li><a href="manageUser.jsp">Manage Users</a>
+                                  <li ><a href="manageUser.jsp">Manage Users</a>
                             </li>
                             <li><a href="manageProduct.jsp">Manage Products</a>
                                 </cnour:if>
@@ -224,7 +252,6 @@
                                                            style="width: 100%">WOMEN</a></h4>
                             </div>
                         </div>
-
                         <div class="panel panel-default">
                             <div class="panel-heading" id="kidsLink">
                                 <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a>
@@ -297,9 +324,7 @@
                         </c:forEach>
                     </c:if>
                 </div>
-                <!--                men category product end
 
-                   <!--                women category product start               -->
                 <div class="features_items" id="women" style="display: none"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
                     <c:if test="${requestScope.productsList !=null}">
@@ -397,6 +422,6 @@
         $("#womenLink").css("background-color", "white");
         $("#kidsLink").css("background-color", "white");
     });
-    <
-    /body>
+</script>
+    </body>
     < /html>
