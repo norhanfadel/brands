@@ -156,14 +156,14 @@
                                     <c:out value="${dbProduct.description}"/>
                                 </td>
                                 <td>
-                                        <%--                            <button class="addBtn">Edit</button>--%>
-                                    <form action="productDetails.jsp">
+                                    <form action="productDetails.jsp" method="post">
+                                        <input type="hidden" name="productToEdit" value="${dbProduct.productId}"/>
                                         <button type="submit" class="addBtn">Edit</button>
                                     </form>
                                 </td>
                                 <td>
-                                        <%--                            <button class="addBtn">Delete</button>--%>
-                                    <form action="">
+                                    <form action="DeleteServlet" method="post">
+                                        <input type="hidden" name="productToDelete" value="${dbProduct.productId}"/>
                                         <button type="submit" class="addBtn">Delete</button>
                                     </form>
                                 </td>
