@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
 
@@ -260,7 +260,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2020 JETS ITI Inc. All rights reserved.</p>
+                <p class="pull-left">Copyright ï¿½ 2020 JETS ITI Inc. All rights reserved.</p>
                 <p class="pull-right">Designed by <span><a target="_blank" href="http://www.iti.gov.eg/Admission/PTPprogram/intake37/WMADtrack">JETS</a></span></p>
             </div>
         </div>

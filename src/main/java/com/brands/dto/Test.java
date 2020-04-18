@@ -54,9 +54,9 @@ public class Test {
     public static void badriTest(){
         System.out.println("inside");
         Category category = new Category("t-shirt");
-//        session.beginTransaction();
-//        session.persist(category);
-//        session.getTransaction().commit();
+        session.beginTransaction();
+        session.persist(category);
+        session.getTransaction().commit();
         ProductDto productDto = new ProductImp();
 //        List<Products> allProducts = productDto.getAllProducts();
 //        System.out.println("after");

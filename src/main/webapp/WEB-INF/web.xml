@@ -14,6 +14,15 @@
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.brands.servlets.Registration</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageProduct</servlet-name>
+        <servlet-class>com.brands.servlets.ManageProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageProduct</servlet-name>
+        <url-pattern>/ManageProduct</url-pattern>
+    </servlet-mapping>
+    
 
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
