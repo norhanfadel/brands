@@ -82,7 +82,7 @@
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
                             <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
                                 </a></li>
                             </cnour:if>
                             <cnour:if test="${!empty requestScope.id}" var="userId"  >
