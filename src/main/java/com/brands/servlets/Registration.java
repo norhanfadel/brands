@@ -36,6 +36,7 @@ public class Registration extends HttpServlet {
 
         String password = request.getParameter("passwordRegistration");
         String address = request.getParameter("address");
+
         System.out.println("address-----" + address + name + email + phone);
         String code = request.getParameter("welcomeCode");
         System.out.println("code-----" + code);
@@ -51,27 +52,30 @@ public class Registration extends HttpServlet {
         user.setEmail(email);
         user.setPassword(password);
         user.setCreditLimit(welcomeCode);
+        user.setPhone(phone);
         UserImp userImp = new UserImp();
         List<Users> usersList = userImp.getAllUsers();
-        for (Users userss : usersList) {
+        if(name != null && email != null && password !=null && phone !=null && address != null && code !=null) {
+            for (Users userss : usersList) {
 
-            if (userss.getEmail().equals(email)) {
-                String paramName1 = "This Account is aleadry Exist!";
-                System.out.println("from else");
-                request.setAttribute("register", paramName1);
+                if (userss.getEmail().equals(email)) {
+                    String paramName1 = "This Account is aleadry Exist!";
+                    System.out.println("from else");
+                    request.setAttribute("register", paramName1);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                    dispatcher.forward(request, response);
+
+                }
+            }
+
+            if (userImp.register(user)) {
+                System.out.println("valid");
+                String paramName2 = "true1";
+                request.setAttribute("true1", paramName2);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                 dispatcher.forward(request, response);
 
             }
-        }
-
-        if (userImp.register(user)) {
-            System.out.println("valid");
-            String paramName2 = "true1";
-            request.setAttribute("true1", paramName2);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
-
         }
 //        } else {
 //            String paramName1 = "This Account is aleadry Exist!";

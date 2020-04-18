@@ -142,6 +142,7 @@ public class UserImp implements UserDto {
             session.beginTransaction();
             session.persist(user);
             session.getTransaction().commit();
+            session.clear();
             System.out.println("register here ");
             return true;
         //}
