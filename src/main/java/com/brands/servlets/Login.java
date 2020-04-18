@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -46,8 +47,12 @@ public class Login extends HttpServlet {
      //      response.sendRedirect("indexLogin.jsp?name"+email+"&password"+password);
             String paramName1= user2.getUserName();
             String role=user2.getUserRole();
+            int id=user2.getUserId();
             request.setAttribute("username",paramName1);
             request.setAttribute("role",role);
+            HttpSession session=request.getSession();
+            session.setAttribute("userId",id);//as it will be needed later
+            request.setAttribute("id",id);
             RequestDispatcher dispatcher =request.getRequestDispatcher("indexLogin.jsp");
             dispatcher.forward(request,response);
 
@@ -60,22 +65,9 @@ public class Login extends HttpServlet {
             dispatcher.forward(request,response);
 
 
-//            String paramName="Sorry UserName or Password Error!";
-//            response.sendRedirect("login.jsp?notvalid="+paramName);
-//
 
         }
 
     }
-//    private String builGsonFromObject(Dto dto) {
-//        Gson gsonUser = new Gson();
-//        System.out.println("gsonuser" + gsonUser);
-//        System.out.println("1---" + gsonUser.toJson(dto));
-//        return gsonUser.toJson(dto);
-//    }
-//
-//    private String builGsonFromArray(ArrayList array) {
-//        Gson gsonUser = new Gson();
-//        return gsonUser.toJson(array);
-//    }
+
 }
