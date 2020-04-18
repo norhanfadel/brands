@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -121,42 +122,56 @@
         <br><br>
         <div class="row">
             <div class="col-md-10 col-sm-10 padding-right">
-                <div >
+                <div>
                     <form action="account.html">
                         <button class="addBtn">Add Product</button>
                     </form>
                 </div>
-                <table id="table1">
-                    <thead>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th id="add"></th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>12</td>
-                        <td>t-shirt</td>
-                        <td>99</td>
-                        <td>polo</td>
-                        <td>cotton t-shirt sdkhrgk ksdbfk  shfbjwhev</td>
-                        <td>
-                            <%--                            <button class="addBtn">Edit</button>--%>
-                            <form action="productDetails.jsp">
-                                <button type="submit" class="addBtn">Edit</button>
-                            </form>
-                        </td>
-                        <td>
-                            <%--                            <button class="addBtn">Delete</button>--%>
-                            <form action="">
-                                <button type="submit" class="addBtn">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <c:if test="${! empty requestScope.allProducts}">
+                    <table id="table1">
+                        <thead>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th id="add"></th>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${requestScope.allProducts}" var="dbProduct">
+                            <tr>
+                                <td>
+                                    <c:out value="${dbProduct.productId}"/>
+                                </td>
+                                <td>
+                                    <c:out value="${dbProduct.name}"/>
+                                </td>
+                                <td>
+                                    <c:out value="${dbProduct.price}"/>
+                                </td>
+                                <td>
+                                    <c:out value="${dbProduct.category.name}"/>
+                                </td>
+                                <td>
+                                    <c:out value="${dbProduct.description}"/>
+                                </td>
+                                <td>
+                                        <%--                            <button class="addBtn">Edit</button>--%>
+                                    <form action="productDetails.jsp">
+                                        <button type="submit" class="addBtn">Edit</button>
+                                    </form>
+                                </td>
+                                <td>
+                                        <%--                            <button class="addBtn">Delete</button>--%>
+                                    <form action="">
+                                        <button type="submit" class="addBtn">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
             </div>
         </div>
     </div>
