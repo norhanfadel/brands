@@ -19,7 +19,6 @@ public class ManageProduct extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
         ProductDto productDto =new ProductImp();
         List<Products> allProducts = productDto.getAllProducts();
         request.setAttribute("allProducts",allProducts);

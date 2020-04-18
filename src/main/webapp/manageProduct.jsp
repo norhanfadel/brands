@@ -123,7 +123,7 @@
         <div class="row">
             <div class="col-md-10 col-sm-10 padding-right">
                 <div>
-                    <form action="account.html">
+                    <form action="ManageProduct" method="get">
                         <button class="addBtn">Add Product</button>
                     </form>
                 </div>
