@@ -50,6 +50,7 @@ public interface UserDto {
 
     public boolean logOut(Users user);
     public boolean loginNour(String EMail,String passwrod);
+    public boolean updateStatus(int id );
  /*nehal end*/
 
  /*badri*/
