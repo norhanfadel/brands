@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
 
@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="logo pull-left">
-                                <a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+                                <a href="index.jsp"><img src="images/home/logo.png" alt="" /></a>
                             </div>
 
                         </div>
@@ -91,7 +91,7 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                        <li><a href="index.html" >Home</a></li><!--
+                                        <li><a href="index.jsp" >Home</a></li><!--
                                     <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
                                             <li><a href="shop.html">Products</a></li>
@@ -260,7 +260,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2020 JETS ITI Inc. All rights reserved.</p>
+                <p class="pull-left">Copyright ï¿½ 2020 JETS ITI Inc. All rights reserved.</p>
                 <p class="pull-right">Designed by <span><a target="_blank" href="http://www.iti.gov.eg/Admission/PTPprogram/intake37/WMADtrack">JETS</a></span></p>
             </div>
         </div>

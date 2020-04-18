@@ -1,16 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Dan
-  Date: 4/17/2020
-  Time: 3:32 PM
+  Date: 4/15/2020
+  Time: 9:49 PM
   To change this template use File | Settings | File Templates.
 --%>
-
-<%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -32,11 +31,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head>
-<body>
+</head><!--/head-->
 
-
-
+<body >
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -44,7 +41,7 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a ><i class="fa fa-phone"></i> (20)+1061977417</a></li>
+                            <li><a><i class="fa fa-phone"></i> (20)+1061977417</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> eshopper000@gmail.com</a></li>
                         </ul>
                     </div>
@@ -52,7 +49,8 @@
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="https://www.facebook.com/Eshopper-105586241114204/"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://www.facebook.com/Eshopper-105586241114204/"><i
+                                    class="fa fa-facebook"></i></a></li>
                             <li><a href="https://twitter.com/explore"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="https://www.linkedin.com/feed/"><i class="fa fa-linkedin"></i></a></li>
 
@@ -68,57 +66,18 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.jsp"><img src="images/home/logo.png" alt=""/></a>
+                        <a href="${pageContext.servletContext.contextPath }/HomeServlet" onclick="showHomeProduct()"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
-                        <!--                                <div class="btn-group">
-                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                                                USA
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Canada</a></li>
-                                                                <li><a href="#">UK</a></li>
-                                                            </ul>
-                                                        </div>-->
-
-                        <!--                                <div class="btn-group">
-                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                                                DOLLAR
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Canadian Dollar</a></li>
-                                                                <li><a href="#">Pound</a></li>
-                                                            </ul>
-                                                        </div>-->
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-
                             <li><a href="account.html"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-
-                            <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}
-                                </a></li>
-                            </cnour:if>
-
-    <cnour:if test="${!empty requestScope.username}"  >
-   <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}</a></li>
-    </cnour:if>
-                            <cnour:if test="${!empty requestScope.id}" var="userId"  >
-                                <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
-
-                            </cnour:if>
-
+                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
-
-
                     </div>
                 </div>
             </div>
@@ -141,16 +100,9 @@
 
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet" class="active">Home</a>
+                            <li><a href="${pageContext.servletContext.contextPath }/HomeServlet" class="active">Home</a>
                             </li>
-                            <!--                                    check that role equal Admin start-->
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                                  <li ><a href="manageUser.jsp">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                </cnour:if>
-                                <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
                             <li><a href="contact-us.html">Contact</a></li>
@@ -194,13 +146,10 @@
                         <div class="item">
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SHOPPER</h1>
-                                <h2>100% Responsive Design</h2>
-                                <!--                                        <p>Lorem ipsu </p>-->
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
                             <div class="col-sm-6">
                                 <img src="images/home/girl2.jpg" class="girl img-responsive" alt=""/>
-                                <!--                                        <img src="images/home/pricing.png"  class="pricing" alt="" />-->
                             </div>
                         </div>
 
@@ -240,22 +189,20 @@
                     <h2>Category</h2>
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" >
                             <div class="panel-heading" id="menLink">
-                                <h4 class="panel-title"><a href="#men" onclick="showMenProduct()" style="width: 100%">MEN</a>
-                                </h4>
+                                <h4 class="panel-title"><a href="#men" onclick="showMenProduct()"  style="width: 100%">MEN</a></h4>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" >
                             <div class="panel-heading" id="womenLink">
-                                <h4 class="panel-title"><a href="#women" onclick="showWomenProduct()"
-                                                           style="width: 100%">WOMEN</a></h4>
+                                <h4 class="panel-title"><a href="#women" onclick="showWomenProduct()" style="width: 100%" >WOMEN</a></h4>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+
+                        <div class="panel panel-default" >
                             <div class="panel-heading" id="kidsLink">
-                                <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a>
-                                </h4>
+                                <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a></h4>
                             </div>
                         </div>
 
@@ -324,7 +271,9 @@
                         </c:forEach>
                     </c:if>
                 </div>
+                <!--                men category product end
 
+                   <!--                women category product start               -->
                 <div class="features_items" id="women" style="display: none"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
                     <c:if test="${requestScope.productsList !=null}">
@@ -393,7 +342,8 @@
     </div>
 </section>
 
-<footer id="footer">
+<footer id="footer"><!--Footer-->
+
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
@@ -418,10 +368,11 @@
 <script>
 
     $(document).ready(function () {
-        $("#womenLink").css("background-color", "white");
-        $("#womenLink").css("background-color", "white");
-        $("#kidsLink").css("background-color", "white");
+        $("#womenLink").css("background-color","white");
+        $("#womenLink").css("background-color","white");
+        $("#kidsLink").css("background-color","white");
     });
+
 </script>
-    </body>
-    < /html>
+</body>
+</html>
