@@ -27,7 +27,19 @@ public class Products implements java.io.Serializable {
     private String description;
     private String imageName;
     private Set<OrderDetails> orderDetailses = new HashSet<OrderDetails>(0);
+    /*nehal*/
+    private Integer quantity;
 
+    @Column(name = "quantity")
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    /*nehal*/
     public Products() {
     }
 
@@ -122,13 +134,16 @@ public class Products implements java.io.Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
     @Column(name = "imageName", length = 225)
     public String getImageName() {
         return this.imageName;
     }
+
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
+
     @Override
     public String toString() {
         return "Products{" +
@@ -145,8 +160,6 @@ public class Products implements java.io.Serializable {
     }
 
 
-
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
     public Set<OrderDetails> getOrderDetailses() {
         return this.orderDetailses;
@@ -155,8 +168,6 @@ public class Products implements java.io.Serializable {
     public void setOrderDetailses(Set<OrderDetails> orderDetailses) {
         this.orderDetailses = orderDetailses;
     }
-
-
 
 
 }
