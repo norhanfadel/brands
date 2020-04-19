@@ -147,7 +147,7 @@
                                     <li><a href="product-details.html">Product Details</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="login.jsp">Login</a></li>
                                 </ul>
                             </li>
                             <!--                                    check that role equal Admin start-->
