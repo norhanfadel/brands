@@ -30,7 +30,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
-<body>
+<body onload="checkCookie()">
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -146,10 +146,10 @@ String paramValue = request.getParameter(paramName);
                         <%--                    <%    } %>--%><!--/login form-->
                          <span>
 
-                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox" id="remember">
 								Keep me signed in
 							</span>
-                        <button type="submit" value = "Submit" id="SubmitButton" >Login</button>
+                        <button type="submit" value = "Submit"  onclick="checkCookie1()" id="SubmitButton" >Login</button>
                         <br>
 
                     </form>
@@ -214,6 +214,7 @@ String paramValue = request.getParameter(paramName);
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/main.js"></script>
+<script src="js/cookies.js"></script>
 <script>
 </script>
 </body>
