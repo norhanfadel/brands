@@ -44,7 +44,6 @@
                 <url-pattern>/Contact</url-pattern>
     </servlet-mapping>
 
-
     <servlet>
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.brands.servlets.Registration</servlet-class>
@@ -139,7 +138,65 @@
         <servlet-name>DeletesProduct</servlet-name>
         <url-pattern>/DeletesProduct</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>com.brands.servlets.SearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/SearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>MenProductServlet</servlet-name>
+        <servlet-class>com.brands.servlets.MenProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MenProductServlet</servlet-name>
+        <url-pattern>/MenProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>WomenProductServlet</servlet-name>
+        <servlet-class>com.brands.servlets.WomenProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WomenProductServlet</servlet-name>
+        <url-pattern>/WomenProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>KidsProductServlet</servlet-name>
+        <servlet-class>com.brands.servlets.KidsProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KidsProductServlet</servlet-name>
+        <url-pattern>/KidsProductServlet</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CartHandlerServlet</servlet-name>
+        <servlet-class>com.brands.servlets.CartHandlerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CartHandlerServlet</servlet-name>
+        <url-pattern>/CartHandlerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CartHandlerServlet2</servlet-name>
+        <servlet-class>com.brands.servlets.CartHandlerServlet2</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CartHandlerServlet2</servlet-name>
+        <url-pattern>/CartHandlerServlet2</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CartHandlerServlet3</servlet-name>
+        <servlet-class>com.brands.servlets.CartHandlerServlet3</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartHandlerServlet3</servlet-name>
+        <url-pattern>/CartHandlerServlet3</url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

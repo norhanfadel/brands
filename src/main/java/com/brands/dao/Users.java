@@ -29,7 +29,7 @@ public class Users  implements java.io.Serializable {
      private String address;
      private String phone;
      private String email;
-     private Double creditLimit;
+     private Double creditLimit= 0.0;
      private Set<Orders> orderses = new HashSet<Orders>(0);
 
     public Users() {

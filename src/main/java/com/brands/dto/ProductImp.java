@@ -24,8 +24,24 @@ public class ProductImp implements ProductDto {
 
     @Override
     public List<Products> searchProductByName(String name) {
-        String hql = " from com.brands.dao.Products p where p.name=?";
-        Query query = session.createQuery(hql).setParameter(0, name);
+        boolean numeric = true;
+        Double price = 0.0;
+        String hql = " from com.brands.dao.Products p where p.name=? OR p.price= ?";
+        Query query = session.createQuery(hql);
+        query.setParameter(0, name);
+        try {
+            price = Double.parseDouble(name);
+        } catch (NumberFormatException e) {
+            numeric = false;
+        }
+
+        if (numeric) {
+            System.out.println("jjjjk"+hql);
+            query.setParameter(1, price);
+        }else {
+            query.setParameter(1, 0.0);
+        }
+
         List<Products> products = query.list();
         return products;
     }
@@ -42,7 +58,7 @@ public class ProductImp implements ProductDto {
     public List<Products> getAllProducts() {
         String hql = "from  com.brands.dao.Products";
         Query query = session.createQuery(hql);
-        List<Products> products =  query.list();
+        List<Products> products = query.list();
         return products;
     }
 
@@ -73,6 +89,7 @@ public class ProductImp implements ProductDto {
         return product;
 
     }
+
 
     @Override
     public void updateProduct(Products product) {

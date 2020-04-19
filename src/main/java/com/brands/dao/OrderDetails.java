@@ -38,6 +38,13 @@ public class OrderDetails  implements java.io.Serializable {
        this.price = price;
        this.quanity = quanity;
     }
+    public OrderDetails(Orders orders, Products products, double amount, double price, int quanity) {
+        this.orders = orders;
+        this.products = products;
+        this.amount = amount;
+        this.price = price;
+        this.quanity = quanity;
+    }
    
      @Id 
 

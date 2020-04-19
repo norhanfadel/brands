@@ -33,7 +33,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
-<body >
+<body>
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -66,7 +66,8 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="${pageContext.servletContext.contextPath }/HomeServlet" onclick="showHomeProduct()"><img src="images/home/logo.png" alt=""/></a>
+                        <a href="${pageContext.servletContext.contextPath }/HomeServlet"
+                           onclick="showHomeProduct()"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
                     </div>
@@ -74,7 +75,6 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="profile"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
@@ -104,14 +104,18 @@
                             </li>
 
                             </li>
-                            <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.jsp">Contact</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                    <div>
+                        <form action="SearchServlet">
+                            <div class="search_box " style="display: inline">
+
+                                <input type="text" placeholder="Search" name="search"/>
+                            </div>
+                            <input type="submit" value="search" id="searchButton"  onclick="showSearchProduct()" style="  height: 35px;border-radius: 5px; background: #fdb45e;">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -189,20 +193,23 @@
                     <h2>Category</h2>
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
 
-                        <div class="panel panel-default" >
+                        <div class="panel panel-default">
                             <div class="panel-heading" id="menLink">
-                                <h4 class="panel-title"><a href="#men" onclick="showMenProduct()"  style="width: 100%">MEN</a></h4>
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/MenProductServlet" onclick="showMenProduct()" style="width: 100%">MEN</a>
+                                </h4>
                             </div>
                         </div>
-                        <div class="panel panel-default" >
+                        <div class="panel panel-default">
                             <div class="panel-heading" id="womenLink">
-                                <h4 class="panel-title"><a href="#women" onclick="showWomenProduct()" style="width: 100%" >WOMEN</a></h4>
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/WomenProductServlet" onclick="showWomenProduct()"
+                                                           style="width: 100%">WOMEN</a></h4>
                             </div>
                         </div>
 
-                        <div class="panel panel-default" >
+                        <div class="panel panel-default">
                             <div class="panel-heading" id="kidsLink">
-                                <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a></h4>
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/KidsProductServlet" onclick="showKidsProduct()" style="width: 100%">Kids</a>
+                                </h4>
                             </div>
                         </div>
 
@@ -211,10 +218,11 @@
                 </div>
             </div>
             <div class="col-sm-9 padding-right">
+                <c:if test="${requestScope.productsList !=null}">
                 <div class="features_items" id="home"><!--features_items-->
+
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
-                        <c:forEach var="productsList" items="${requestScope.productsList}">
+                     <c:forEach var="productsList" items="${requestScope.productsList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -238,13 +246,14 @@
                                 </div>
                             </div>
                         </c:forEach>
-                    </c:if>
-                </div>
 
+                </div>
+                </c:if>
                 <!--                men category product start               -->
-                <div class="features_items" id="men" style="display: none"><!--features_items-->
+                <c:if test="${requestScope.menList !=null}">
+                <div class="features_items" id="men" ><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
+
                         <c:forEach var="menList" items="${requestScope.menList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
@@ -269,14 +278,16 @@
                                 </div>
                             </div>
                         </c:forEach>
-                    </c:if>
                 </div>
+                    </c:if>
+
                 <!--                men category product end
 
-                   <!--                women category product start               -->
-                <div class="features_items" id="women" style="display: none"><!--features_items-->
+                   <!--               womenList result start               -->
+                <c:if test="${requestScope.womenList !=null}">
+                <div class="features_items" id="searchResult" ><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
+
                         <c:forEach var="womenList" items="${requestScope.womenList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
@@ -301,14 +312,16 @@
                                 </div>
                             </div>
                         </c:forEach>
-                    </c:if>
                 </div>
+
+                </c:if>
                 <!--                women category product end               -->
 
                 <!--                kids category product start               -->
-                <div class="features_items" id="kids" style="display: none"><!--features_items-->
+
+                <c:if test="${requestScope.kidsList !=null}">
+                <div class="features_items" id="kids" ><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
                         <c:forEach var="kidsList" items="${requestScope.kidsList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
@@ -333,9 +346,41 @@
                                 </div>
                             </div>
                         </c:forEach>
-                    </c:if>
                 </div>
+
+                </c:if>
                 <!--                kids category product end               -->
+                <!--                search Result start               -->
+                <c:if test="${requestScope.list !=null}">
+                <div class="features_items" id="searchResult" style="display: block"><!--features_items-->
+                    <h2 class="title text-center">Features Items</h2>
+                   <c:forEach var="searchList" items="${requestScope.list}">
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="data:image/jpg;base64,${searchList.imageName}" height="170px"
+                                                 alt=""/>
+                                            <h2><c:out value="${searchList.price}"/></h2>
+                                            <p><c:out value="${searchList.description}"/></p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i
+                                                    class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2><c:out value="${searchList.price}"/></h2>
+                                                <p><c:out value="${searchList.description}"/></p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                </div>
+                </c:if>
+                <!--               search reasult end               -->
 
             </div>
         </div>
@@ -368,9 +413,9 @@
 <script>
 
     $(document).ready(function () {
-        $("#womenLink").css("background-color","white");
-        $("#womenLink").css("background-color","white");
-        $("#kidsLink").css("background-color","white");
+        $("#womenLink").css("background-color", "white");
+        $("#womenLink").css("background-color", "white");
+        $("#kidsLink").css("background-color", "white");
     });
 
 </script>
