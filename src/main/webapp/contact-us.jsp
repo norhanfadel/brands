@@ -71,14 +71,16 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
-                            <cnour:if test="${!empty requestScope.nameprofile}">
-                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.nameprofile}
+                            <cnour:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"
+                            ><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
 
-                            <cnour:if test="${!empty requestScope.id1}"   >
+
+                            <cnour:if test="${!empty sessionScope.userId}"   >
                                 <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
 
                             </cnour:if>
