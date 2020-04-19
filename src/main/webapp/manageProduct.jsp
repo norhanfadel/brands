@@ -123,9 +123,11 @@
         <div class="row">
             <div class="col-md-10 col-sm-10 padding-right">
                 <div>
-                    <form action="ManageProduct" method="get">
-                        <button class="addBtn">Add Product</button>
+                    <form action="AddProduct.jsp" method="get">
+                        <button class="addBtn" type="submit">Add product </button>
+
                     </form>
+
                 </div>
                 <c:if test="${! empty requestScope.allProducts}">
                     <table id="table1">

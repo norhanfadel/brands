@@ -33,6 +33,18 @@
         <servlet-name>ManageProduct</servlet-name>
         <url-pattern>/ManageProduct</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>AdminAddProduct</servlet-name>
+        <servlet-class>com.brands.servlets.AdminAddProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAddProduct</servlet-name>
+        <url-pattern>/AdminAddProduct</url-pattern>
+    </servlet-mapping>
+
+
     
 
     <servlet-mapping>
@@ -43,6 +55,27 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.brands.servlets.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReqServlet</servlet-name>
+        <servlet-class>com.brands.servlets.ReqServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>com.brands.servlets.ImageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/ImageServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ReqServlet</servlet-name>
+        <url-pattern>/ReqServlet</url-pattern>
+    </servlet-mapping>
+
+
+
 
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>

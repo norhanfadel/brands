@@ -7,6 +7,7 @@ import com.brands.dao.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.Date;
 import java.util.List;
 
 public class ProductImp implements ProductDto {
@@ -54,21 +55,68 @@ public class ProductImp implements ProductDto {
 
     @Override
     public Products addProduct(Products product) {
+//        session.beginTransaction();
+//        session.persist(product);
+//Category category=product.getCategory();
+//        category.getProductses().add(product);
+//        session.update(category);
+//        session.update(product);
+//        session.getTransaction().commit();
 
-        Category category = (Category) session.load(Category.class,product.getCategory().getCategoryId());
-        Products newProduct = new Products();
-        newProduct.setCreateDate(product.getCreateDate());
-        newProduct.setName(product.getName());
-        newProduct.setPrice(product.getPrice());
-        newProduct.setCategory(category);
-//        newProduct.setDescription(product.getDescription());
-//        newProduct.setImage(product.getImage());
-
+        System.out.println("inside");
+        Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
+        Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());
+        products.setCategory(category1);
+        products.setImage(product.getImage());
+        products.setDescription(product.getDescription());
         session.beginTransaction();
-        session.persist(newProduct);
+        session.persist(products);
+        category1.getProductses().add(products);
+        session.update(category1);
+        session.update(products);
         session.getTransaction().commit();
 
-        return newProduct;
+
+
+
+
+
+
+
+
+
+//        System.out.println("inside");
+//        Category category1 = (Category) session.load(Category.class, );
+//        Products products = new Products(category1,new Date(), "jeans", 12);
+//        products.setCategory(category1);
+//
+//        category1.getProductses().add(products);
+//        session.update(category1);
+//        session.update(products);
+//        session.getTransaction().commit();
+
+
+
+
+
+
+
+
+//
+//        Category category = (Category) session.load(Category.class,product.getCategory().getCategoryId());
+//        Products newProduct = new Products();
+//        newProduct.setCreateDate(product.getCreateDate());
+//        newProduct.setName(product.getName());
+//        newProduct.setPrice(product.getPrice());
+//        newProduct.setCategory(category);
+////        newProduct.setDescription(product.getDescription());
+////        newProduct.setImage(product.getImage());
+//
+//        session.beginTransaction();
+//        session.persist(newProduct);
+//        session.getTransaction().commit();
+
+        return product;
     }
 
     @Override
@@ -76,7 +124,7 @@ public class ProductImp implements ProductDto {
         int numOfRiws = -1;
         String hql = "update  com.brands.dao.Products p set p.createDate=?, " +
                 "p.image=?, p.name=?, p.category.categoryId=?, p.description=? " +
-                "where p.id = ?";
+                "where p.productId = ?";
         Query query = session.createQuery(hql);
         query.setParameter(0,product.getCreateDate());
         query.setParameter(1,product.getImage());
@@ -84,12 +132,14 @@ public class ProductImp implements ProductDto {
         query.setParameter(3,product.getCategory().getCategoryId());
         query.setParameter(4,product.getDescription());
         query.setParameter(5,product.getProductId());
-
+        System.out.println("updated");
         numOfRiws = query.executeUpdate();
-
+        System.out.println("no rows "+numOfRiws);
         if(numOfRiws == -1){
+            System.out.println("no update");
             return false;
         }else{
+            System.out.println("up");
 //            session.beginTransaction();
 //            session.update(product);
 //            session.getTransaction().commit();
