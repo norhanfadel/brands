@@ -32,9 +32,9 @@ import java.util.List;
 
 public interface UserDto {
  /*nehal*/
- public boolean addCredit(String code, Users user);//make exceptions -> wrong code
+ public boolean addCredit(String code, int user_id);
 
-    public boolean updateCreditWhenBuying(Users user);
+    public boolean updateCreditWhenBuying(int user_id);
 
  public boolean updateUser(Users user);
 
@@ -52,7 +52,7 @@ public interface UserDto {
     public boolean logOut(Users user);
     public boolean loginNour(String EMail,String passwrod);
     public boolean updateStatus(int id );
-
+    public Double getUserCredit(int userId);
  /*nehal end*/
 
  /*badri*/

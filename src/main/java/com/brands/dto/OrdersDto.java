@@ -23,6 +23,9 @@ public interface OrdersDto {
 //    public List<Products> getAllProductByUserId(Users user); // should update buying date
 //    public void updateNoOfProductsInOrders(int product_id, Users user); // will be rethought when we change DB
 //    public Double calculateSumOfProducts(Users user);
+    public boolean  updateQuantityByProductId(int product_id, int user_id, int quantity);
+    public Orders getCart(int user_id);
+    public boolean removeProductByProductIdFromCart(int product_id, int user_id);
     /*nehal end*/
 
      /*badri*/
@@ -33,19 +36,19 @@ public interface OrdersDto {
     boolean updateOrder(Orders orders);
     boolean deleteOrder(int order_id);
      /*badri end*/
-    
-    
+
+
      /*noura*/
-    
+
      /*noura end*/
-    
-    
+
+
      /*hesham*/
-    
+
      /*end hesham*/
-    
-    
+
+
      /*shimaa*/
-    
+
      /*shimaa end*/
 }

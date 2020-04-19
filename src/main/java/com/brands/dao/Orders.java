@@ -49,6 +49,22 @@ public class Orders  implements java.io.Serializable {
         this.orderDate = orderDate;
         this.orderNum = orderNum;
     }
+    public Orders(Users users, double amount, String customerAddress, Date orderDate, int orderNum, Integer bought, Set<OrderDetails> orderDetailses) {
+        this.users = users;
+        this.amount = amount;
+        this.customerAddress = customerAddress;
+        this.orderDate = orderDate;
+        this.orderNum = orderNum;
+        this.bought = bought;
+        this.orderDetailses = orderDetailses;
+    }
+    public Orders( Users users, double amount, String customerAddress, Date orderDate, int orderNum) {
+        this.users = users;
+        this.amount = amount;
+        this.customerAddress = customerAddress;
+        this.orderDate = orderDate;
+        this.orderNum = orderNum;
+    }
     public Orders(int id, Users users, double amount, String customerAddress, Date orderDate, int orderNum, Integer bought, Set<OrderDetails> orderDetailses) {
        this.id = id;
        this.users = users;
