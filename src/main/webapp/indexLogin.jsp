@@ -71,46 +71,20 @@
                         <a href="index.jsp"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
-                        <!--                                <div class="btn-group">
-                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                                                USA
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Canada</a></li>
-                                                                <li><a href="#">UK</a></li>
-                                                            </ul>
-                                                        </div>-->
 
-                        <!--                                <div class="btn-group">
-                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                                                DOLLAR
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Canadian Dollar</a></li>
-                                                                <li><a href="#">Pound</a></li>
-                                                            </ul>
-                                                        </div>-->
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="account.html"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-
                             <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
                                 </a></li>
                             </cnour:if>
+                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
-    <cnour:if test="${!empty requestScope.username}"  >
-   <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}</a></li>
-    </cnour:if>
+
                             <cnour:if test="${!empty requestScope.id}" var="userId"  >
                                 <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
 
@@ -141,15 +115,15 @@
 
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet" class="active">Home</a>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true" class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+                                <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                                  <li ><a href="manageUser.jsp">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                </cnour:if>
+                                      <li ><a href="manageUser.jsp">Manage Users</a>
+                                </li>
+                                <li><a href="manageProduct.jsp">Manage Products</a>
+                                    </cnour:if>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
@@ -266,8 +240,8 @@
             <div class="col-sm-9 padding-right">
                 <div class="features_items" id="home"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
-                        <c:forEach var="productsList" items="${requestScope.productsList}">
+                    <cnour:if test="${!empty requestScope.productsList}">
+                        <cnour:forEach var="productsList" items="${requestScope.productsList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -290,15 +264,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </c:if>
+                        </cnour:forEach>
+                    </cnour:if>
                 </div>
 
                 <!--                men category product start               -->
                 <div class="features_items" id="men" style="display: none"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
-                        <c:forEach var="menList" items="${requestScope.menList}">
+                    <cnour:if test="${!empty requestScope.productsList }">
+                        <cnour:forEach var="menList" items="${requestScope.menList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -321,14 +295,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </c:if>
+                        </cnour:forEach>
+                    </cnour:if>
                 </div>
 
                 <div class="features_items" id="women" style="display: none"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
-                        <c:forEach var="womenList" items="${requestScope.womenList}">
+                    <cnour:if test="${!empty requestScope.productsList }">
+                        <cnour:forEach var="womenList" items="${requestScope.womenList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -351,16 +325,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </c:if>
+                        </cnour:forEach>
+                    </cnour:if>
                 </div>
                 <!--                women category product end               -->
 
                 <!--                kids category product start               -->
                 <div class="features_items" id="kids" style="display: none"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <c:if test="${requestScope.productsList !=null}">
-                        <c:forEach var="kidsList" items="${requestScope.kidsList}">
+                    <cnour:if test="${!empty requestScope.productsList}">
+                        <cnour:forEach var="kidsList" items="${requestScope.kidsList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -383,8 +357,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </c:if>
+                        </cnour:forEach>
+                    </cnour:if>
                 </div>
                 <!--                kids category product end               -->
 
