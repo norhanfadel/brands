@@ -25,8 +25,6 @@ public class logOut extends HttpServlet {
             throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
-        out.println("-----------------here-----------");
-
         UserImp userImp = new UserImp();
 
         HttpSession session = request.getSession();
