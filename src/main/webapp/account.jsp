@@ -214,21 +214,21 @@
 
                                         <cnour:if test="${!empty requestScope.nameprofile}">
                                             <input type="text" placeholder="" value="${requestScope.nameprofile}"
-                                                   name="nameedit" id="nameedit"/>
+                                                   name="nameedit" id="nameedit" required/>
                                             <input type="email" placeholder="Email Address"
                                                    value="${requestScope.emailprofile}" name="emailedit"
                                                    id="emailedit" disabled="disabled"/>
                                             <br><br>
                                             <input type="password" name="passwordedit"
-                                                   value="${requestScope.passwordprofile}" id="passwordedit"
+                                                   value="${requestScope.passwordprofile}"  required id="passwordedit"
                                                    placeholder="Password"/>
                                             <input type="text" name="Addressedit"
-                                                   value="${requestScope.addressprofile}" id="Addressedit"
+                                                   value="${requestScope.addressprofile}"  required id="Addressedit"
                                                    placeholder="Address">
                                             <br><br>
-                                            <input type="number" placeholder="Code" value="${requestScope.codeprofile}"
+                                            <input type="number" placeholder="Code" required value="${requestScope.codeprofile}"
                                                    name="codeedit" id="codeedit">
-                                            <input type="text" placeholder="Phone" value="${requestScope.phoneprofile}"
+                                            <input type="text" placeholder="Phone"  value="${requestScope.phoneprofile}"
                                                    name="phoneedit" id="phoneedit" required>
                                             <br><br>
 
