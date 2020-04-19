@@ -11,6 +11,7 @@
     <link href="css/datatables.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/badriCSS.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
@@ -123,11 +124,12 @@
         <div class="row">
             <div class="col-md-10 col-sm-10 padding-right">
                 <div>
-                    <form action="AddProduct.jsp" method="get">
+                    <form action="AddProduct.jsp" method="get" style="float: left">
                         <button class="addBtn" type="submit">Add product </button>
-
                     </form>
-
+                    <form action="ManageProduct" method="get" style="margin-left: 4em">
+                        <button class="addBtn" type="submit">Display Products</button>
+                    </form>
                 </div>
                 <c:if test="${! empty requestScope.allProducts}">
                     <table id="table1">
@@ -160,13 +162,15 @@
                                 <td>
                                     <form action="UpdateProduct" method="post">
                                         <input type="hidden" name="productToEdit" value="${dbProduct.productId}"/>
-                                        <button type="submit" class="addBtn">Edit</button>
+                                        <button type="submit" class="addBtn" >Edit</button>
+<%--                                        class="button"--%>
                                     </form>
                                 </td>
                                 <td>
                                     <form action="DeletesProduct" method="post">
                                         <input type="hidden" name="productID" value="${dbProduct.productId}"/>
-                                        <button type="submit" class="addBtn">Delete</button>
+                                        <button type="submit"  class="addBtn">Delete</button>
+<%--                                        class="button button3"--%>
                                     </form>
                                 </td>
                             </tr>

@@ -7,6 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,6 +23,7 @@ public class Test {
 
 
     static Session session = MySessionFactory.getMySession();
+
     public static void main(String[] args) {
 
 //        Users user = new Users();
@@ -55,11 +63,11 @@ public class Test {
 
     }
 
-    public static void badriTest(){
+    public static void badriTest() {
 
-        ProductDto productDto=new ProductImp();
+        ProductDto productDto = new ProductImp();
 
-        Products p = (Products) session.load(Products.class,7 );
+        Products p = (Products) session.load(Products.class, 7);
         p.setName("hana");
         System.out.println(p);
         productDto.updateProduct(p);
@@ -72,8 +80,6 @@ public class Test {
 //
 //        System.out.println("12");
 //productDto.addProduct(products);
-
-
 
 
 //        System.out.println("inside");
@@ -89,7 +95,7 @@ public class Test {
 //        session.beginTransaction();
 //        session.persist(category);
 //        session.getTransaction().commit();
-        ProductDto productDto = new ProductImp();
+//        ProductDto productDto = new ProductImp();
 //        List<Products> allProducts = productDto.getAllProducts();
 //        System.out.println("after");
 //        System.out.println(allProducts.size());
@@ -99,22 +105,11 @@ public class Test {
 //        }
 
 //        Products product = productDto.addProduct(new Products(category, new Date(), "jeans", 12));
-       // Products product = productDto.addProduct(new Products(category, new Date(), "jeans", 12));
+        // Products product = productDto.addProduct(new Products(category, new Date(), "jeans", 12));
 
-       // System.out.println(product.getName());
+        // System.out.println(product.getName());
 
-    }
-
-    public static void categ(){
-        CategoryDto categoryDto=new CategoryImpl();
-        Category categoryById = categoryDto.getCategoryById(1);
-        Category men = categoryDto.getCategoryByName("men");
-        System.out.println("name"+categoryById.getName());
-        System.out.println("id"+men.getCategoryId());
-
-    }
-
-//        System.out.println(product.getName());
+        //        System.out.println(product.getName());
         CategoryDto categoryDto = new CategoryImpl();
         Category categoryById = categoryDto.getCategoryById(3);
         System.out.println(categoryById.getName());
@@ -126,20 +121,31 @@ public class Test {
         oldProduct.setCategory(categoryDto.getCategoryById(3));
         productDto.updateProduct(oldProduct);
 
+    }
 
-    public static void testAddProduct(){
+    public static void categ() {
+        CategoryDto categoryDto = new CategoryImpl();
+        Category categoryById = categoryDto.getCategoryById(1);
+        Category men = categoryDto.getCategoryByName("men");
+        System.out.println("name" + categoryById.getName());
+        System.out.println("id" + men.getCategoryId());
 
-        Connection conn=null;
+    }
+
+
+    public static void testAddProduct() {
+
+        Connection conn = null;
         PreparedStatement pstmt = null;
-        FileInputStream fis=null;
-        ResultSet rs=null;
-        String url="jdbc:mysql://localhost/brands";
+        FileInputStream fis = null;
+        ResultSet rs = null;
+        String url = "jdbc:mysql://localhost/brands";
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn= DriverManager.getConnection(url, "root", "");
-            File image= new File("d:\\kids3.jpg");
-            fis=new FileInputStream(image);
+            conn = DriverManager.getConnection(url, "root", "");
+            File image = new File("d:\\kids3.jpg");
+            fis = new FileInputStream(image);
             pstmt = conn.prepareStatement("insert into products (Create_Date,Image,Name,Price,category_id,description)" + "values(?,?,?,?,?,?)");
             pstmt.setString(1, "2017-06-15");
             pstmt.setBinaryStream(2, (InputStream) fis, (int) (image.length()));
@@ -147,36 +153,29 @@ public class Test {
             pstmt.setString(4, "400");
             pstmt.setInt(5, 1);
             pstmt.setString(6, "hikhji");
-            fis=new FileInputStream(image);
+            fis = new FileInputStream(image);
             int count = pstmt.executeUpdate();
 
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally{
-            try{
-                if(rs!=null){
+        } finally {
+            try {
+                if (rs != null) {
                     rs.close();
-                    rs= null;
+                    rs = null;
                 }
-                if(pstmt !=null)
-                {
+                if (pstmt != null) {
                     pstmt.close();
-                    pstmt=null;
+                    pstmt = null;
                 }
-                if(conn!=null)
-                {
+                if (conn != null) {
                     conn.close();
-                    conn=null;
+                    conn = null;
                 }
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    }
+}
