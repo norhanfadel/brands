@@ -78,13 +78,13 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="profile"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-
                             <cnour:if test="${!empty requestScope.username}">
                                 <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
                                 </a></li>
                             </cnour:if>
+                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+
+
                             <cnour:if test="${!empty requestScope.id}" var="userId"  >
                                 <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
 
