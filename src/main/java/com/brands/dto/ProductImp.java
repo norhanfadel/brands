@@ -69,7 +69,6 @@ public class ProductImp implements ProductDto {
         category1.getProductses().add(products);
         session.update(category1);
         session.update(products);
-
         session.getTransaction().commit();
         session.clear();
         return product;
