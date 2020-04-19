@@ -57,7 +57,6 @@ public class ProductImp implements ProductDto {
     @Override
     public Products addProduct(Products product) {
 
-
         System.out.println("inside");
         Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
         Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());

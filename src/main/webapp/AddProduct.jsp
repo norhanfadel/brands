@@ -154,9 +154,9 @@
                                 </ul>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" class="active">Manage Users</a>
+                            <li><a href="manageUser.jsp" >Manage Users</a>
                             </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
+                            <li><a href="manageProduct.jsp" class="active">Manage Products</a>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
