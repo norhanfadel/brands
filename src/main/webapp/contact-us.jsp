@@ -70,11 +70,19 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="profile"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+
+                            <cnour:if test="${!empty requestScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.nameprofile}
+                                </a></li>
+                            </cnour:if>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+
+
+                            <cnour:if test="${!empty requestScope.id1}"   >
+                                <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
+
+                            </cnour:if>
+
                         </ul>
                     </div>
                 </div>
