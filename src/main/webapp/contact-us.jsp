@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head> <body>
+</head> <body onload="clearrr()">
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -88,6 +88,7 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div><!--/header-middle-->
@@ -97,7 +98,8 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -106,17 +108,27 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.jsp" >Home</a></li>
+                            <li><a href="indexLogin.jsp">Home</a></li>
 
-                            <!--                                    check that role equal Admin start-->
                             <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
                             <li ><a href="manageUser.jsp">Manage Users</a>
                             </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a></li>
+                            <li><a href="manageProduct.jsp">Manage Products</a>
                                 </cnour:if>
 
+                            <li><a href="contact-us.jsp">Contact</a></li>
 
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <div id="contact-page" class="container">
     <div class="bg">
         <div class="row">
@@ -204,8 +216,11 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
                                 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    v=3.exp&sensor=false&libraries=places,drawing,geometry"></script>
-
-
+<script>
+                            function clearrr(){
+                            console.clear();
+                            }
+</script>
 <script src="js/contact.js"></script>
 <script src="js/price-range.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>
