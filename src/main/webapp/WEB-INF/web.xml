@@ -33,6 +33,18 @@
         <servlet-name>logOut</servlet-name>
         <url-pattern>/logOut</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>com.brands.servlets.Contact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/Contact</url-pattern>
+    </servlet-mapping>
+
+
     <servlet>
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.brands.servlets.Registration</servlet-class>
