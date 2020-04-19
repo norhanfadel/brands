@@ -24,11 +24,10 @@ import java.util.List;
 @MultipartConfig
 public class AdminAddProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("upppp");
         String name =request.getParameter("name");
         String category =request.getParameter("category");
 
-        System.out.println("cat "+category);
+        System.out.println("category : "+category);
 
          String price =request.getParameter("price");
         String description =request.getParameter("description");
@@ -60,15 +59,14 @@ public class AdminAddProduct extends HttpServlet {
         ProductDto productDto =new ProductImp();
         productDto.addProduct(products);
 
-
-        //  request.setAttribute("allProducts",allProducts);
-        RequestDispatcher rd = request.getRequestDispatcher("manageProduct.jsp");
-        rd.forward(request,response);
-
-
+        response.sendRedirect("AdminAddProduct?key=value");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String key = request.getParameter("key");
+        if(key.equals("value")){
+            RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
+            rd.include(request,response);
+        }
     }
 }

@@ -173,13 +173,13 @@
                         </tbody>
                     </table>
                 </c:if>
+                <c:if test="${empty requestScope.allProducts}">
+                    <center> <h2 style="color: red">No Data Found</h2></center>
+                </c:if>
             </div>
         </div>
     </div>
-
-
 </section>
-
 <footer id="footer"><!--Footer-->
     <!--            <div class="footer-top">
                     <div class="container">
@@ -312,6 +312,7 @@
             }
         }
     }
+
 </script>
 </body>
 </html>

@@ -119,14 +119,15 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="profile"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
-                            <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
+
+
+                            <cnour:if test="${!empty requestScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <cnour:if test="${!empty requestScope.id}" var="userId"  >
+                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <cnour:if test="${!empty requestScope.id1}" var="userId"  >
                                 <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
 
                             </cnour:if>
@@ -164,7 +165,7 @@
                                     <li><a href="cart.html">Cart</a></li>
                                     <li><a href="login.html">Login</a></li>
                                 </ul>
-                            </li>
+                            </li        >
                             <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
                             <li ><a href="manageUser.jsp">Manage Users</a>
