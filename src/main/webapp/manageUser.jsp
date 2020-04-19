@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html lang="en">
     <head>
 
         <meta charset="utf-8">
@@ -121,58 +121,93 @@
                 <br><br>
                 <div class="row">
 
+                    <c:if test="${! empty requestScope.allUsers}">
                     <div class="col-md-10 col-sm-10 padding-right">
+
                         <table id="table1" >
                             <thead>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Job</th>
+                            <th>Phone</th>
                             <th>Credit Limit</th>
                             <th>Address</th>
                             <th id="add"></th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>mohamed1</td>
-                                    <td>mohamed@yahoo.com</td>
-                                    <td>Engineer</td>
-                                    <td>5000</td>
-                                    <td>Giza</td>
-                                    <td><button class="addBtn">Add As Admin1</button></td>
-                                </tr>
-                                <tr>
-                                    <td>amohamed2</td>
-                                    <td>mohamed@yahoo.com</td>
-                                    <td>Engineer</td>
-                                    <td>5000</td>
-                                    <td>Giza</td>
-                                    <td><button class="addBtn">Add As Admin</button></td>
-                                </tr>
-                                <tr>
-                                    <td>nmohamed</td>
-                                    <td>mohamed@yahoo.com</td>
-                                    <td>Engineer</td>
-                                    <td>5000</td>
-                                    <td>Giza</td>
-                                    <td><button class="addBtn">Add As Admin</button></td>
-                                </tr>
-                                <tr>
-                                    <td>kmohamed</td>
-                                    <td>mohamed@yahoo.com</td>
-                                    <td>Engineer</td>
-                                    <td>5000</td>
-                                    <td>Giza</td>
-                                    <td><button  class="addBtn">Add As Admin2</button></td>
-                                </tr>
+                            <c:forEach items="${requestScope.allUsers}" var="dbUsers">
+                                <tr id="${dbUsers.email}">
+                                    <td>
+                                        <c:out value="${dbUsers.userName}"/>
+                                    </td>
+                                    <td>
+                                        <c:out  value="${dbUsers.email}"/>
+                                    </td>
+                                    <td>
+                                        <c:out value="${dbUsers.phone}"/>
+                                    </td>
+                                    <td>
+                                        <c:out value="${dbUsers.creditLimit}"/>
+                                    </td>
+                                    <td>
+                                        <c:out value="${dbUsers.address}"/>
+                                    </td>
+                                    <td><button class="addBtn" onclick="setAdmin(${dbUsers.userId})">Add As Admin1</button></td>
 
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
-                    </div></div>
+                    </div>
+                    </c:if>
+                </div>
             </div>
        
 
    
 </section>
+        <script>
+
+            var req = null;
+
+            function setAdmin(userId){
+console.log("here"+userId);
+                if (window.XMLHttpRequest)
+                    req = new XMLHttpRequest();
+                else if
+                (window.ActiveXObject)
+                    req = new ActiveXObject(Microsoft.XMLHTTP);
+                //yourvalue = document.getElementById("categ").value;
+                url = "ManageUsersServlet";
+                console.log("here req"+userId);
+
+                req.open("POST", url, true);
+                req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                req.onreadystatechange = handle;
+                console.log("here req done");
+
+                req.send("userIds=" + userId);
+            }
+
+
+            function handle() {
+                if (req.readyState == 4 && req.status == 200) {
+console.log("here");
+                       valueID = req.responseText;
+                    console.log("here"+valueID);
+                    //  document.getElementById(valueID).remove();
+                    // console.log("done");
+
+                    var row = document.getElementById(valueID);
+                    console.log("here"+row);
+                    row.parentNode.removeChild(row);
+
+                }
+            }
+
+
+        </script>
+
+
        
 <footer id="footer"><!--Footer-->
     <!--            <div class="footer-top">

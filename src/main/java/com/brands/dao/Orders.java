@@ -1,5 +1,5 @@
 package com.brands.dao;
-// Generated Apr 16, 2020, 12:01:12 AM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2020, 11:07:19 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,7 +28,7 @@ import javax.persistence.UniqueConstraint;
 public class Orders  implements java.io.Serializable {
 
 
-     private Integer id;
+     private int id;
      private Users users;
      private double amount;
      private String customerAddress;
@@ -43,14 +41,16 @@ public class Orders  implements java.io.Serializable {
     }
 
 	
-    public Orders(Users users, double amount, String customerAddress, Date orderDate, int orderNum) {
+    public Orders(int id, Users users, double amount, String customerAddress, Date orderDate, int orderNum) {
+        this.id = id;
         this.users = users;
         this.amount = amount;
         this.customerAddress = customerAddress;
         this.orderDate = orderDate;
         this.orderNum = orderNum;
     }
-    public Orders(Users users, double amount, String customerAddress, Date orderDate, int orderNum, Integer bought, Set<OrderDetails> orderDetailses) {
+    public Orders(int id, Users users, double amount, String customerAddress, Date orderDate, int orderNum, Integer bought, Set<OrderDetails> orderDetailses) {
+       this.id = id;
        this.users = users;
        this.amount = amount;
        this.customerAddress = customerAddress;
@@ -60,15 +60,15 @@ public class Orders  implements java.io.Serializable {
        this.orderDetailses = orderDetailses;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="ID", unique=true, nullable=false)
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

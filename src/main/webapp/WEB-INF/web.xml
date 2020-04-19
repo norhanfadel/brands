@@ -114,6 +114,15 @@
         <servlet-name>DeletesProduct</servlet-name>
         <servlet-class>com.brands.servlets.DeletesProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageUsersServlet</servlet-name>
+        <servlet-class>com.brands.servlets.ManageUsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageUsersServlet</servlet-name>
+        <url-pattern>/ManageUsersServlet</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>DeletesProduct</servlet-name>
         <url-pattern>/DeletesProduct</url-pattern>

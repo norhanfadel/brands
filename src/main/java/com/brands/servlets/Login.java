@@ -1,7 +1,6 @@
 package com.brands.servlets;
 
 import com.brands.dao.Users;
-import com.brands.dto.UserDto;
 import com.brands.dto.UserImp;
 
 import javax.servlet.RequestDispatcher;
