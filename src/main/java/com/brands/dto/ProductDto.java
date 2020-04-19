@@ -20,7 +20,7 @@ public interface ProductDto {
     public List<Products> getAllProducts();
     public List<Products> getAllProductsByCategoryId(int category_id);
     public Products addProduct(Products product);
-    public boolean updateProduct(Products product);
+    public void updateProduct(Products product);
     public boolean deleteProduct(int product_id);
 //    public Users getUserById(int user_id);
 

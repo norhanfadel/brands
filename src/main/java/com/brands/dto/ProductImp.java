@@ -6,7 +6,9 @@ import com.brands.dao.Products;
 import com.brands.dao.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 public class ProductImp implements ProductDto {
@@ -55,54 +57,43 @@ public class ProductImp implements ProductDto {
     @Override
     public Products addProduct(Products product) {
 
-        Category category = (Category) session.load(Category.class,product.getCategory().getCategoryId());
-        Products newProduct = new Products();
-        newProduct.setCreateDate(product.getCreateDate());
-        newProduct.setName(product.getName());
-        newProduct.setPrice(product.getPrice());
-        newProduct.setCategory(category);
-//        newProduct.setDescription(product.getDescription());
-//        newProduct.setImage(product.getImage());
-
-        session.beginTransaction();
-        session.persist(newProduct);
-        session.getTransaction().commit();
-
-        return newProduct;
+        System.out.println("inside");
+        Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
+        Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());
+        products.setCategory(category1);
+        products.setImage(product.getImage());
+        products.setDescription(product.getDescription());
+        session.persist(products);
+        category1.getProductses().add(products);
+        session.update(category1);
+        session.update(products);
+        return product;
     }
 
     @Override
-    public boolean updateProduct(Products product) {
-        int numOfRiws = -1;
-        String hql = "update  com.brands.dao.Products p set p.createDate=?, " +
-                "p.image=?, p.name=?, p.category.categoryId=?, p.description=? " +
-                "where p.id = ?";
-        Query query = session.createQuery(hql);
-        query.setParameter(0,product.getCreateDate());
-        query.setParameter(1,product.getImage());
-        query.setParameter(2,product.getName());
-        query.setParameter(3,product.getCategory().getCategoryId());
-        query.setParameter(4,product.getDescription());
-        query.setParameter(5,product.getProductId());
+    public void updateProduct(Products product) {
+        Transaction transaction = session.beginTransaction();
+        Products oldProduct = (Products) session.load(Products.class, product.getProductId());
+        oldProduct.setName(product.getName());
+        oldProduct.setCreateDate(product.getCreateDate());
+        oldProduct.setPrice(product.getPrice());
+        oldProduct.setCategory(product.getCategory());
+        oldProduct.setDescription(product.getDescription());
+        oldProduct.setImage(product.getImage());
+        oldProduct.setImageName(product.getImageName());
+        session.update(oldProduct);
+        transaction.commit();
 
-        numOfRiws = query.executeUpdate();
-
-        if(numOfRiws == -1){
-            return false;
-        }else{
-//            session.beginTransaction();
-//            session.update(product);
-//            session.getTransaction().commit();
-            return true;
-        }
     }
 
     @Override
     public boolean deleteProduct(int product_id) {
+        Transaction transaction = session.beginTransaction();
         int numOfRiws = -1;
         String hql = "delete from  com.brands.dao.Products p where p.productId =? " ;
-        Query query = session.createQuery(hql).setParameter(0, product_id);
+        Query query = session.createQuery(hql).setInteger(0, product_id);
         numOfRiws = query.executeUpdate();
+        transaction.commit();
         if(numOfRiws == -1){
             return false;
         }else
