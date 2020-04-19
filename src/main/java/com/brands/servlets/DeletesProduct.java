@@ -17,11 +17,16 @@ public class DeletesProduct extends HttpServlet {
         ProductDto productDto = new ProductImp();
         boolean b = productDto.deleteProduct(id);
         System.out.println(b);
-        RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
-        rd.include(request,response);
+        response.sendRedirect("DeletesProduct?key=value");
+//        RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
+//        rd.include(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String key = request.getParameter("key");
+        if(key.equals("value")){
+            RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
+            rd.include(request,response);
+        }
     }
 }
