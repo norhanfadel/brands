@@ -71,40 +71,20 @@
                         <a href="index.jsp"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
-                        <!--                                <div class="btn-group">
-                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                                                USA
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Canada</a></li>
-                                                                <li><a href="#">UK</a></li>
-                                                            </ul>
-                                                        </div>-->
 
-                        <!--                                <div class="btn-group">
-                                                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                                                DOLLAR
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Canadian Dollar</a></li>
-                                                                <li><a href="#">Pound</a></li>
-                                                            </ul>
-                                                        </div>-->
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
-                            <li><a href="account.html"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-
                             <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="account.html"><i class="fa fa-user"></i>Welcome ${requestScope.username}
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
                                 </a></li>
                             </cnour:if>
+                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+
+
                             <cnour:if test="${!empty requestScope.id}" var="userId"  >
                                 <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
 
@@ -138,12 +118,12 @@
                             <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true" class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+                                <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                                  <li ><a href="manageUser.jsp">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                </cnour:if>
+                                      <li ><a href="manageUser.jsp">Manage Users</a>
+                                </li>
+                                <li><a href="manageProduct.jsp">Manage Products</a>
+                                    </cnour:if>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->

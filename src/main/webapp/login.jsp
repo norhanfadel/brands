@@ -30,7 +30,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
-<body>
+<body onload="checkCookie()">
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -142,14 +142,14 @@ String paramValue = request.getParameter(paramName);
 
                         <%--                                %>--%>
                         <cnour:if test="${!empty requestScope.user}"  var="res">
-                            <label id="labelID" style="color:red;font-size: 20px">Sorry UserName or Password Error! </label> </cnour:if>
+                            <label id="labelID" style="color:red;font-size: 20px">Sorry UserName or Password Invalid! </label> </cnour:if>
                         <%--                    <%    } %>--%><!--/login form-->
                          <span>
 
-                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox" id="remember">
 								Keep me signed in
 							</span>
-                        <button type="submit" value = "Submit" id="SubmitButton" >Login</button>
+                        <button type="submit" value = "Submit"  onclick="checkCookie1()" id="SubmitButton" >Login</button>
                         <br>
 
                     </form>
@@ -214,61 +214,8 @@ String paramValue = request.getParameter(paramName);
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/main.js"></script>
+<script src="js/cookies.js"></script>
 <script>
-
-//     var req = null;
-//
-//     function submitForm() {
-//         if (window.XMLHttpRequest)
-//             req = new XMLHttpRequest();
-//         else if
-//         (window.ActiveXObject)
-//             req = new ActiveXObject(Microsoft.XMLHTTP);
-//         var email = document.getElementById("email").value;
-//         var password = document.getElementById("password").value;
-//         url = "Login";
-//         req.open("POST", url, true);
-//         req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-//         req.onreadystatechange = handleStateChange1;
-//         alert(email);
-//         req.send("email" + email);
-//
-//     }
-//
-//
-//     function handleStateChange1() {
-//         console.log("from state");
-//         if (req.status == 200) {
-//
-//             xmlvalue = req.responseText;
-//             console.log("from state chage 2" + xmlvalue);
-//
-//             document.getElementById("labelID").innerHTML = xmlvalue;
-//         }
-//     }
-<%--    $(document).ready(function () {--%>
-
-<%--        $("#SubmitButton").click(function () {--%>
-<%--            var email = $("#email").val();--%>
-<%--            var password = $("#password").val();--%>
-<%--            var jsonData = {"email": email, "password": password};--%>
-<%--            $.ajax({url: 'Login', //servlet url--%>
-
-<%--                type: 'Post', //servlet request type--%>
-<%--                contentType: 'application/json', //For parameter type--%>
-<%--                data: jsonData, //parameter data--%>
-<%--                dataType: 'json', //For received data type--%>
-
-<%--                success: function (data) {--%>
-
-<%--                    document.getElementById("labelID").innerHTML = xmlvalue;--%>
-
-
-<%--                }});--%>
-
-<%--        });--%>
-
-<%--    });--%>
 </script>
 </body>
 </html>
