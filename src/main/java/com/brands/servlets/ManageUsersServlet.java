@@ -33,7 +33,7 @@ public class ManageUsersServlet extends HttpServlet {
         uSers.setUserRole("ADMIN");
         userDto.updateUser(uSers);
         System.out.println("1setadmin done");
-        out.println(uSers.getEmail());
+        out.println(uSers.getUserId());
 
     }
 

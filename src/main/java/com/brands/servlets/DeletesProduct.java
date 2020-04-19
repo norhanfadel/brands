@@ -17,7 +17,7 @@ public class DeletesProduct extends HttpServlet {
         ProductDto productDto = new ProductImp();
         boolean b = productDto.deleteProduct(id);
         System.out.println(b);
-        RequestDispatcher rd = request.getRequestDispatcher("manageProduct.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
         rd.include(request,response);
     }
 

@@ -33,7 +33,7 @@ public class AdminEditProduct extends HttpServlet {
         oldProduct.setDescription(description);
 
         productDto.updateProduct(oldProduct);
-        RequestDispatcher rd = request.getRequestDispatcher("manageProduct.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
         rd.include(request,response);
     }
 
