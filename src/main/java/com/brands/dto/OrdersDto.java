@@ -5,10 +5,7 @@
  */
 package com.brands.dto;
 
-import com.brands.dao.OrderDetails;
 import com.brands.dao.Orders;
-import com.brands.dao.Products;
-import com.brands.dao.Users;
 
 import java.util.Date;
 import java.util.List;

@@ -3,7 +3,6 @@ package com.brands.dto;
 import com.brands.dao.OrderDetails;
 import com.brands.dao.Orders;
 import com.brands.dao.Products;
-import com.brands.dao.Users;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -21,10 +20,10 @@ public class OrderDetailsImpl implements OrderDetailsDto {
 
     @Override
     public OrderDetails insertOrderDetailForProduct(int product_id, int order_id,
-                               int quantity, double price, double amount) {
+                                                    int quantity, double price, double amount) {
         Products product= (Products) session.load(Products.class,product_id);
         Orders order= (Orders) session.load(Orders.class,order_id);
-        OrderDetails orderDetails=new OrderDetails(order,product,amount,price,quantity);
+        OrderDetails orderDetails=new OrderDetails(1,order,product,amount,price,quantity);
         //persist im database
         session.beginTransaction();
         session.persist(orderDetails);

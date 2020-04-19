@@ -120,14 +120,14 @@
                             <!--                                    check that role equal Admin start-->
                                 <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                                      <li ><a href="manageUser.jsp">Manage Users</a>
+                                      <li ><a href="ManageUsersServlet">Manage Users</a>
                                 </li>
                                 <li><a href="manageProduct.jsp">Manage Products</a>
                                     </cnour:if>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="Contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>

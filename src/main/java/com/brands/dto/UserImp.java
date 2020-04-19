@@ -1,7 +1,6 @@
 package com.brands.dto;
 
 import com.brands.dao.Orders;
-import com.brands.dao.Products;
 import com.brands.dao.Users;
 import com.brands.utils.ValidateUser;
 import org.hibernate.Query;
@@ -112,6 +111,17 @@ public class UserImp implements UserDto {
     public List<Users> getAllUsers() {
         String hql = "from com.brands.dao.Users ";
         Query query = session.createQuery(hql);
+        System.out.println("doneUUUSERS");
+        return query.list();
+    }
+
+    @Override
+    public List<Users> getUsersByRole(String role) {
+        String hql = "from com.brands.dao.Users u where u.userRole=?";
+
+        Query query = session.createQuery(hql);
+        query.setParameter(0,role);
+        System.out.println("doneUUUSERS");
         return query.list();
     }
 

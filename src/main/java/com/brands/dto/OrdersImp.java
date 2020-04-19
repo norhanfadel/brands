@@ -35,7 +35,7 @@ public class OrdersImp implements OrdersDto {
     public Orders addNewOrder(int user_id, double amount, String customerAddress,
                               Date orderDate, int orderNum) {
         Users user= (Users) session.load(Users.class,user_id);
-        Orders order = new Orders(user, amount, customerAddress, orderDate, orderNum);
+        Orders order = new Orders(1,user, amount, customerAddress, orderDate, orderNum);
         session.beginTransaction();
         session.persist(order);
         session.getTransaction().commit();

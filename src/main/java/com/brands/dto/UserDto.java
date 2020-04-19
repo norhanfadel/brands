@@ -41,6 +41,7 @@ public interface UserDto {
  public Users getUserById(int id);
 
  public List<Users> getAllUsers();
+    public List<Users> getUsersByRole(String role);
 
  public boolean login(Users user);
 
@@ -51,6 +52,7 @@ public interface UserDto {
     public boolean logOut(Users user);
     public boolean loginNour(String EMail,String passwrod);
     public boolean updateStatus(int id );
+
  /*nehal end*/
 
  /*badri*/

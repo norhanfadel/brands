@@ -1,5 +1,5 @@
 package com.brands.dao;
-// Generated Apr 16, 2020, 12:01:12 AM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2020, 11:07:19 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -30,8 +30,8 @@ public class OrderDetails  implements java.io.Serializable {
     public OrderDetails() {
     }
 
-    public OrderDetails( Orders orders, Products products, double amount, double price, int quanity) {
-       //this.id = id;
+    public OrderDetails(int id, Orders orders, Products products, double amount, double price, int quanity) {
+       this.id = id;
        this.orders = orders;
        this.products = products;
        this.amount = amount;
