@@ -74,7 +74,6 @@ public class ProductImp implements ProductDto {
 
     @Override
     public void updateProduct(Products product) {
-
         Transaction transaction = session.beginTransaction();
         Products oldProduct = (Products) session.load(Products.class, product.getProductId());
         oldProduct.setName(product.getName());
@@ -82,34 +81,11 @@ public class ProductImp implements ProductDto {
         oldProduct.setPrice(product.getPrice());
         oldProduct.setCategory(product.getCategory());
         oldProduct.setDescription(product.getDescription());
-//        oldProduct.setImage(product.getImage());
-//        oldProduct.setImageName(product.getImageName());
+        oldProduct.setImage(product.getImage());
+        oldProduct.setImageName(product.getImageName());
         session.update(oldProduct);
         transaction.commit();
 
-//        Transaction transaction = session.beginTransaction();
-//        int numOfRiws = -1;
-//        String hql = "update com.brands.dao.Products p set p.createDate=?, " +
-//                "p.image=?, p.name=?, p.category.categoryId=?, p.description=? " +
-//                "where p.productId = ?";
-//        Query query = session.createQuery(hql);
-//        query.setEntity(0,product.getCreateDate());
-////        query.setParameter(1,product.getImage());
-//        query.setParameter(2,product.getName());
-//        query.setInteger(3,product.getCategory().getCategoryId());
-//        query.setParameter(4,product.getDescription());
-//        query.setInteger(5,product.getProductId());
-//
-//        numOfRiws = query.executeUpdate();
-////        transaction.commit();
-//        if(numOfRiws == -1){
-//            return false;
-//        }else{
-////            session.beginTransaction();
-////            session.update(product);
-////            session.getTransaction().commit();
-//            return true;
-//        }
     }
 
     @Override

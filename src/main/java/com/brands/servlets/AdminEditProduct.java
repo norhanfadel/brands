@@ -26,14 +26,13 @@ public class AdminEditProduct extends HttpServlet {
         String description = request.getParameter("description");
         System.out.println(description);
         Products oldProduct = productDto.getProductById(idToEdit);
-        Products newProduct = new Products();
-        newProduct.setCategory(oldProduct.getCategory());
-        newProduct.setPrice(Double.valueOf(price));
-        newProduct.setName(name);
-        newProduct.setDescription(description);
-        newProduct.setCreateDate(oldProduct.getCreateDate());
+        oldProduct.setName(name);
+        oldProduct.setCreateDate(oldProduct.getCreateDate());
+        oldProduct.setPrice(Double.valueOf(price));
+        oldProduct.setCategory(oldProduct.getCategory());
+        oldProduct.setDescription(description);
 
-        productDto.updateProduct(newProduct);
+        productDto.updateProduct(oldProduct);
         RequestDispatcher rd = request.getRequestDispatcher("manageProduct.jsp");
         rd.include(request,response);
     }
