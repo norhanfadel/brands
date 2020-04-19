@@ -43,7 +43,7 @@ public class Profile extends HttpServlet {
             request.setAttribute("phoneprofile", phone);
             request.setAttribute("codeprofile", code);
             request.setAttribute("passwordprofile", password);
-
+            request.setAttribute("id1",userId);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
             dispatcher.forward(request, response);
