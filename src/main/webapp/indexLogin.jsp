@@ -7,7 +7,7 @@
 --%>
 
 <%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <html>
 <head>
@@ -36,7 +36,6 @@
 <body>
 
 
-
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -44,7 +43,7 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a ><i class="fa fa-phone"></i> (20)+1061977417</a></li>
+                            <li><a><i class="fa fa-phone"></i> (20)+1061977417</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> eshopper000@gmail.com</a></li>
                         </ul>
                     </div>
@@ -52,7 +51,8 @@
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="https://www.facebook.com/Eshopper-105586241114204/"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://www.facebook.com/Eshopper-105586241114204/"><i
+                                    class="fa fa-facebook"></i></a></li>
                             <li><a href="https://twitter.com/explore"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="https://www.linkedin.com/feed/"><i class="fa fa-linkedin"></i></a></li>
 
@@ -85,8 +85,8 @@
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
 
-                            <cnour:if test="${!empty requestScope.id}" var="userId"  >
-                                <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
+                            <cnour:if test="${!empty requestScope.id}" var="userId">
+                                <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
 
                             </cnour:if>
 
@@ -115,17 +115,19 @@
 
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true" class="active">Home</a>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
+                                   class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                                <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+                            <cnour:if test="${requestScope.role.equals('ADMIN')}">
 
-                                      <li ><a href="ManageUsersServlet">Manage Users</a>
+                                <li><a href="ManageUsersServlet">Manage Users</a>
                                 </li>
-                                <li><a href="manageProduct.jsp">Manage Products</a>
-                                    </cnour:if>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
+                                <li><a href="ManageProduct">Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+                            </cnour:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
                             <li><a href="Contact">Contact</a></li>
                         </ul>
@@ -397,5 +399,5 @@
         $("#kidsLink").css("background-color", "white");
     });
 </script>
-    </body>
-    < /html>
+</body>
+< /html>
