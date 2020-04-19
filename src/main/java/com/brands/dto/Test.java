@@ -53,10 +53,10 @@ public class Test {
 
     public static void badriTest(){
         System.out.println("inside");
-        Category category = new Category("t-shirt");
-        session.beginTransaction();
-        session.persist(category);
-        session.getTransaction().commit();
+//        Category category = new Category("t-shirt");
+//        session.beginTransaction();
+//        session.persist(category);
+//        session.getTransaction().commit();
         ProductDto productDto = new ProductImp();
 //        List<Products> allProducts = productDto.getAllProducts();
 //        System.out.println("after");
@@ -66,9 +66,17 @@ public class Test {
 //            System.out.println(product.getName() + " badri");
 //        }
 
-        Products product = productDto.addProduct(new Products(category, new Date(), "jeans", 12));
+//        Products product = productDto.addProduct(new Products(category, new Date(), "jeans", 12));
 
-        System.out.println(product.getName());
+//        System.out.println(product.getName());
+        Products oldProduct = productDto.getProductById(3);
+        Products newProduct = new Products();
+        newProduct.setCategory(oldProduct.getCategory());
+        newProduct.setPrice(Double.valueOf("17000"));
+        newProduct.setName("hesham");
+        newProduct.setDescription("hesham description");
+        newProduct.setCreateDate(oldProduct.getCreateDate());
 
+        productDto.updateProduct(newProduct);
     }
 }

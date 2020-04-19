@@ -76,7 +76,7 @@ public class ProductImp implements ProductDto {
         int numOfRiws = -1;
         String hql = "update  com.brands.dao.Products p set p.createDate=?, " +
                 "p.image=?, p.name=?, p.category.categoryId=?, p.description=? " +
-                "where p.id = ?";
+                "where p.productId = ?";
         Query query = session.createQuery(hql);
         query.setParameter(0,product.getCreateDate());
         query.setParameter(1,product.getImage());

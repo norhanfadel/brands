@@ -48,6 +48,33 @@
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/HomeServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateProduct</servlet-name>
+        <servlet-class>com.brands.servlets.UpdateProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProduct</servlet-name>
+        <url-pattern>/UpdateProduct</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminEditProduct</servlet-name>
+        <servlet-class>com.brands.servlets.AdminEditProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminEditProduct</servlet-name>
+        <url-pattern>/AdminEditProduct</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeletesProduct</servlet-name>
+        <servlet-class>com.brands.servlets.DeletesProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletesProduct</servlet-name>
+        <url-pattern>/DeletesProduct</url-pattern>
+    </servlet-mapping>
+
+
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
