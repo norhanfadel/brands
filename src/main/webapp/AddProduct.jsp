@@ -211,7 +211,7 @@
                                         <label id="status"></label>
                                         </span>
                                         <br><br>
-                                        <input type="text" name="price" placeholder="price" required="true" >
+                                        <input type="number" name="price" placeholder="price" required="true" >
                                         <br><br>
                                         <input type="text" name="description" placeholder="description" required="true">
                                         <br>

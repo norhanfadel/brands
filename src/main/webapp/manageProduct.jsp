@@ -106,7 +106,7 @@
                             <!--                                    check that role equal Admin start-->
                             <li><a href="manageUser.jsp">Manage Users</a>
                             </li>
-                            <li><a href="manageProduct.jsp" class="active">Manage Products</a>
+                            <li><a href="ManageProduct" class="active">Manage Products</a>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
@@ -127,9 +127,9 @@
                     <form action="AddProduct.jsp" method="get" style="float: left">
                         <button class="addBtn" type="submit">Add product </button>
                     </form>
-                    <form action="ManageProduct" method="get" style="margin-left: 4em">
-                        <button class="addBtn" type="submit">Display Products</button>
-                    </form>
+<%--                    <form action="ManageProduct" method="get" style="margin-left: 4em">--%>
+<%--                        <button class="addBtn" type="submit">Display Products</button>--%>
+<%--                    </form>--%>
                 </div>
                 <c:if test="${! empty requestScope.allProducts}">
                     <table id="table1">
