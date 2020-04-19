@@ -41,7 +41,7 @@
 
     <servlet-mapping>
         <servlet-name>Contact</servlet-name>
-        <url-pattern>/Contact</url-pattern>
+                <url-pattern>/Contact</url-pattern>
     </servlet-mapping>
 
 
