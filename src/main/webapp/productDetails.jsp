@@ -5,7 +5,10 @@
   Time: 10:36 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -150,14 +153,13 @@
                                     <li><a href="login.jsp">Login</a></li>
                                 </ul>
                             </li>
-                            <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" class="active">Manage Users</a>
+                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+
+                            <li ><a href="manageUser.jsp">Manage Users</a>
                             </li>
                             <li><a href="manageProduct.jsp">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
-                            <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                                </cnour:if>
+                            <li><a href="contact-us.jsp">Contact</a></li>
                         </ul>
                     </div>
                 </div>

@@ -172,7 +172,7 @@
                             <li><a href="manageProduct.jsp">Manage Products</a>
                                 </cnour:if>
 
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="contact-us.jsp">Contact</a></li>
 
                         </ul>
                     </div>
