@@ -31,7 +31,7 @@ public class Contact extends HttpServlet {
 
             String email = user2.getEmail();
             String name = user2.getUserName();
-
+            session.setAttribute("nameprofile",name);
             request.setAttribute("emailprofile", email);
             request.setAttribute("nameprofile", name);
             request.setAttribute("id1",userId);
@@ -65,8 +65,7 @@ public class Contact extends HttpServlet {
 
             FileWriter myWriter = null;
             try {
-
-                myWriter = new FileWriter("C:\\Users\\Dan\\Desktop\\filename.txt", true);
+                myWriter = new FileWriter("C:\\Users\\Dan\\Desktop\\project\\src\\main\\resources\\review.txt", true);
                 myWriter.write(System.getProperty("line.separator"));
                 myWriter.write("Email:-" + email);
                 myWriter.write(System.getProperty("line.separator"));
