@@ -20,14 +20,15 @@ jQuery(function($) {'use strict', form = $('.contact-form');
 		el: '#gmap',
 		lat: 43.1580159,
 		lng: -77.6030777,
-		scrollwheel:false,
+		scrollwheel: false,
 		zoom: 14,
-		zoomControl : false,
-		panControl : false,
-		streetViewControl : false,
+		zoomControl: false,
+		panControl: false,
+		streetViewControl: false,
 		mapTypeControl: false,
 		overviewMapControl: false,
 		clickable: false
+
 	});
 
 	var image = 'images/map-icon.png';
