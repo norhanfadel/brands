@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Test {
@@ -69,14 +71,15 @@ public class Test {
 //        Products product = productDto.addProduct(new Products(category, new Date(), "jeans", 12));
 
 //        System.out.println(product.getName());
-        Products oldProduct = productDto.getProductById(3);
-        Products newProduct = new Products();
-        newProduct.setCategory(oldProduct.getCategory());
-        newProduct.setPrice(Double.valueOf("17000"));
-        newProduct.setName("hesham");
-        newProduct.setDescription("hesham description");
-        newProduct.setCreateDate(oldProduct.getCreateDate());
-
-        productDto.updateProduct(newProduct);
+        CategoryDto categoryDto = new CategoryImpl();
+        Category categoryById = categoryDto.getCategoryById(3);
+        System.out.println(categoryById.getName());
+        Products oldProduct = productDto.getProductById(6);
+        System.out.println(oldProduct.getName());
+        oldProduct.setDescription("hesham desc");
+        oldProduct.setName("hesham");
+        oldProduct.setCreateDate(new GregorianCalendar(2012, Calendar.FEBRUARY, 11).getTime());
+        oldProduct.setCategory(categoryDto.getCategoryById(3));
+        productDto.updateProduct(oldProduct);
     }
 }

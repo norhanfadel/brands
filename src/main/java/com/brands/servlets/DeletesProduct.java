@@ -1,6 +1,5 @@
 package com.brands.servlets;
 
-import com.brands.dao.Products;
 import com.brands.dto.ProductDto;
 import com.brands.dto.ProductImp;
 
