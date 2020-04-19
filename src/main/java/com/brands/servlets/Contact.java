@@ -60,7 +60,9 @@ public class Contact extends HttpServlet {
             String subject = request.getParameter("subjectMsg");
             String email = user2.getEmail();
             String msg = request.getParameter("Msg");
-            System.out.println(msg + subject + "******************");
+            System.out.println( "******************");
+            System.out.println("Message"+msg);
+            System.out.println("Subject"+subject);
 
 
             FileWriter myWriter = null;
@@ -69,12 +71,13 @@ public class Contact extends HttpServlet {
                 myWriter.write(System.getProperty("line.separator"));
                 myWriter.write("Email:-" + email);
                 myWriter.write(System.getProperty("line.separator"));
-                myWriter.write("subject Is" + subject);
+                myWriter.write("subject:-" + subject);
                 myWriter.write(System.getProperty("line.separator"));
 
-                myWriter.write("Msg is" + msg);
+                myWriter.write("Message :-" + msg);
+                myWriter.write(System.getProperty("line.separator"));
                 myWriter.close();
-                System.out.println("I wrote");
+                System.out.println("I wrote in file");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
