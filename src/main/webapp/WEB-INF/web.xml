@@ -139,6 +139,38 @@
         <servlet-name>DeletesProduct</servlet-name>
         <url-pattern>/DeletesProduct</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>com.brands.servlets.SearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/SearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>MenProductServlet</servlet-name>
+        <servlet-class>com.brands.servlets.MenProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MenProductServlet</servlet-name>
+        <url-pattern>/MenProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>WomenProductServlet</servlet-name>
+        <servlet-class>com.brands.servlets.WomenProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WomenProductServlet</servlet-name>
+        <url-pattern>/WomenProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>KidsProductServlet</servlet-name>
+        <servlet-class>com.brands.servlets.KidsProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KidsProductServlet</servlet-name>
+        <url-pattern>/KidsProductServlet</url-pattern>
+    </servlet-mapping>
 
 
     <welcome-file-list>
