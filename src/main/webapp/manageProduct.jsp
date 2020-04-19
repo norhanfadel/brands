@@ -93,17 +93,21 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.jsp">Home</a></li>
-
-                          <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
-
-                            <li ><a href="manageUser.jsp">Manage Users</a>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
+                                  >Home</a>
                             </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                </cnour:if>
-                            </li>
+                            <!--                                    check that role equal Admin start-->
+<%--                            <cnour:if test="${requestScope.role.equals('ADMIN')}">--%>
 
-                            <li><a href="contact-us.jsp">Contact</a></li>
+                                <li><a href="ManageUsersServlet">Manage Users</a>
+                                </li>
+                                <li><a href="ManageProduct"  class="active">Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+<%--                            </cnour:if>--%>
+                            <!--                                    <li><a href="404.html">404</a></li>-->
+                            <li><a href="Contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -118,11 +122,9 @@
             <div class="col-md-10 col-sm-10 padding-right">
                 <div>
                     <form action="AddProduct.jsp" method="get" style="float: left">
-                        <button class="addBtn" type="submit">Add product </button>
+                        <button class="addBtn" type="submit">Add product</button>
                     </form>
-                    <form action="ManageProduct" method="get" style="margin-left: 4em">
-                        <button class="addBtn" type="submit">Display Products</button>
-                    </form>
+
                 </div>
                 <c:if test="${! empty requestScope.allProducts}">
                     <table id="table1">
@@ -155,15 +157,15 @@
                                 <td>
                                     <form action="UpdateProduct" method="post">
                                         <input type="hidden" name="productToEdit" value="${dbProduct.productId}"/>
-                                        <button type="submit" class="addBtn" >Edit</button>
-<%--                                        class="button"--%>
+                                        <button type="submit" class="addBtn">Edit</button>
+                                            <%--                                        class="button"--%>
                                     </form>
                                 </td>
                                 <td>
                                     <form action="DeletesProduct" method="post">
                                         <input type="hidden" name="productID" value="${dbProduct.productId}"/>
-                                        <button type="submit"  class="addBtn">Delete</button>
-<%--                                        class="button button3"--%>
+                                        <button type="submit" class="addBtn">Delete</button>
+                                            <%--                                        class="button button3"--%>
                                     </form>
                                 </td>
                             </tr>

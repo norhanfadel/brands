@@ -92,12 +92,7 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="${pageContext.servletContext.contextPath }/HomeServlet" >Home</a></li>
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                            <li ><a href="manageUser.jsp">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                </cnour:if>
 
                         </ul>
                     </div>
