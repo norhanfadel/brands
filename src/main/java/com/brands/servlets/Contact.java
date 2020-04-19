@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
+import java.io.*;
+
 
 public class Contact extends HttpServlet {
 
@@ -36,7 +34,7 @@ public class Contact extends HttpServlet {
 
             request.setAttribute("emailprofile", email);
             request.setAttribute("nameprofile", name);
-
+            request.setAttribute("id1",userId);
             RequestDispatcher dispatcher = request.getRequestDispatcher("contact-us.jsp");
             dispatcher.forward(request, response);
 
@@ -52,6 +50,8 @@ public class Contact extends HttpServlet {
         HttpSession session = request.getSession();
 
         int userId = (int) session.getAttribute("userId");
+
+        System.out.println(userId+"-----------");
         System.out.println("userId" + userId);
         if (userId != 0) {
             System.out.println("From DO post");
@@ -65,6 +65,7 @@ public class Contact extends HttpServlet {
 
             FileWriter myWriter = null;
             try {
+
                 myWriter = new FileWriter("C:\\Users\\Dan\\Desktop\\filename.txt", true);
                 myWriter.write(System.getProperty("line.separator"));
                 myWriter.write("Email:-" + email);
@@ -83,6 +84,7 @@ public class Contact extends HttpServlet {
             System.out.println("valid");
             String paramName2 = "true1";
             request.setAttribute("true3", paramName2);
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("contact-us.jsp");
             dispatcher.forward(request, response);
 
