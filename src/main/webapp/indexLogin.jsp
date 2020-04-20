@@ -79,14 +79,14 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <cnour:if test="${!empty requestScope.username}">
+                            <cnour:if test="${!empty sessionScope.nameprofile}">
                                 <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
                                 </a></li>
                             </cnour:if>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
 
-                            <cnour:if test="${!empty requestScope.id}" var="userId">
+                            <cnour:if test="${!empty sessionScope.userId}" var="userId">
                                 <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
 
                             </cnour:if>
