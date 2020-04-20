@@ -195,12 +195,13 @@
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">My E_Shopper Data</h2>
 
-                    <div class="product-image-wrapper">
+                    <div class="product-image-wrapper" style="margin-left: 25px" >
                         <div class="single-products">
                             <div class="productinfo text-center">
                                 <div class="signup-form1" style="margin: auto">
                                     <form class="form-inline" action="AdminEditProduct" method="post"
                                           enctype="multipart/form-data">
+                                        <center>
                                         <table style="padding-left: 30px">
                                             <tr>
                                                 <td>Product Name :</td>
@@ -239,8 +240,8 @@
                                                 <td>Update Image :</td>
                                                 <td>
                                                     <input type="file" id="inpFile" name="photo"
-                                                           placeholder="choose image" style="width: 100%"
-                                                           required="true">
+                                                           placeholder="choose image" style="width: 100%" required="true"
+                                                           >
                                                 </td>
                                             </tr>
                                             <tr>
@@ -253,9 +254,10 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                        </center>
                                         <%--                                        <label>Product Name : </label>--%>
                                         <%--                                        <input type="text" name="name"  placeholder="Name"--%>
-                                        <%--                                               required="true" value="${requestScope.productOldName}">--%>
+                                        <%--                                               required="true" value="${requestScope.UpdateproductOldName}">--%>
                                         <%--                                        <br><br>--%>
                                         <%--                                        <label>Product Price : </label>--%>
                                         <%--                                        <input type="number" name="price" placeholder="Price"--%>

@@ -108,7 +108,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="indexLogin.jsp">Home</a></li>
+                            <li><a href="HomeServlet">Home</a></li>
 
                             <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 

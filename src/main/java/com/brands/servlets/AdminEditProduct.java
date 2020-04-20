@@ -30,6 +30,9 @@ public class AdminEditProduct extends HttpServlet {
         String price = request.getParameter("price");
         System.out.println(price);
         String description = request.getParameter("description");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+
         System.out.println(description);
         /////////////////////////////////////
         InputStream inputStream = null;
@@ -46,6 +49,7 @@ public class AdminEditProduct extends HttpServlet {
         oldProduct.setPrice(Double.valueOf(price));
         oldProduct.setCategory(oldProduct.getCategory());
         oldProduct.setDescription(description);
+        oldProduct.setQuantity(quantity);
         oldProduct.setImage(bytes);
         productDto.updateProduct(oldProduct);
         response.sendRedirect("AdminEditProduct?key=value");

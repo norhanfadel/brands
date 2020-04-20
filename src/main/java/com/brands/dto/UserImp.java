@@ -129,7 +129,9 @@ public class UserImp implements UserDto {
 
     @Override
     public boolean updateUser(Users user) { // mail should be disabled in GUI
+        session.clear();
         if (!ValidateUser.isExist(user)) {
+            session.clear();
             return false;
         } else {
             session.beginTransaction();
@@ -137,6 +139,8 @@ public class UserImp implements UserDto {
                 session.update(user);
                 session.getTransaction().commit();
             }
+            session.clear();
+
             return true;
         }
     }
