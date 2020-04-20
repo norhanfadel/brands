@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.brands.dao.OrderDetails;
+import com.brands.dao.Orders;
 import com.brands.dao.Users;
 import  com.brands.dto.UserImp;
 
@@ -24,25 +26,33 @@ public class CartHandlerServlet2 extends HttpServlet {
         int userId = (int) session.getAttribute("userId");
         UserImp userImp = new UserImp();
         PrintWriter out = response.getWriter();
-        if (userImp.getCart(userId).getOrderNum() == 0) {
+        if (userImp.getCart(userId).size() == 0) {
             //out.write("empty cart");
             session.setAttribute("cartItems",null);
-            Double total = userImp.getCart(userId).getAmount();
+            Double total = 0.0;
             session.setAttribute("totalAmount",total);
             RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp");
             dispatcher.forward(request, response);
         } else {
-            Set<OrderDetails> items = userImp.getCart(userId).getOrderDetailses();
-            for (OrderDetails item : items
+            Set<Orders> cart = userImp.getCart(userId) ;
+            Set<OrderDetails> actualCart = new HashSet<>();
+            for (Orders order : cart){
+                actualCart.addAll(order.getOrderDetailses());
+            }
+
+            for (OrderDetails item : actualCart
             ) {
                 String base64Image = getEncoder().encodeToString(item.getProducts().getImage());
                 item.getProducts().setImageName(base64Image);
                 System.out.println(item.getProducts());
             }
-            session.setAttribute("cartItems", items);
+            session.setAttribute("cartItems", actualCart);
             Users user = userImp.getUserById(userId);
             session.setAttribute("userAddress",user.getAddress());
-            Double total = userImp.getCart(userId).getAmount();
+            Double total = 0.0;
+            for (OrderDetails item : actualCart){
+                total+= item.getAmount();
+            }
             session.setAttribute("totalAmount",total);
             out.write("cart and address sent !");
             RequestDispatcher dispatcher = request.getRequestDispatcher("cart.jsp");
