@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -136,24 +138,31 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
+                            >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" class="active">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
+
+                            <c:if test="${sessionScope.role==null}">
+                                <% RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                                    rd.forward(request,response);%>
+                            </c:if>
+                            <c:if test="${sessionScope.role.equals('ADMIN')}">
+
+                                <li><a href="ManageUsersServlet">Manage Users</a>
+                                </li>
+                                <li><a href="ManageProduct"  class="active">Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+                            </c:if>
+                            <c:if test="${!sessionScope.role.equals('ADMIN')}">
+                                <%  RequestDispatcher rds = request.getRequestDispatcher("login.jsp");
+                                    rds.forward(request,response);%>
+
+                            </c:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="Contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>

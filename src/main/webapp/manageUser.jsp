@@ -95,15 +95,25 @@
                             >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <%--                                    <cnour:if test="${requestScope.role.equals('ADMIN')}">--%>
 
-                            <li><a href="ManageUsersServlet" class="active">Manage Users</a>
-                            </li>
-                            <li><a href="ManageProduct">Manage Products</a>
+                            <c:if test="${sessionScope.role==null}">
+                                <% RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                                    rd.forward(request,response);%>
+                            </c:if>
+                            <c:if test="${sessionScope.role.equals('ADMIN')}">
 
-                                <!--                                    check that role equal Admin end-->
-                            </li>
-                            <%--                                    </cnour:if>--%>
+                                <li><a href="ManageUsersServlet" class="active">Manage Users</a>
+                                </li>
+                                <li><a href="ManageProduct" >Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+                            </c:if>
+                            <c:if test="${!sessionScope.role.equals('ADMIN')}">
+                                <%  RequestDispatcher rds = request.getRequestDispatcher("login.jsp");
+                                    rds.forward(request,response);%>
+
+                            </c:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
                             <li><a href="Contact">Contact</a></li>
                         </ul>

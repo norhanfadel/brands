@@ -213,6 +213,8 @@
                                         <br><br>
                                         <input type="number" name="price" placeholder="price" required="true" >
                                         <br><br>
+                                        <input type="number" name="quantity" placeholder="quantity" required="true" >
+                                        <br><br>
                                         <input type="text" name="description" placeholder="description" required="true">
                                         <br>
                                         <Br>

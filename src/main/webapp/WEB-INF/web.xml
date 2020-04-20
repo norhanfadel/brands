@@ -193,6 +193,15 @@
         <servlet-name>CartHandlerServlet3</servlet-name>
         <servlet-class>com.brands.servlets.CartHandlerServlet3</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDetailsServlet</servlet-name>
+        <servlet-class>com.brands.servlets.ProductDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductDetailsServlet</servlet-name>
+        <url-pattern>/ProductDetailsServlet</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>CartHandlerServlet3</servlet-name>
         <url-pattern>/CartHandlerServlet3</url-pattern>

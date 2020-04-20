@@ -24,16 +24,18 @@ import java.util.List;
 @MultipartConfig
 public class AdminAddProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name =request.getParameter("name");
-        String category =request.getParameter("category");
+        String name = request.getParameter("name");
+        String category = request.getParameter("category");
 
-        System.out.println("category : "+category);
+        System.out.println("category : " + category);
 
-         String price =request.getParameter("price");
-        String description =request.getParameter("description");
+        String price = request.getParameter("price");
+        String description = request.getParameter("description");
+        String quantity=request.getParameter("quantity");
 //        System.out.println("des "+description);
 //        System.out.println("pp ben "+cost);
-       double prices=Double.parseDouble(price);
+        double prices = Double.parseDouble(price);
+        int quantitys = Integer.parseInt(quantity);
 
         InputStream inputStream = null; // input stream of the upload file
 
@@ -51,12 +53,13 @@ public class AdminAddProduct extends HttpServlet {
         byte[] bytes = IOUtils.toByteArray(inputStream);
 
 
-        CategoryDto categoryDto=new CategoryImpl();
+        CategoryDto categoryDto = new CategoryImpl();
         Category categoryByName = categoryDto.getCategoryByName(category);
-        Products products=new Products(categoryByName,new Date(),name,prices);
+        Products products = new Products(categoryByName, new Date(), name, prices);
         products.setDescription(description);
         products.setImage(bytes);
-        ProductDto productDto =new ProductImp();
+        products.setQuantity(quantitys);
+        ProductDto productDto = new ProductImp();
         productDto.addProduct(products);
 
         response.sendRedirect("AdminAddProduct?key=value");
@@ -64,9 +67,9 @@ public class AdminAddProduct extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String key = request.getParameter("key");
-        if(key.equals("value")){
+        if (key.equals("value")) {
             RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
-            rd.include(request,response);
+            rd.include(request, response);
         }
     }
 }
