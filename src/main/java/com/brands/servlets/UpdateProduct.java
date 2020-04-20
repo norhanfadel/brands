@@ -23,7 +23,6 @@ public class UpdateProduct extends HttpServlet {
         request.setAttribute("productOldQuantity",oldPorduct.getQuantity());
         request.setAttribute("productOldImageName",oldPorduct.getImageName());
         request.setAttribute("productOldDescription",oldPorduct.getDescription());
-        request.setAttribute("productOldImage",oldPorduct.getImage());
         request.setAttribute("productID",Integer.valueOf(idToEdit));
         System.out.println("done");
         RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp");

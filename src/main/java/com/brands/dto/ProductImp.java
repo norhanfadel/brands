@@ -94,6 +94,7 @@ public class ProductImp implements ProductDto {
 
     @Override
     public void updateProduct(Products product) {
+        session.clear();
         Transaction transaction = session.beginTransaction();
         Products oldProduct = (Products) session.load(Products.class, product.getProductId());
         oldProduct.setName(product.getName());
