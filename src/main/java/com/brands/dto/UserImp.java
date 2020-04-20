@@ -18,7 +18,7 @@ public class UserImp implements UserDto {
     }
     @Override // ok
     public boolean addCredit(String code, int user_id) {
-        session.clear();
+
         Users user = (Users) session.get(Users.class,user_id);
         String hql = "select value from com.brands.dao.CreditAdding c where c.code=?";
         Query query = session.createQuery(hql).setParameter(0, code);
@@ -35,6 +35,7 @@ public class UserImp implements UserDto {
             }
             session.update(user);
             session.getTransaction().commit();
+
             return true;
         } else {
             return false;
