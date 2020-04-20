@@ -26,7 +26,8 @@ public class AdminAddProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name =request.getParameter("name");
         String category =request.getParameter("category");
-
+        String photo = request.getParameter("photo");
+        String quantity = request.getParameter("quantity");
         System.out.println("category : "+category);
 
          String price =request.getParameter("price");
@@ -39,6 +40,8 @@ public class AdminAddProduct extends HttpServlet {
 
         // obtains the upload file part in this multipart request
         Part filePart = request.getPart("photo");
+        String fileName = extractFileName(filePart);
+        System.out.println("image name >> "+fileName);
         if (filePart != null) {
             // prints out some information for debugging
             System.out.println(filePart.getName());
@@ -56,6 +59,8 @@ public class AdminAddProduct extends HttpServlet {
         Products products=new Products(categoryByName,new Date(),name,prices);
         products.setDescription(description);
         products.setImage(bytes);
+//        products.setImageName(extractFileName(filePart));
+        products.setQuantity(Integer.valueOf(quantity));
         ProductDto productDto =new ProductImp();
         productDto.addProduct(products);
 
@@ -64,9 +69,20 @@ public class AdminAddProduct extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String key = request.getParameter("key");
-        if(key.equals("value")){
+        if (key.equals("value")) {
             RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
-            rd.include(request,response);
+            rd.include(request, response);
         }
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
 }

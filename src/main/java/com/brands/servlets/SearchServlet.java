@@ -24,26 +24,20 @@ public class SearchServlet extends HttpServlet {
         System.out.println("in home servlet");
         ProductImp productImp = new ProductImp();
         String search = request.getParameter("search");
-        System.out.println("in search servlet   "+search);
+        System.out.println("in search servlet   " + search);
         if (search != null) {
             List<Products> productsList = productImp.searchProductByName(search);
             List<Products> list = new ArrayList<>();
             for (Products products : productsList) {
-                String base64Image = getEncoder().encodeToString(products.getImage());
-                products.setImageName(base64Image);
+                if (products.getImage() != null) {
+                    String base64Image = getEncoder().encodeToString(products.getImage());
+                    products.setImageName(base64Image);
+                }
                 list.add(products);
             }
-            System.out.println(search);
-            System.out.println(list.size()+"             "+list);
-            request.setAttribute("list",list);
-            if (request.getParameter("login") != null) {
-
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("indexLogin.jsp");
-                    dispatcher.include(request, response);
-            } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                dispatcher.include(request, response);
-            }
+            request.setAttribute("productsList", list);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("indexLogin.jsp");
+            dispatcher.include(request, response);
         }
 
     }

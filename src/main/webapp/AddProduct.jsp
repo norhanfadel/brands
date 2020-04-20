@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -77,9 +79,47 @@
             padding: 6px 25px;
         }
 
+        .image-preview{
+            widows: 300;
+            min-height: 200px;
+            border: 2px solid #dddddd;
+            margin-top: 15px;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #CCCCCC;
+        }
+
+        .image-preview__image{
+            display: none;
+            width: 100px;
+        }
 
     </style>
-
+    <script>
+        const inpFile = document.getElementById("inpFile");
+        const previewContainer = document.getElementById("imagePreview");
+        const previewImage = previewContainer.querySelector(".image-preview__image");
+        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+        inpFile.addEventListener("change",function () {
+           const file = this.files[0];
+           if(file){
+               const reader = new FileReader();
+               previewDefaultText.style.display = "none";
+               previewImage.style.display = "block";
+               reader.addEventListener("load",function () {
+                  previewImage.setAttribute("src",this.result);
+               });
+               reader.readAsDataURL(file);
+           }
+           // else {
+           //     previewDefaultText.style.display = null;
+           //     previewImage.style.display = null;
+           //     previewImage.setAttribute("src","");
+           // }
+        });
+    </script>
 </head><!--/head-->
 
 <body>
@@ -143,32 +183,35 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet"
+                            >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" >Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp" class="active">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
+
+                            <c:if test="${sessionScope.role==null}">
+                                <% RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                                    rd.forward(request,response);%>
+                            </c:if>
+                            <c:if test="${sessionScope.role.equals('ADMIN')}">
+
+                                <li><a href="ManageUsersServlet">Manage Users</a>
+                                </li>
+                                <li><a href="ManageProduct"  class="active">Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+                            </c:if>
+                            <c:if test="${!sessionScope.role.equals('ADMIN')}">
+                                <%  RequestDispatcher rds = request.getRequestDispatcher("login.jsp");
+                                    rds.forward(request,response);%>
+
+                            </c:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="Contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -179,15 +222,15 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <div class="left-sidebar">
+                <div class="left-sidebar" >
                     <Br>
-                    <div class=""><!--shipping-->
-                        <img src="images/home/user.png" height="200" alt=""/>
+                    <div class="image-preview" id="imagePreview"><!--shipping-->
+                        <img src="" alt="product Image" class="image-preview__image">
+                        <span class="image-preview__default-text">product image</span>
+<%--                        <img src="images/home/user.png" height="200" alt=""/>--%>
                     </div>
 
-
                     <!--/price-range-->
-
 
                 </div>
             </div>
@@ -202,7 +245,7 @@
                                 <div class="signup-form1">
 <%--                                    enctype="multipart/form-data"--%>
                                     <form class="form-inline" action="AdminAddProduct" method="POST"  enctype="multipart/form-data" >
-                                        <input type="text" name="name"  placeholder="Name" required="true">
+                                        <input type="text" name="name"  placeholder="Product Name" required="true">
                                         <br>
                                         <br>
                                         <span aria-colcount="2">
@@ -213,17 +256,18 @@
                                         <br><br>
                                         <input type="number" name="price" placeholder="price" required="true" >
                                         <br><br>
+                                        <input type="number" name="quantity" placeholder="quantity" required="true" >
+                                        <br><br>
                                         <input type="text" name="description" placeholder="description" required="true">
                                         <br>
                                         <Br>
-
-                                        <input type="file" name="photo" size="50"/>
+                                        <center>
+                                        <input type="file" id="inpFile" name="photo" required="true" />
+                                        </center>
                                         <br/><br>
                                         <button type="submit" class="btn btn-default">Add</button>
                                     </form>
                                 </div>
-
-
                             </div>
                         </div>
 

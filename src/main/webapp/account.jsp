@@ -119,15 +119,16 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
-
-
-
-                            <cnour:if test="${!empty requestScope.nameprofile}">
-                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.nameprofile}
+                            <cnour:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <cnour:if test="${!empty requestScope.id1}" var="userId"  >
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"
+                            ><i class="fa fa-shopping-cart"></i> Cart</a></li>
+
+
+
+                            <cnour:if test="${!empty sessionScope.userId}"   >
                                 <li><a  href="logOut" ><i class="fa fa-user"></i>Log out  </a></li>
 
                             </cnour:if>
@@ -156,16 +157,8 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
-                            </li        >
+                            <li><a href="indexLogin.jsp">Home</a></li>
+
                             <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
                             <li ><a href="manageUser.jsp">Manage Users</a>
@@ -227,7 +220,7 @@
                                                    value="${requestScope.addressprofile}"  required id="Addressedit"
                                                    placeholder="Address">
                                             <br><br>
-                                            <input type="number" placeholder="Code" required value="${requestScope.codeprofile}"
+                                            <input type="number" placeholder="Code"
                                                    name="codeedit" id="codeedit">
                                             <input type="text" placeholder="Phone"  value="${requestScope.phoneprofile}"
                                                    name="phoneedit" id="phoneedit" required>

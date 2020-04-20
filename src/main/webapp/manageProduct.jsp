@@ -20,6 +20,11 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <style>
+        th,tr{
+            padding: 5px;
+        }
+    </style>
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -66,9 +71,22 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="profile"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            <c:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
+                                </a></li>
+                            </c:if>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <c:if test="${ sessionScope.userId==null}" var="userId">
+                                <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            </c:if>
+                            <c:if test="${ sessionScope.userId !=null}" var="userId">
+                                <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
+
+                            </c:if>
+
                         </ul>
+
+
                     </div>
                 </div>
             </div>
@@ -90,11 +108,16 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet"
                                   >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-<%--                            <cnour:if test="${requestScope.role.equals('ADMIN')}">--%>
+
+                            <c:if test="${sessionScope.role==null}">
+                                <% RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                                    rd.forward(request,response);%>
+                            </c:if>
+                            <c:if test="${sessionScope.role.equals('ADMIN')}">
 
                                 <li><a href="ManageUsersServlet">Manage Users</a>
                                 </li>
@@ -102,7 +125,12 @@
 
                                     <!--                                    check that role equal Admin end-->
                                 </li>
-<%--                            </cnour:if>--%>
+                            </c:if>
+                            <c:if test="${!sessionScope.role.equals('ADMIN')}">
+                                <%  RequestDispatcher rds = request.getRequestDispatcher("login.jsp");
+                                    rds.forward(request,response);%>
+
+                            </c:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
                             <li><a href="Contact">Contact</a></li>
                         </ul>
@@ -126,9 +154,10 @@
                 <c:if test="${! empty requestScope.allProducts}">
                     <table id="table1">
                         <thead>
-                        <th>Product ID</th>
+<%--                        <th>Product ID</th>--%>
                         <th>Product Name</th>
                         <th>Product Price</th>
+                        <th>Product Quantity</th>
                         <th>Category</th>
                         <th>Description</th>
                         <th id="add"></th>
@@ -136,14 +165,17 @@
                         <tbody>
                         <c:forEach items="${requestScope.allProducts}" var="dbProduct">
                             <tr>
-                                <td>
-                                    <c:out value="${dbProduct.productId}"/>
-                                </td>
+<%--                                <td>--%>
+<%--                                    <c:out value="${dbProduct.productId}"/>--%>
+<%--                                </td>--%>
                                 <td>
                                     <c:out value="${dbProduct.name}"/>
                                 </td>
                                 <td>
                                     <c:out value="${dbProduct.price}"/>
+                                </td>
+                                <td>
+                                    <c:out value="${dbProduct.quantity}"/>
                                 </td>
                                 <td>
                                     <c:out value="${dbProduct.category.name}"/>

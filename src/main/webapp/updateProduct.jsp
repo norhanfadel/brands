@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -136,32 +138,35 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet"
+                            >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" class="active">Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
+
+                            <c:if test="${sessionScope.role==null}">
+                                <% RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                                    rd.forward(request,response);%>
+                            </c:if>
+                            <c:if test="${sessionScope.role.equals('ADMIN')}">
+
+                                <li><a href="ManageUsersServlet">Manage Users</a>
+                                </li>
+                                <li><a href="ManageProduct"  class="active">Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+                            </c:if>
+                            <c:if test="${!sessionScope.role.equals('ADMIN')}">
+                                <%  RequestDispatcher rds = request.getRequestDispatcher("login.jsp");
+                                    rds.forward(request,response);%>
+
+                            </c:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="Contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -175,8 +180,8 @@
                 <div class="left-sidebar">
                     <Br>
                     <div class=""><!--shipping-->
-<%--                        <img src="images/home/user.png" height="200" alt=""/>--%>
-                        <img src="${requestScope.productOldImage}" height="200" alt=""/>
+                        <%--                        <img src="images/home/user.png" height="200" alt=""/>--%>
+                        <img src="data:image/jpg;base64,${requestScope.productOldImageName}" height="200" alt=""/>
                     </div>
 
 
@@ -190,22 +195,80 @@
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">My E_Shopper Data</h2>
 
-                    <div class="product-image-wrapper">
+                    <div class="product-image-wrapper" style="margin-left: 25px" >
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <div class="signup-form1">
-                                    <form class="form-inline" action="AdminEditProduct" method="post">
-                                        <input type="text" name="name"  placeholder="Name"
-                                               required="true" value="${requestScope.productOldName}">
-                                        <br><br>
-                                        <input type="number" name="price" placeholder="Price"
-                                               required="true" value="${requestScope.productOldPrice}">
-                                        <br><br>
-                                        <input type="text" name="description" placeholder="description"
-                                               required="true" value="${requestScope.productOldDescription}">
-                                        <br><br>
-                                        <input type="hidden" name="productID" value="${requestScope.productID}"/>
-                                        <button type="submit" class="btn btn-default">Save</button>
+                                <div class="signup-form1" style="margin: auto">
+                                    <form class="form-inline" action="AdminEditProduct" method="post"
+                                          enctype="multipart/form-data">
+                                        <center>
+                                        <table style="padding-left: 30px">
+                                            <tr>
+                                                <td>Product Name :</td>
+                                                <td>
+                                                    <input type="text" name="name" placeholder="Name"
+                                                           style="width: 100%"
+                                                           required="true" value="${requestScope.productOldName}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Price :</td>
+                                                <td>
+                                                    <input type="number" name="price" placeholder="Price"
+                                                           style="width: 100%"
+                                                           required="true" value="${requestScope.productOldPrice}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Quantity :</td>
+                                                <td>
+                                                    <input type="number" name="quantity" placeholder="Quantity"
+                                                           style="width: 100%"
+                                                           required="true" value="${requestScope.productOldQuantity}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Description :</td>
+                                                <td>
+                                                    <input type="text" name="description" placeholder="description"
+                                                           style="width: 100%"
+                                                           required="true"
+                                                           value="${requestScope.productOldDescription}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Update Image :</td>
+                                                <td>
+                                                    <input type="file" id="inpFile" name="photo"
+                                                           placeholder="choose image" style="width: 100%" required="true"
+                                                           >
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="productID"
+                                                           value="${requestScope.productID}"/>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-default">Save</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </center>
+                                        <%--                                        <label>Product Name : </label>--%>
+                                        <%--                                        <input type="text" name="name"  placeholder="Name"--%>
+                                        <%--                                               required="true" value="${requestScope.UpdateproductOldName}">--%>
+                                        <%--                                        <br><br>--%>
+                                        <%--                                        <label>Product Price : </label>--%>
+                                        <%--                                        <input type="number" name="price" placeholder="Price"--%>
+                                        <%--                                               required="true" value="${requestScope.productOldPrice}">--%>
+                                        <%--                                        <br><br>--%>
+                                        <%--                                        <label>Product Description : </label>--%>
+                                        <%--                                        <input type="text" name="description" placeholder="description"--%>
+                                        <%--                                               required="true" value="${requestScope.productOldDescription}">--%>
+                                        <%--                                        <br><br>--%>
+                                        <%--                                        <input type="hidden" name="productID" value="${requestScope.productID}"/>--%>
+                                        <%--                                        <button type="submit" class="btn btn-default">Save</button>--%>
                                     </form>
                                 </div>
                             </div>

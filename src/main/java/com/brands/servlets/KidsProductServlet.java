@@ -27,19 +27,15 @@ public class KidsProductServlet extends HttpServlet {
         List<Products> kidsProductsList =productImp.getAllProductsByCategoryId(3);
         List<Products> kidsList=new ArrayList<>();
         for(Products products:kidsProductsList){
-            String base64Image = getEncoder().encodeToString(products.getImage());
-            products.setImageName(base64Image);
+            if(products.getImage() !=null) {
+                String base64Image = getEncoder().encodeToString(products.getImage());
+                products.setImageName(base64Image);
+            }
             kidsList.add(products);
         }
-        request.setAttribute("kidsList", kidsList);
-        if(request.getParameter("login") != null){
-            System.out.println("jkhkhkj");
+        request.setAttribute("productsList", kidsList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("indexLogin.jsp");
             dispatcher.include(request, response);
-        }else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-            dispatcher.include(request, response);
-        }
 
 
     }

@@ -24,18 +24,15 @@ public class WomenProductServlet extends HttpServlet {
         List<Products> womenProductsList =productImp.getAllProductsByCategoryId(2);
         List<Products> womenList=new ArrayList<>();
         for(Products products:womenProductsList){
-            String base64Image = getEncoder().encodeToString(products.getImage());
-            products.setImageName(base64Image);
+            if(products.getImage() != null) {
+                String base64Image = getEncoder().encodeToString(products.getImage());
+                products.setImageName(base64Image);
+            }
             womenList.add(products);
         }
-        request.setAttribute("womenList", womenList);
-        if(request.getParameter("login") != null){
+        request.setAttribute("productsList", womenList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("indexLogin.jsp");
             dispatcher.include(request, response);
-        }else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-            dispatcher.include(request, response);
-        }
 
 
     }

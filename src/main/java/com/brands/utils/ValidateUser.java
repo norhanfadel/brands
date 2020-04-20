@@ -11,6 +11,7 @@ import java.util.List;
 public class ValidateUser {
     public static boolean isExist(Users user) {
         Session session = MySessionFactory.getMySession();
+        session.clear();
         System.out.println(user+"u----------ser");
         if (user != null) {
             String hql = "from com.brands.dao.Users c where c.email=?";
@@ -21,11 +22,14 @@ public class ValidateUser {
             if (listUser != null) {
 
                 System.out.println(listUser);
-                return true;
 
+                session.clear();
+
+                return true;
 
             }
         }
+        session.clear();
         return false;
     }
 

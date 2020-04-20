@@ -73,11 +73,14 @@ public class ProductImp implements ProductDto {
     @Override
     public Products addProduct(Products product) {
 
+        session.clear();
         System.out.println("inside");
         Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
         Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());
         products.setCategory(category1);
+        products.setImageName(product.getImageName());
         products.setImage(product.getImage());
+        products.setQuantity(product.getQuantity());
         products.setDescription(product.getDescription());
         session.beginTransaction();
         session.persist(products);
@@ -86,13 +89,16 @@ public class ProductImp implements ProductDto {
         session.update(products);
         session.getTransaction().commit();
         session.clear();
+       // session.close();
+        session.flush();
         return product;
-
     }
 
 
     @Override
     public void updateProduct(Products product) {
+        session.clear();
+        System.out.println("in update");
         Transaction transaction = session.beginTransaction();
         Products oldProduct = (Products) session.load(Products.class, product.getProductId());
         oldProduct.setName(product.getName());
@@ -101,8 +107,11 @@ public class ProductImp implements ProductDto {
         oldProduct.setCategory(product.getCategory());
         oldProduct.setDescription(product.getDescription());
         oldProduct.setImage(product.getImage());
-        oldProduct.setImageName(product.getImageName());
+//        oldProduct.setImageName(product.getImageName());
+        oldProduct.setQuantity(product.getQuantity());
         session.update(oldProduct);
+        System.out.println("before commit");
+
         transaction.commit();
 
     }
@@ -110,15 +119,19 @@ public class ProductImp implements ProductDto {
     @Override
     public boolean deleteProduct(int product_id) {
         Transaction transaction = session.beginTransaction();
+        session.clear();
         int numOfRiws = -1;
         String hql = "delete from  com.brands.dao.Products p where p.productId =? " ;
         Query query = session.createQuery(hql).setInteger(0, product_id);
         numOfRiws = query.executeUpdate();
         transaction.commit();
         if(numOfRiws == -1){
+            session.clear();
             return false;
-        }else
+        }else {
+            session.clear();
             return true;
+        }
     }
 
 }
