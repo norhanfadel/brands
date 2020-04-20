@@ -78,7 +78,7 @@
         }
 
         .image-preview{
-            widows: 300px;
+            widows: 300;
             min-height: 200px;
             border: 2px solid #dddddd;
             margin-top: 15px;
@@ -232,7 +232,7 @@
                                 <div class="signup-form1">
 <%--                                    enctype="multipart/form-data"--%>
                                     <form class="form-inline" action="AdminAddProduct" method="POST"  enctype="multipart/form-data" >
-                                        <input type="text" name="name"  placeholder="Name" required="true">
+                                        <input type="text" name="name"  placeholder="Product Name" required="true">
                                         <br>
                                         <br>
                                         <span aria-colcount="2">
@@ -243,17 +243,16 @@
                                         <br><br>
                                         <input type="number" name="price" placeholder="price" required="true" >
                                         <br><br>
+                                        <input type="number" name="quantity" placeholder="quantity" required="true" >
+                                        <br><br>
                                         <input type="text" name="description" placeholder="description" required="true">
                                         <br>
                                         <Br>
-
-                                        <input type="file" id="inpFile" name="photo" size="50"/>
+                                        <input type="file" id="inpFile" name="photo" />
                                         <br/><br>
                                         <button type="submit" class="btn btn-default">Add</button>
                                     </form>
                                 </div>
-
-
                             </div>
                         </div>
 

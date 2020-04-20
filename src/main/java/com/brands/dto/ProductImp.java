@@ -77,7 +77,9 @@ public class ProductImp implements ProductDto {
         Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
         Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());
         products.setCategory(category1);
+        products.setImageName(product.getImageName());
         products.setImage(product.getImage());
+        products.setQuantity(product.getQuantity());
         products.setDescription(product.getDescription());
         session.beginTransaction();
         session.persist(products);
@@ -87,7 +89,6 @@ public class ProductImp implements ProductDto {
         session.getTransaction().commit();
         session.clear();
         return product;
-
     }
 
 
@@ -101,7 +102,7 @@ public class ProductImp implements ProductDto {
         oldProduct.setCategory(product.getCategory());
         oldProduct.setDescription(product.getDescription());
         oldProduct.setImage(product.getImage());
-        oldProduct.setImageName(product.getImageName());
+//        oldProduct.setImageName(product.getImageName());
         session.update(oldProduct);
         transaction.commit();
 
