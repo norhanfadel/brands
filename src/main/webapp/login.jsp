@@ -153,7 +153,7 @@ String paramValue = request.getParameter(paramName);
                         <input type="email" placeholder="Email Address"  name="emailRegistration" id="emailRegistration" required/>
                         <input type="password" placeholder="Password"  name="passwordRegistration" id="passwordRegistration" required/>
                         <input type="text" placeholder="Address" name="address"id="address" required>
-                        <input type="text" placeholder="Phone" name="phone"id="phone" required>
+                        <input type="text" placeholder="Phone" onblur= "submitForm1()" name="phone"id="phone" required> <label id="labelID"style="color: red"></label>
                         <input type="number" placeholder="Welcome Code"  name="welcomeCode" id="welcomeCode" required>
 
                         <br>
@@ -172,6 +172,33 @@ String paramValue = request.getParameter(paramName);
                         <label id="labelID1" style="color:red;font-size: 20px">This Account is aleadry Exist! </label> </cnour:if>
 
 
+                    <script >
+                        function submitForm1()
+                        {
+                            if (window.XMLHttpRequest)
+                                req = new XMLHttpRequest();
+                            else if
+                            (window.ActiveXObject)
+                                req = new ActiveXObject(Microsoft.XMLHTTP);
+                            yourvalue = document.getElementById("phone").value;
+                            url = "Phone";
+                            req.open("POST", url, true);
+                            req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                            req.onreadystatechange = handleStateChange1;
+                            req.send("uPhone=" + yourvalue);
+                        }
+                        function handleStateChange1()
+                        {
+                            console.log("from statechage");
+                            if (req.status == 200) {
+
+                                xmlvalue = req.responseText;
+                                console.log("from statechage2"+xmlvalue );
+                                document.getElementById("labelID").innerHTML = xmlvalue;
+                            }
+                        }
+
+                   </script>
                     <br>
 <br>
                 </div><!--/sign up form-->
