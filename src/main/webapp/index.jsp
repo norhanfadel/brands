@@ -33,7 +33,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
-<body >
+<body>
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -66,7 +66,8 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="${pageContext.servletContext.contextPath }/HomeServlet" onclick="showHomeProduct()"><img src="images/home/logo.png" alt=""/></a>
+                        <a href="${pageContext.servletContext.contextPath }/HomeServlet"
+                           onclick="showHomeProduct()"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
                     </div>
@@ -189,20 +190,23 @@
                     <h2>Category</h2>
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
 
-                        <div class="panel panel-default" >
+                        <div class="panel panel-default">
                             <div class="panel-heading" id="menLink">
-                                <h4 class="panel-title"><a href="#men" onclick="showMenProduct()"  style="width: 100%">MEN</a></h4>
+                                <h4 class="panel-title"><a href="#men" onclick="showMenProduct()" style="width: 100%">MEN</a>
+                                </h4>
                             </div>
                         </div>
-                        <div class="panel panel-default" >
+                        <div class="panel panel-default">
                             <div class="panel-heading" id="womenLink">
-                                <h4 class="panel-title"><a href="#women" onclick="showWomenProduct()" style="width: 100%" >WOMEN</a></h4>
+                                <h4 class="panel-title"><a href="#women" onclick="showWomenProduct()"
+                                                           style="width: 100%">WOMEN</a></h4>
                             </div>
                         </div>
 
-                        <div class="panel panel-default" >
+                        <div class="panel panel-default">
                             <div class="panel-heading" id="kidsLink">
-                                <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a></h4>
+                                <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a>
+                                </h4>
                             </div>
                         </div>
 
@@ -271,9 +275,9 @@
                         </c:forEach>
                     </c:if>
                 </div>
-                <!--                men category product end
+                <!--                men category product end             -->
 
-                   <!--                women category product start               -->
+                <!--                women category product start               -->
                 <div class="features_items" id="women" style="display: none"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
                     <c:if test="${requestScope.productsList !=null}">
@@ -368,9 +372,9 @@
 <script>
 
     $(document).ready(function () {
-        $("#womenLink").css("background-color","white");
-        $("#womenLink").css("background-color","white");
-        $("#kidsLink").css("background-color","white");
+        $("#womenLink").css("background-color", "white");
+        $("#womenLink").css("background-color", "white");
+        $("#kidsLink").css("background-color", "white");
     });
 
 </script>

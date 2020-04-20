@@ -77,9 +77,47 @@
             padding: 6px 25px;
         }
 
+        .image-preview{
+            widows: 300px;
+            min-height: 200px;
+            border: 2px solid #dddddd;
+            margin-top: 15px;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #CCCCCC;
+        }
+
+        .image-preview__image{
+            display: none;
+            width: 100px;
+        }
 
     </style>
-
+    <script>
+        const inpFile = document.getElementById("inpFile");
+        const previewContainer = document.getElementById("imagePreview");
+        const previewImage = previewContainer.querySelector(".image-preview__image");
+        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+        inpFile.addEventListener("change",function () {
+           const file = this.files[0];
+           if(file){
+               const reader = new FileReader();
+               previewDefaultText.style.display = "none";
+               previewImage.style.display = "block";
+               reader.addEventListener("load",function () {
+                  previewImage.setAttribute("src",this.result);
+               });
+               reader.readAsDataURL(file);
+           }
+           // else {
+           //     previewDefaultText.style.display = null;
+           //     previewImage.style.display = null;
+           //     previewImage.setAttribute("src","");
+           // }
+        });
+    </script>
 </head><!--/head-->
 
 <body>
@@ -179,15 +217,15 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <div class="left-sidebar">
+                <div class="left-sidebar" >
                     <Br>
-                    <div class=""><!--shipping-->
-                        <img src="images/home/user.png" height="200" alt=""/>
+                    <div class="image-preview" id="imagePreview"><!--shipping-->
+                        <img src="" alt="product Image" class="image-preview__image">
+                        <span class="image-preview__default-text">product image</span>
+<%--                        <img src="images/home/user.png" height="200" alt=""/>--%>
                     </div>
 
-
                     <!--/price-range-->
-
 
                 </div>
             </div>
@@ -217,7 +255,7 @@
                                         <br>
                                         <Br>
 
-                                        <input type="file" name="photo" size="50"/>
+                                        <input type="file" id="inpFile" name="photo" size="50"/>
                                         <br/><br>
                                         <button type="submit" class="btn btn-default">Add</button>
                                     </form>
