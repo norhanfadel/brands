@@ -158,7 +158,13 @@ String paramValue = request.getParameter(paramName);
 
                         <br>
                         <button  type="submit" value = "Submit" class="btn btn-default">Signup</button>
+
+                            <i class="fa-li fa fa-check-square"></i>  <label id="labelID1" style="color:red;font-size: 20px">${requestScope.falseCode} </label>
+                            <i class="fa-li fa fa-check-square"></i>  <label id="labelID1" style="color:green;font-size: 20px">${requestScope.trueCode} </label>
+
                         <cnour:if test="${!empty requestScope.true1}"  var="res2">
+
+
                             <i class="fa-li fa fa-check-square"></i>  <label id="labelID1" style="color:green;font-size: 20px">Regestration Done Lets Login </label> </cnour:if>
                     </form>
 
