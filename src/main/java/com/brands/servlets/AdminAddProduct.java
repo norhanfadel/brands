@@ -24,23 +24,24 @@ import java.util.List;
 @MultipartConfig
 public class AdminAddProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String category = request.getParameter("category");
+        String name =request.getParameter("name");
+        String category =request.getParameter("category");
+        String photo = request.getParameter("photo");
+        String quantity = request.getParameter("quantity");
+        System.out.println("category : "+category);
 
-        System.out.println("category : " + category);
-
-        String price = request.getParameter("price");
-        String description = request.getParameter("description");
-        String quantity=request.getParameter("quantity");
+         String price =request.getParameter("price");
+        String description =request.getParameter("description");
 //        System.out.println("des "+description);
 //        System.out.println("pp ben "+cost);
-        double prices = Double.parseDouble(price);
-        int quantitys = Integer.parseInt(quantity);
+       double prices=Double.parseDouble(price);
 
         InputStream inputStream = null; // input stream of the upload file
 
         // obtains the upload file part in this multipart request
         Part filePart = request.getPart("photo");
+        String fileName = extractFileName(filePart);
+        System.out.println("image name >> "+fileName);
         if (filePart != null) {
             // prints out some information for debugging
             System.out.println(filePart.getName());
@@ -53,13 +54,14 @@ public class AdminAddProduct extends HttpServlet {
         byte[] bytes = IOUtils.toByteArray(inputStream);
 
 
-        CategoryDto categoryDto = new CategoryImpl();
+        CategoryDto categoryDto=new CategoryImpl();
         Category categoryByName = categoryDto.getCategoryByName(category);
-        Products products = new Products(categoryByName, new Date(), name, prices);
+        Products products=new Products(categoryByName,new Date(),name,prices);
         products.setDescription(description);
         products.setImage(bytes);
-        products.setQuantity(quantitys);
-        ProductDto productDto = new ProductImp();
+//        products.setImageName(extractFileName(filePart));
+        products.setQuantity(Integer.valueOf(quantity));
+        ProductDto productDto =new ProductImp();
         productDto.addProduct(products);
 
         response.sendRedirect("AdminAddProduct?key=value");
@@ -71,5 +73,16 @@ public class AdminAddProduct extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("ManageProduct");
             rd.include(request, response);
         }
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
 }

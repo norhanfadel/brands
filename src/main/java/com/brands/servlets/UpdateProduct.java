@@ -20,8 +20,9 @@ public class UpdateProduct extends HttpServlet {
         Products oldPorduct = productDto.getProductById(idToEdit);
         request.setAttribute("productOldName",oldPorduct.getName());
         request.setAttribute("productOldPrice",oldPorduct.getPrice());
+        request.setAttribute("productOldQuantity",oldPorduct.getQuantity());
+        request.setAttribute("productOldImageName",oldPorduct.getImageName());
         request.setAttribute("productOldDescription",oldPorduct.getDescription());
-        request.setAttribute("productOldImage",oldPorduct.getImage());
         request.setAttribute("productID",Integer.valueOf(idToEdit));
         System.out.println("done");
         RequestDispatcher rd = request.getRequestDispatcher("updateProduct.jsp");

@@ -78,44 +78,27 @@ public class ProductImp implements ProductDto {
         Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
         Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());
         products.setCategory(category1);
+        products.setImageName(product.getImageName());
         products.setImage(product.getImage());
-        products.setDescription(product.getDescription());
         products.setQuantity(product.getQuantity());
+        products.setDescription(product.getDescription());
         session.beginTransaction();
         session.persist(products);
         category1.getProductses().add(products);
         session.update(category1);
         session.update(products);
         session.getTransaction().commit();
-
-
-
-
-//        System.out.println("inside");
-//        Category category1 = (Category) session.load(Category.class, product.getCategory().getCategoryId());
-//        Products products = new Products(category1,product.getCreateDate(), product.getName(), product.getPrice());
-//        products.setCategory(category1);
-//        products.setImage(product.getImage());
-//        products.setDescription(product.getDescription());
-//       // products.setQuantity(product.getQuantity());
-//        session.beginTransaction();
-//        session.persist(products);
-//        category1.getProductses().add(products);
-//        session.update(category1);
-//        session.update(products);
-//        session.getTransaction().commit();
         session.clear();
        // session.close();
         session.flush();
         return product;
-
     }
 
 
     @Override
     public void updateProduct(Products product) {
-      //  Transaction transaction = session.beginTransaction();
         session.clear();
+        Transaction transaction = session.beginTransaction();
         Products oldProduct = (Products) session.load(Products.class, product.getProductId());
         oldProduct.setName(product.getName());
         oldProduct.setCreateDate(product.getCreateDate());
@@ -123,11 +106,10 @@ public class ProductImp implements ProductDto {
         oldProduct.setCategory(product.getCategory());
         oldProduct.setDescription(product.getDescription());
         oldProduct.setImage(product.getImage());
-        oldProduct.setImageName(product.getImageName());
+//        oldProduct.setImageName(product.getImageName());
         oldProduct.setQuantity(product.getQuantity());
-        session.beginTransaction();
         session.update(oldProduct);
-        session.getTransaction().commit();
+        transaction.commit();
 
     }
 
