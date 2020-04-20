@@ -35,7 +35,7 @@ public class UserImp implements UserDto {
             }
             session.update(user);
             session.getTransaction().commit();
-
+            session.clear();
             return true;
         } else {
             return false;
