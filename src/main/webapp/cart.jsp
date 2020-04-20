@@ -67,12 +67,19 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="account.html"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.jsp" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            <cnour:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
+                                </a></li>
+                            </cnour:if>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+
+                            <cnour:if test="${!empty sessionScope.userId}" var="userId">
+                                <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
+
+                            </cnour:if>
+
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -95,22 +102,18 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="indexLogin.jsp">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <cnour:if test="${!empty requestScope.id}" var="userId">
-                                        <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
-                                    </cnour:if>
-                                </ul>
+
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" class="active">Manage Users</a>
+                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+
+                            <li ><a href="manageUser.jsp">Manage Users</a>
                             </li>
                             <li><a href="manageProduct.jsp">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
+                                </cnour:if>t role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="contact-us.jsp">Contact</a></li>
                         </ul>
                     </div>
                 </div>
