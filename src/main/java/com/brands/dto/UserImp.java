@@ -1,65 +1,108 @@
 package com.brands.dto;
 
-import com.brands.dao.Orders;
-import com.brands.dao.Users;
+import com.brands.dao.*;
 import com.brands.utils.ValidateUser;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class UserImp implements UserDto {
     Session session = MySessionFactory.getMySession();
 
+    public Double getUserCredit(int userId){
+        return ((Users)session.get(Users.class,userId)).getCreditLimit();
+    }
     @Override // ok
-    public boolean addCredit(String code, Users user) {
+    public boolean addCredit(String code, int user_id) {
 
+        Users user = (Users) session.get(Users.class,user_id);
         String hql = "select value from com.brands.dao.CreditAdding c where c.code=?";
         Query query = session.createQuery(hql).setParameter(0, code);
-
         Double value = (Double) query.uniqueResult();
         if (value != null) {
+            CreditAdding credit = (CreditAdding) session.get(CreditAdding.class,code);
+            session.beginTransaction();
+            session.delete(credit);
             if (user.getCreditLimit() != null) {
                 Double valueTwo = user.getCreditLimit() + value;
                 user.setCreditLimit(valueTwo);
-                session.beginTransaction();
-                session.update(user);
-                session.getTransaction().commit();
-                return true;
             } else {
                 user.setCreditLimit(value);
-                session.beginTransaction();
-                session.update(user);
-                session.getTransaction().commit();
-
-                return true;
             }
-
+            session.update(user);
+            session.getTransaction().commit();
+            session.clear();
+            return true;
         } else {
             return false;
         }
     }
 
-    public Orders getCart(Users user) {
+    public Orders getCart(int user_id) {
         String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
-        Query query = session.createQuery(hql).setParameter(0, user.getUserId());
-        Set<Orders> userOrders = (Set<Orders>) query.uniqueResult();
-        if (userOrders != null) {
-            Orders currentOrder = null;
-            for (Orders order : userOrders) {
-                if (order.getBought() == 1) {
-                    return order;
-                }
-            }
-
+        Query query = session.createQuery(hql).setParameter(0, user_id);
+        Orders cart = (Orders) query.uniqueResult();
+        Orders currentCart2 =null;
+        if (cart != null) {
+            return cart;
         }
-        return null;
+        else {
+            System.out.println("no Current cart but will make one");
+            return makeCart(user_id);
+        }
+    }
+
+    private Orders makeCart(int user_id){
+        String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
+        Query query = session.createQuery(hql).setParameter(0, user_id);
+        Users user = (Users) session.get(Users.class,user_id);
+        Products products = new Products((Category)session.get(Category.class,1), new Date(), "test", 0.0);
+        Set<OrderDetails> orderDetailsList = new HashSet<>();
+        Orders currentCart =new Orders(user, 0.0, user.getAddress(), new Date(),0,1,orderDetailsList);
+        OrderDetails orderDetails = new OrderDetails(currentCart,products, 0, 0, 0);
+
+        products.setOrderDetailses(orderDetailsList);
+        currentCart.setOrderDetailses(orderDetailsList);
+        orderDetailsList.add(orderDetails);
+
+        session.beginTransaction();
+        session.persist(products);
+        session.getTransaction().commit();
+
+        session.beginTransaction();
+        session.persist(currentCart); // need to add OrderDetails id to order num here ?
+        session.getTransaction().commit();
+
+        currentCart = (Orders) query.uniqueResult();
+        orderDetails.setOrders(currentCart);
+
+        session.beginTransaction();
+        session.persist(orderDetails);
+        session.getTransaction().commit();
+
+
+
+        String hql2 = "select id from com.brands.dao.OrderDetails c where c.amount=0 and c.price = 0 and quanity = 0";
+        Query query2 = session.createQuery(hql2);
+        int orderDetailsID = (int) query2.uniqueResult();
+
+        currentCart.setOrderNum(orderDetailsID);
+
+        session.beginTransaction();
+        session.update(currentCart); // need to add OrderDetails id to order num here
+        session.getTransaction().commit();
+
+        return (Orders) query.uniqueResult();
     }
 
     @Override
-    public boolean updateCreditWhenBuying(Users user) {
-        Orders currentOrder = getCart(user);
+    public boolean updateCreditWhenBuying(int user_id) {
+        Users user = (Users) session.get(Users.class,user_id);
+        Orders currentOrder = getCart(user_id);
         Double totalPrice = currentOrder.getAmount();
         Double userCredit = user.getCreditLimit();
         Double amount = userCredit - totalPrice;
@@ -67,10 +110,12 @@ public class UserImp implements UserDto {
             System.out.println("credit not enough");
             return false;
         } else {
-            System.out.println("credit not enough" + "total is" + amount);
-            session.beginTransaction();
+            System.out.println("credit enough" + "total is" + amount);
+            currentOrder.setBought(2); // order is bought
             user.setCreditLimit(amount);
+            session.beginTransaction();
             session.update(user);
+            session.update(currentOrder);
             session.getTransaction().commit();
             return true;
         }

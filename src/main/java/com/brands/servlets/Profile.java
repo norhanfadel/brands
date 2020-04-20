@@ -43,7 +43,7 @@ public class Profile extends HttpServlet {
             request.setAttribute("phoneprofile", phone);
             request.setAttribute("codeprofile", code);
             request.setAttribute("passwordprofile", password);
-
+            request.setAttribute("id1",userId);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
             dispatcher.forward(request, response);
@@ -69,16 +69,18 @@ public class Profile extends HttpServlet {
             String phoneEdit = request.getParameter("phoneedit");
 
             String passwordEdit = request.getParameter("passwordedit");
-            String addressEdit = request.getParameter("addressedit");
+            String addressEdit = request.getParameter("Addressedit");
             String codeEdit = request.getParameter("codeedit");
-            Double welcomeCode = Double.parseDouble(codeEdit);
-
+if(codeEdit.equals("")){
+    codeEdit="notValid";
+}
+           userImp.addCredit(codeEdit,userId);
             user2.setPhone(phoneEdit);
             user2.setUserName(nameEdit);
             user2.setAddress(addressEdit);
 
             user2.setPassword(passwordEdit);
-            user2.setCreditLimit(welcomeCode);
+
 
             if (userImp.updateUser(user2)) {
                 System.out.println("valid");

@@ -137,23 +137,15 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="index.html">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
-                            </li>
+
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" class="active">Manage Users</a>
+                            <li><a href="manageUser.jsp" >Manage Users</a>
                             </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
+                            <li><a href="manageProduct.jsp" class="active">Manage Products</a>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="contact-us.jsp">Contact</a></li>
                         </ul>
                     </div>
                 </div>

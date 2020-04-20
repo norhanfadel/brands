@@ -15,29 +15,31 @@ import java.util.List;
 
 import static java.util.Base64.getEncoder;
 
-
-public class HomeServlet extends HttpServlet {
+public class MenProductServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
-        System.out.println("in home servlet");
-        ProductImp productImp = new ProductImp();
-        List<Products> productsList = productImp.getAllProducts();
-        List<Products> list = new ArrayList<>();
-        for (Products products : productsList) {
+        ProductImp productImp =new ProductImp();
+        List<Products> menProductsList =productImp.getAllProductsByCategoryId(1);
+        List<Products> menList=new ArrayList<>();
+        for(Products products:menProductsList){
             String base64Image = getEncoder().encodeToString(products.getImage());
             products.setImageName(base64Image);
-            list.add(products);
+            menList.add(products);
         }
-        request.setAttribute("productsList", list);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.include(request, response);
+        request.setAttribute("menList", menList);
+        if(request.getParameter("login") != null){
+            System.out.println("jkhkhkj");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("indexLogin.jsp");
+            dispatcher.include(request, response);
+        }else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher.include(request, response);
+        }
 
 
     }
 
 }
-

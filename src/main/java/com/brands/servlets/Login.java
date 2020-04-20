@@ -1,6 +1,9 @@
 package com.brands.servlets;
 
+import com.brands.dao.Products;
 import com.brands.dao.Users;
+import com.brands.dto.ProductImp;
+import com.brands.dto.UserDto;
 import com.brands.dto.UserImp;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Base64.getEncoder;
 
 public class Login extends HttpServlet {
 
@@ -44,6 +51,17 @@ public class Login extends HttpServlet {
            Users user2= userImp.getUserById(userImp.getUserIdByMail(email));
 
      //      response.sendRedirect("indexLogin.jsp?name"+email+"&password"+password);
+
+
+            ProductImp productImp = new ProductImp();
+            List<Products> productsList = productImp.getAllProducts();
+            List<Products> list = new ArrayList<>();
+            for (Products products : productsList) {
+                String base64Image = getEncoder().encodeToString(products.getImage());
+                products.setImageName(base64Image);
+                list.add(products);
+            }
+            request.setAttribute("productsList", list);
             String paramName1= user2.getUserName();
             String role=user2.getUserRole();
             int id=user2.getUserId();
@@ -51,6 +69,8 @@ public class Login extends HttpServlet {
             request.setAttribute("role",role);
             HttpSession session=request.getSession();
             session.setAttribute("userId",id);//as it will be needed later
+            String name = user2.getUserName();
+            session.setAttribute("nameprofile",name);
             request.setAttribute("id",id);
             RequestDispatcher dispatcher =request.getRequestDispatcher("indexLogin.jsp");
             dispatcher.forward(request,response);

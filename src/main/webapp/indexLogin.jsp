@@ -7,7 +7,8 @@
 --%>
 
 <%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
 <head>
@@ -34,6 +35,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
+
 
 
 <header id="header"><!--header-->
@@ -77,15 +79,13 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-
-                            <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
+                            <cnour:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
-
-                            <cnour:if test="${!empty requestScope.id}" var="userId">
+                            <cnour:if test="${!empty sessionScope.userId}" var="userId">
                                 <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
 
                             </cnour:if>
@@ -115,21 +115,19 @@
 
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
-                                   class="active">Home</a>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true" class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}">
+                                <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
 
-                                <li><a href="ManageUsersServlet">Manage Users</a>
+                                      <li ><a href="manageUser.jsp">Manage Users</a>
                                 </li>
-                                <li><a href="ManageProduct">Manage Products</a>
-
-                                    <!--                                    check that role equal Admin end-->
-                                </li>
-                            </cnour:if>
+                                <li><a href="manageProduct.jsp">Manage Products</a>
+                                    </cnour:if>
+                                <!--                                    check that role equal Admin end-->
+                            </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="Contact">Contact</a></li>
+                            <li><a href="contact-us.jsp">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -218,19 +216,20 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading" id="menLink">
-                                <h4 class="panel-title"><a href="#men" onclick="showMenProduct()" style="width: 100%">MEN</a>
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/MenProductServlet" onclick="showMenProduct()" style="width: 100%">MEN</a>
                                 </h4>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading" id="womenLink">
-                                <h4 class="panel-title"><a href="#women" onclick="showWomenProduct()"
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/WomenProductServlet" onclick="showWomenProduct()"
                                                            style="width: 100%">WOMEN</a></h4>
                             </div>
                         </div>
+
                         <div class="panel panel-default">
                             <div class="panel-heading" id="kidsLink">
-                                <h4 class="panel-title"><a href="#kids" onclick="showKidsProduct()" style="width: 100%">Kids</a>
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/KidsProductServlet" onclick="showKidsProduct()" style="width: 100%">Kids</a>
                                 </h4>
                             </div>
                         </div>
@@ -240,10 +239,11 @@
                 </div>
             </div>
             <div class="col-sm-9 padding-right">
-                <div class="features_items" id="home"><!--features_items-->
-                    <h2 class="title text-center">Features Items</h2>
-                    <cnour:if test="${!empty requestScope.productsList}">
-                        <cnour:forEach var="productsList" items="${requestScope.productsList}">
+                <c:if test="${requestScope.productsList !=null}">
+                    <div class="features_items" id="home"><!--features_items-->
+
+                        <h2 class="title text-center">Features Items</h2>
+                        <c:forEach var="productsList" items="${requestScope.productsList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -266,15 +266,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </cnour:forEach>
-                    </cnour:if>
-                </div>
+                        </c:forEach>
 
+                    </div>
+                </c:if>
                 <!--                men category product start               -->
-                <div class="features_items" id="men" style="display: none"><!--features_items-->
-                    <h2 class="title text-center">Features Items</h2>
-                    <cnour:if test="${!empty requestScope.productsList }">
-                        <cnour:forEach var="menList" items="${requestScope.menList}">
+                <c:if test="${requestScope.menList !=null}">
+                    <div class="features_items" id="men" ><!--features_items-->
+                        <h2 class="title text-center">Features Items</h2>
+
+                        <c:forEach var="menList" items="${requestScope.menList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -297,14 +298,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </cnour:forEach>
-                    </cnour:if>
-                </div>
+                        </c:forEach>
+                    </div>
+                </c:if>
 
-                <div class="features_items" id="women" style="display: none"><!--features_items-->
-                    <h2 class="title text-center">Features Items</h2>
-                    <cnour:if test="${!empty requestScope.productsList }">
-                        <cnour:forEach var="womenList" items="${requestScope.womenList}">
+                <!--                men category product end
+
+                   <!--               womenList result start               -->
+                <c:if test="${requestScope.womenList !=null}">
+                    <div class="features_items" id="searchResult" ><!--features_items-->
+                        <h2 class="title text-center">Features Items</h2>
+
+                        <c:forEach var="womenList" items="${requestScope.womenList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -327,16 +332,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </cnour:forEach>
-                    </cnour:if>
-                </div>
+                        </c:forEach>
+                    </div>
+
+                </c:if>
                 <!--                women category product end               -->
 
                 <!--                kids category product start               -->
-                <div class="features_items" id="kids" style="display: none"><!--features_items-->
-                    <h2 class="title text-center">Features Items</h2>
-                    <cnour:if test="${!empty requestScope.productsList}">
-                        <cnour:forEach var="kidsList" items="${requestScope.kidsList}">
+
+                <c:if test="${requestScope.kidsList !=null}">
+                    <div class="features_items" id="kids" ><!--features_items-->
+                        <h2 class="title text-center">Features Items</h2>
+                        <c:forEach var="kidsList" items="${requestScope.kidsList}">
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
@@ -359,10 +366,42 @@
                                     </div>
                                 </div>
                             </div>
-                        </cnour:forEach>
-                    </cnour:if>
-                </div>
+                        </c:forEach>
+                    </div>
+
+                </c:if>
                 <!--                kids category product end               -->
+                <!--                search Result start               -->
+                <c:if test="${requestScope.list !=null}">
+                    <div class="features_items" id="searchResult" style="display: block"><!--features_items-->
+                        <h2 class="title text-center">Features Items</h2>
+                        <c:forEach var="searchList" items="${requestScope.list}">
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="data:image/jpg;base64,${searchList.imageName}" height="170px"
+                                                 alt=""/>
+                                            <h2><c:out value="${searchList.price}"/></h2>
+                                            <p><c:out value="${searchList.description}"/></p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i
+                                                    class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2><c:out value="${searchList.price}"/></h2>
+                                                <p><c:out value="${searchList.description}"/></p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:if>
+                <!--               search reasult end               -->
 
             </div>
         </div>
@@ -399,5 +438,5 @@
         $("#kidsLink").css("background-color", "white");
     });
 </script>
-</body>
-< /html>
+    </body>
+    < /html>
