@@ -72,12 +72,22 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href=""><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            <c:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
+                                </a></li>
+                            </c:if>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <c:if test="${empty sessionScope.userId}" var="userId">
+                                <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            </c:if>
+                            <c:if test="${!empty sessionScope.userId}" var="userId">
+                                <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
+
+                            </c:if>
+
                         </ul>
+
+
                     </div>
                 </div>
             </div>
@@ -98,7 +108,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true" >Home</a>
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet" >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
                             <c:if test="${sessionScope.role.equals('ADMIN')}">
@@ -131,43 +141,27 @@
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
 
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Mens
-                                    </a>
+                            <div class="panel-heading" id="menLink">
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/MenProductServlet" onclick="showMenProduct()" style="width: 100%">MEN</a>
                                 </h4>
                             </div>
-
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="womenLink">
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/WomenProductServlet" onclick="showWomenProduct()"
+                                                           style="width: 100%">WOMEN</a></h4>
+                            </div>
                         </div>
 
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Womens
-                                    </a>
+                            <div class="panel-heading" id="kidsLink">
+                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/KidsProductServlet" onclick="showKidsProduct()" style="width: 100%">Kids</a>
                                 </h4>
                             </div>
-
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Kids</a></h4>
-                            </div>
                         </div>
 
 
-
-
-                    </div><!--/category-products-->
-
-
-
-
-
+                    </div>
                 </div>
             </div>
 

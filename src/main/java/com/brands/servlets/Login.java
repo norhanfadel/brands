@@ -53,15 +53,6 @@ public class Login extends HttpServlet {
      //      response.sendRedirect("indexLogin.jsp?name"+email+"&password"+password);
 
 
-            ProductImp productImp = new ProductImp();
-            List<Products> productsList = productImp.getAllProducts();
-            List<Products> list = new ArrayList<>();
-            for (Products products : productsList) {
-                String base64Image = getEncoder().encodeToString(products.getImage());
-                products.setImageName(base64Image);
-                list.add(products);
-            }
-            request.setAttribute("productsList", list);
             String paramName1= user2.getUserName();
             String role=user2.getUserRole();
             int id=user2.getUserId();
@@ -71,8 +62,10 @@ public class Login extends HttpServlet {
             session.setAttribute("userId",id);//as it will be needed later
             String name = user2.getUserName();
             session.setAttribute("nameprofile",name);
+            session.setAttribute("CurrUser",user2);
             request.setAttribute("id",id);
-            RequestDispatcher dispatcher =request.getRequestDispatcher("indexLogin.jsp");
+            session.setAttribute("role",role);
+            RequestDispatcher dispatcher =request.getRequestDispatcher("HomeServlet");
             dispatcher.forward(request,response);
 
 

@@ -13,18 +13,19 @@ import java.util.Set;
 public class UserImp implements UserDto {
     Session session = MySessionFactory.getMySession();
 
-    public Double getUserCredit(int userId){
-        return ((Users)session.get(Users.class,userId)).getCreditLimit();
+    public Double getUserCredit(int userId) {
+        return ((Users) session.get(Users.class, userId)).getCreditLimit();
     }
+
     @Override // ok
     public boolean addCredit(String code, int user_id) {
 
-        Users user = (Users) session.get(Users.class,user_id);
+        Users user = (Users) session.get(Users.class, user_id);
         String hql = "select value from com.brands.dao.CreditAdding c where c.code=?";
         Query query = session.createQuery(hql).setParameter(0, code);
         Double value = (Double) query.uniqueResult();
         if (value != null) {
-            CreditAdding credit = (CreditAdding) session.get(CreditAdding.class,code);
+            CreditAdding credit = (CreditAdding) session.get(CreditAdding.class, code);
             session.beginTransaction();
             session.delete(credit);
             if (user.getCreditLimit() != null) {
@@ -46,24 +47,23 @@ public class UserImp implements UserDto {
         String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
         Query query = session.createQuery(hql).setParameter(0, user_id);
         Orders cart = (Orders) query.uniqueResult();
-        Orders currentCart2 =null;
+        Orders currentCart2 = null;
         if (cart != null) {
             return cart;
-        }
-        else {
+        } else {
             System.out.println("no Current cart but will make one");
             return makeCart(user_id);
         }
     }
 
-    private Orders makeCart(int user_id){
+    private Orders makeCart(int user_id) {
         String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
         Query query = session.createQuery(hql).setParameter(0, user_id);
-        Users user = (Users) session.get(Users.class,user_id);
-        Products products = new Products((Category)session.get(Category.class,1), new Date(), "test", 0.0);
+        Users user = (Users) session.get(Users.class, user_id);
+        Products products = new Products((Category) session.get(Category.class, 1), new Date(), "test", 0.0);
         Set<OrderDetails> orderDetailsList = new HashSet<>();
-        Orders currentCart =new Orders(user, 0.0, user.getAddress(), new Date(),0,1,orderDetailsList);
-        OrderDetails orderDetails = new OrderDetails(currentCart,products, 0, 0, 0);
+        Orders currentCart = new Orders(user, 0.0, user.getAddress(), new Date(), 0, 1, orderDetailsList);
+        OrderDetails orderDetails = new OrderDetails(currentCart, products, 0, 0, 0);
 
         products.setOrderDetailses(orderDetailsList);
         currentCart.setOrderDetailses(orderDetailsList);
@@ -85,7 +85,6 @@ public class UserImp implements UserDto {
         session.getTransaction().commit();
 
 
-
         String hql2 = "select id from com.brands.dao.OrderDetails c where c.amount=0 and c.price = 0 and quanity = 0";
         Query query2 = session.createQuery(hql2);
         int orderDetailsID = (int) query2.uniqueResult();
@@ -101,7 +100,7 @@ public class UserImp implements UserDto {
 
     @Override
     public boolean updateCreditWhenBuying(int user_id) {
-        Users user = (Users) session.get(Users.class,user_id);
+        Users user = (Users) session.get(Users.class, user_id);
         Orders currentOrder = getCart(user_id);
         Double totalPrice = currentOrder.getAmount();
         Double userCredit = user.getCreditLimit();
@@ -165,7 +164,7 @@ public class UserImp implements UserDto {
         String hql = "from com.brands.dao.Users u where u.userRole=?";
 
         Query query = session.createQuery(hql);
-        query.setParameter(0,role);
+        query.setParameter(0, role);
         System.out.println("doneUUUSERS");
         return query.list();
     }
@@ -179,9 +178,11 @@ public class UserImp implements UserDto {
             user.setStatus("ONLINE");
 
             session.beginTransaction();
+            session.clear();
             if (user.getUserId() > 0) {
                 session.update(user);
                 session.getTransaction().commit();
+                session.clear();
             }
             return true;
         }
@@ -194,12 +195,13 @@ public class UserImp implements UserDto {
 //            return false;
 //        } else {
 
-            session.beginTransaction();
-            session.persist(user);
-            session.getTransaction().commit();
-            session.clear();
-            System.out.println("register here ");
-            return true;
+        session.beginTransaction();
+        session.clear();
+        session.persist(user);
+        session.getTransaction().commit();
+        session.clear();
+        System.out.println("register here ");
+        return true;
         //}
 
     }
@@ -214,22 +216,25 @@ public class UserImp implements UserDto {
             user.setStatus("OFFLINE");
 
             session.beginTransaction();
+            session.clear();
             if (user.getUserId() > 0) {
                 session.update(user);
                 session.getTransaction().commit();
+                session.clear();
             }
             return true;
         }
     }
+
     public boolean loginNour(String EMail, String passwrod) {
         String hql = "from com.brands.dao.Users c where c.email=? and c.password=?";
-
+        session.clear();
         Query query = session.createQuery(hql);
         query.setString(0, EMail);
         query.setString(1, passwrod);
 
-        List<Users> value =  query.list();
-        if (value != null &&  value.size()>0) {
+        List<Users> value = query.list();
+        if (value != null && value.size() > 0) {
             Users user = value.get(0);
             user.setStatus("ONLINE");
 
@@ -237,15 +242,17 @@ public class UserImp implements UserDto {
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();
+            session.clear();
             return true;
         }
         return false;
 
     }
+
     @Override
     public boolean updateStatus(int id) {
         String hql = "from com.brands.dao.Users c where c.userId=?";
-
+        session.clear();
         Query query = session.createQuery(hql);
         query.setInteger(0, id);
         List<Users> value = query.list();
@@ -257,11 +264,11 @@ public class UserImp implements UserDto {
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();
+            session.clear();
             return true;
         }
         return false;
     }
-
 
 
 }

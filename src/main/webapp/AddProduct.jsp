@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -143,24 +145,35 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="indexLogin.jsp">Home</a></li>
-
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet"
+                            >Home</a>
+                            </li>
                             <!--                                    check that role equal Admin start-->
-                            <li><a href="manageUser.jsp" >Manage Users</a>
-                            </li>
-                            <li><a href="manageProduct.jsp" class="active">Manage Products</a>
-                                <!--                                    check that role equal Admin end-->
-                            </li>
+
+                            <c:if test="${sessionScope.role==null}">
+                                <% RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                                    rd.forward(request,response);%>
+                            </c:if>
+                            <c:if test="${sessionScope.role.equals('ADMIN')}">
+
+                                <li><a href="ManageUsersServlet">Manage Users</a>
+                                </li>
+                                <li><a href="ManageProduct"  class="active">Manage Products</a>
+
+                                    <!--                                    check that role equal Admin end-->
+                                </li>
+                            </c:if>
+                            <c:if test="${!sessionScope.role.equals('ADMIN')}">
+                                <%  RequestDispatcher rds = request.getRequestDispatcher("login.jsp");
+                                    rds.forward(request,response);%>
+
+                            </c:if>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.jsp">Contact</a></li>
+                            <li><a href="Contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -211,7 +224,7 @@
                                         <br>
                                         <Br>
 
-                                        <input type="file" name="photo" size="50"/>
+                                        <center><input type="file" name="photo" size="50" required/></center>
                                         <br/><br>
                                         <button type="submit" class="btn btn-default">Add</button>
                                     </form>

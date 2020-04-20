@@ -138,7 +138,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet"
                             >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
@@ -166,11 +166,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

@@ -67,9 +67,22 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="profile"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            <c:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
+                                </a></li>
+                            </c:if>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <c:if test="${empty sessionScope.userId}" var="userId">
+                                <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            </c:if>
+                            <c:if test="${!empty sessionScope.userId}" var="userId">
+                                <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
+
+                            </c:if>
+
                         </ul>
+
+
                     </div>
                 </div>
             </div>
@@ -91,7 +104,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet?login=true"
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet"
                             >Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
