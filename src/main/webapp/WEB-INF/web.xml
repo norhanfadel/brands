@@ -41,7 +41,7 @@
 
     <servlet-mapping>
         <servlet-name>Contact</servlet-name>
-        <url-pattern>/Contact</url-pattern>
+                <url-pattern>/Contact</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -68,7 +68,19 @@
     </servlet-mapping>
 
 
-    
+
+    <servlet-mapping>
+        <servlet-name>Phone</servlet-name>
+        <url-pattern>/Phone</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Phone</servlet-name>
+        <servlet-class>com.brands.servlets.Phone</servlet-class>
+    </servlet>
+
+
+
+
 
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>

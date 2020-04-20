@@ -69,6 +69,8 @@ public class Login extends HttpServlet {
             request.setAttribute("role",role);
             HttpSession session=request.getSession();
             session.setAttribute("userId",id);//as it will be needed later
+            String name = user2.getUserName();
+            session.setAttribute("nameprofile",name);
             request.setAttribute("id",id);
             RequestDispatcher dispatcher =request.getRequestDispatcher("indexLogin.jsp");
             dispatcher.forward(request,response);

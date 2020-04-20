@@ -79,14 +79,13 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <cnour:if test="${!empty requestScope.username}">
-                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${requestScope.username}
+                            <cnour:if test="${!empty sessionScope.nameprofile}">
+                                <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 
-
-                            <cnour:if test="${!empty requestScope.id}" var="userId">
+                            <cnour:if test="${!empty sessionScope.userId}" var="userId">
                                 <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
 
                             </cnour:if>
@@ -128,7 +127,7 @@
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="contact-us.jsp">Contact</a></li>
                         </ul>
                     </div>
                 </div>
