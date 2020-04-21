@@ -33,7 +33,7 @@ import java.util.List;
 public interface UserDto {
  /*nehal*/
  public boolean addCredit(String code, int user_id);
-
+    public boolean checkCredit(String code);
     public boolean updateCreditWhenBuying(int user_id);
 
  public boolean updateUser(Users user);
