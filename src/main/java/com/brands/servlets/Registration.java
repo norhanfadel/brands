@@ -28,7 +28,7 @@ public class Registration extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         System.out.println("post");
@@ -77,9 +77,11 @@ public class Registration extends HttpServlet {
                 String falseCode = "";
                 String trueCode="";
               if(userImp.addCredit(code,user11.getUserId())) {
-                  trueCode = " voucher Amount added ,see your balance in profile ";
+                //  trueCode = " voucher Amount added ,see your balance in profile ";
+
             }else {
-                   falseCode = " voucher code not valid , try it again from your profile ! ";
+                 //  falseCode = " voucher code not valid , try it again from your profile ! ";
+
               }
                 System.out.println("valid");
                 String paramName2 = "true1";
