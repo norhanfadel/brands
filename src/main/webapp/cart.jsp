@@ -19,6 +19,9 @@
 
     <![endif]-->
     <script src="js/checkCode.js"></script>
+    <script>
+
+    </script>
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -163,10 +166,13 @@
                         </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a> <!-- should make fn to update quantity AJAX-->
-                                <input class="cart_quantity_input" type="text" name="quantity" value="${item.quanity}" autocomplete="off"
-                                       size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
+                                <a id="${item.products.productId}i" class="cart_quantity_up"  onclick="increase(this)"> + </a> <!-- should make fn to update quantity AJAX-->
+                                    <input id="${item.products.productId}" class="cart_quantity_input" type="text" name="quantity" value="${item.quanity}"
+                                       size="2" onchange="updateQuantity(this)">
+                                <!--   <span class="quantityNeeded"> -->
+                                <a id="${item.products.productId}d" class="cart_quantity_down" onclick="decrease(this)"> - </a>
+                                <input type="hidden" id="${sessionScope.userId}" class="userIdHidden">
+                                <span id="errorMsg"></span>
                             </div>
                         </td>
                         <td class="cart_total">

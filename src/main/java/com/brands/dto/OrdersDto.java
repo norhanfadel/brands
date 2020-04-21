@@ -9,6 +9,7 @@ import com.brands.dao.Orders;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -24,7 +25,7 @@ public interface OrdersDto {
 //    public void updateNoOfProductsInOrders(int product_id, Users user); // will be rethought when we change DB
 //    public Double calculateSumOfProducts(Users user);
     public boolean  updateQuantityByProductId(int product_id, int user_id, int quantity);
-    public Orders getCart(int user_id);
+    public Set<Orders> getCart(int user_id);
     public boolean removeProductByProductIdFromCart(int product_id, int user_id);
     /*nehal end*/
 

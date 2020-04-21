@@ -1,7 +1,9 @@
 package com.brands.servlets;
 
 import com.brands.dao.Users;
+import com.brands.dto.MySessionFactory;
 import com.brands.dto.UserImp;
+import org.hibernate.Session;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +37,8 @@ public class logOut extends HttpServlet {
             System.out.println("paramValue---" + paramValue);
             Users user2 = userImp.getUserById(paramValue);
             userImp.updateStatus(user2.getUserId());
+            Session sessions= MySessionFactory.getMySession();
+            sessions.close();
             response.sendRedirect("login.jsp");
             System.out.println("user---" + user2);
         }
