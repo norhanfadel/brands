@@ -219,6 +219,20 @@
         <url-pattern>/CartHandlerServlet3</url-pattern>
     </servlet-mapping>
 
+
+
+    <servlet>
+        <servlet-name>Code</servlet-name>
+        <servlet-class>com.brands.servlets.Code</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Code</servlet-name>
+        <url-pattern>/Code</url-pattern>
+    </servlet-mapping>
+
+
+
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
