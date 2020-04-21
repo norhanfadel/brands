@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
-<body onload="checkCookie()">
+<body onload="checkCookie()" errorPage="404.jsp">
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -91,7 +91,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="${pageContext.servletContext.contextPath }/HomeServlet" >Home</a></li>
+                            <li><a href="${pageContext.servletContext.contextPath }/HomeServlet">Home</a></li>
 
 
                         </ul>
@@ -105,8 +105,8 @@
     </div>
 </header>
 <%
-String paramName = "notvalid";
-String paramValue = request.getParameter(paramName);
+    String paramName = "notvalid";
+    String paramValue = request.getParameter(paramName);
 %>
 
 <section><!--form-->
@@ -118,23 +118,24 @@ String paramValue = request.getParameter(paramName);
                     <form method="post" action="Login">
 
 
-                        <input type="email" placeholder="Email Address" name="email"  id="email"/>
+                        <input type="email" placeholder="Email Address" name="email" id="email"/>
                         <br>
-                        <input type="password" placeholder="password"  name="password" id="password"/>
+                        <input type="password" placeholder="password" name="password" id="password"/>
                         <br>
                         <%--                                <%if (paramValue!=null) {--%>
 
 
                         <%--                                %>--%>
-                        <cnour:if test="${!empty requestScope.user}"  var="res">
-                            <label id="labelID" style="color:red;font-size: 20px">Sorry UserName or Password Invalid! </label> </cnour:if>
+                        <cnour:if test="${!empty requestScope.user}" var="res">
+                            <label id="labelID" style="color:red;font-size: 20px">Sorry UserName or Password
+                                Invalid! </label> </cnour:if>
                         <%--                    <%    } %>--%><!--/login form-->
-                         <span>
+                        <span>
 
                     <input type="checkbox" class="checkbox" id="remember">
 								Keep me signed in
 							</span>
-                        <button type="submit" value = "Submit"  onclick="checkCookie1()" id="SubmitButton" >Login</button>
+                        <button type="submit" value="Submit" onclick="checkCookie1()" id="SubmitButton">Login</button>
                         <br>
 
                     </form>
@@ -148,33 +149,42 @@ String paramValue = request.getParameter(paramName);
             <div class="col-sm-4">
                 <div class="signup-form"><!--sign up form-->
                     <h2>New User Signup!</h2>
-                    <form  action="Registration"  method="post" >
+                    <form action="Registration" method="post">
                         <input type="text" placeholder="Name" name="name" id="name" required/>
-                        <input type="email" placeholder="Email Address"  name="emailRegistration" id="emailRegistration" required/>
-                        <input type="password" placeholder="Password"  name="passwordRegistration" id="passwordRegistration" required/>
-                        <input type="text" placeholder="Address" name="address"id="address" required>
-                        <input type="text" placeholder="Phone" onblur= "submitForm1()" name="phone"id="phone" required> <label id="labelID"style="color: red"></label>
-                        <input type="number" placeholder="Welcome Code"  name="welcomeCode" id="welcomeCode" required>
+                        <input type="email" placeholder="Email Address" name="emailRegistration" id="emailRegistration"
+                               required/>
+                        <input type="password" placeholder="Password" name="passwordRegistration"
+                               id="passwordRegistration" required/>
+                        <input type="text" placeholder="Address" name="address" id="address" required>
+                        <input type="text" placeholder="Phone" onblur="submitForm1()" name="phone" id="phone" required>
+                        <label id="labelID" style="color: red"></label>
+                        <input type="number" placeholder="Welcome Code" name="welcomeCode" id="welcomeCode"
+                               onblur="submitForm2()">
+                            <label id="labelwelcome" style="color: orange"></label>
 
                         <br>
-                        <button  type="submit" value = "Submit" class="btn btn-default">Signup</button>
+                        <button type="submit" value="Submit" class="btn btn-default">Signup</button>
 
-                            <i class="fa-li fa fa-check-square"></i>  <label id="labelID1" style="color:red;font-size: 20px">${requestScope.falseCode} </label>
-                            <i class="fa-li fa fa-check-square"></i>  <label id="labelID1" style="color:green;font-size: 20px">${requestScope.trueCode} </label>
+                        <i class="fa-li fa fa-check-square"></i> <label id="labelID1"
+                                                                        style="color:red;font-size: 20px">${requestScope.falseCode} </label>
+                        <i class="fa-li fa fa-check-square"></i> <label id="labelID1"
+                                                                        style="color:green;font-size: 20px">${requestScope.trueCode} </label>
 
-                        <cnour:if test="${!empty requestScope.true1}"  var="res2">
+                        <cnour:if test="${!empty requestScope.true1}" var="res2">
 
 
-                            <i class="fa-li fa fa-check-square"></i>  <label id="labelID1" style="color:green;font-size: 20px">Regestration Done Lets Login </label> </cnour:if>
+                            <i class="fa-li fa fa-check-square"></i> <label id="labelID1"
+                                                                            style="color:green;font-size: 20px">Regestration
+                            Done Lets Login </label> </cnour:if>
                     </form>
 
-                    <cnour:if test="${!empty requestScope.register}"  var="res1">
-                        <label id="labelID1" style="color:red;font-size: 20px">This Account is aleadry Exist! </label> </cnour:if>
+                    <cnour:if test="${!empty requestScope.register}" var="res1">
+                        <label id="labelID1" style="color:red;font-size: 20px">This Account is aleadry
+                            Exist! </label> </cnour:if>
 
 
-                    <script >
-                        function submitForm1()
-                        {
+                    <script>
+                        function submitForm1() {
                             if (window.XMLHttpRequest)
                                 req = new XMLHttpRequest();
                             else if
@@ -187,20 +197,47 @@ String paramValue = request.getParameter(paramName);
                             req.onreadystatechange = handleStateChange1;
                             req.send("uPhone=" + yourvalue);
                         }
-                        function handleStateChange1()
-                        {
+
+                        function handleStateChange1() {
                             console.log("from statechage");
                             if (req.status == 200) {
 
                                 xmlvalue = req.responseText;
-                                console.log("from statechage2"+xmlvalue );
+                                console.log("from statechage2" + xmlvalue);
                                 document.getElementById("labelID").innerHTML = xmlvalue;
                             }
                         }
 
-                   </script>
+                        function submitForm2() {
+                            if (window.XMLHttpRequest)
+                                req = new XMLHttpRequest();
+                            else if
+                            (window.ActiveXObject)
+                                req = new ActiveXObject(Microsoft.XMLHTTP);
+                            yourvaluee = document.getElementById("welcomeCode").value;
+                            url = "Code";
+                            req.open("POST", url, true);
+                            req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                            req.onreadystatechange = handleStateChange2;
+                            req.send("welcomeCode=" + yourvaluee);
+                        }
+
+                        function handleStateChange2() {
+                            console.log("from statechage");
+                            if (req.status == 200) {
+
+                                xmlvalue = req.responseText;
+                                console.log("from statechage2" + xmlvalue);
+                                document.getElementById("labelwelcome").innerHTML = xmlvalue;
+
+
+
+                            }
+                        }
+
+                    </script>
                     <br>
-<br>
+                    <br>
                 </div><!--/sign up form-->
             </div>
         </div>
