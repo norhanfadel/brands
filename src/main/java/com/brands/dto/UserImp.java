@@ -42,84 +42,92 @@ public class UserImp implements UserDto {
             return false;
         }
     }
-
-    public Orders getCart(int user_id) {
-        String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
+    public Set<Orders> getCart(int user_id) {
+        String hql = "select orderses from com.brands.dao.Users c where c.userId=? ";
         Query query = session.createQuery(hql).setParameter(0, user_id);
-        Orders cart = (Orders) query.uniqueResult();
-        Orders currentCart2 = null;
-        if (cart != null) {
-            return cart;
+        List<Orders> carts = (List<Orders>) query.list();
+        Set<Orders> currentCart = new HashSet<>();
+        for (Orders cart : carts) {
+            if (cart.getBought() == 1) {
+                currentCart.add(cart);
+            }
+        }
+
+        if (currentCart.size() != 0) {
+            return currentCart;
         } else {
             System.out.println("no Current cart but will make one");
             return makeCart(user_id);
         }
     }
 
-    private Orders makeCart(int user_id) {
+
+    private Set<Orders> makeCart(int user_id) {
         String hql = "select orderses from com.brands.dao.Users c where c.userId=?";
         Query query = session.createQuery(hql).setParameter(0, user_id);
         Users user = (Users) session.get(Users.class, user_id);
-        Products products = new Products((Category) session.get(Category.class, 1), new Date(), "test", 0.0);
+        Set<Orders> userCart = user.getOrderses();
         Set<OrderDetails> orderDetailsList = new HashSet<>();
-        Orders currentCart = new Orders(user, 0.0, user.getAddress(), new Date(), 0, 1, orderDetailsList);
-        OrderDetails orderDetails = new OrderDetails(currentCart, products, 0, 0, 0);
-
-        products.setOrderDetailses(orderDetailsList);
-        currentCart.setOrderDetailses(orderDetailsList);
-        orderDetailsList.add(orderDetails);
-
-        session.beginTransaction();
-        session.persist(products);
+        Orders currentCart = new Orders(user, 0.0, user.getAddress(), new Date(), 1, orderDetailsList);
+        userCart.add(currentCart);
+        session.getTransaction().begin();
+        session.persist(currentCart);
+        session.update(user);
         session.getTransaction().commit();
+        Set<Orders> actualCart = new HashSet<>();
+        actualCart.add(currentCart);
+        return actualCart;
+    }
 
-        session.beginTransaction();
-        session.persist(currentCart); // need to add OrderDetails id to order num here ?
-        session.getTransaction().commit();
-
-        currentCart = (Orders) query.uniqueResult();
-        orderDetails.setOrders(currentCart);
-
-        session.beginTransaction();
-        session.persist(orderDetails);
-        session.getTransaction().commit();
-
-
-        String hql2 = "select id from com.brands.dao.OrderDetails c where c.amount=0 and c.price = 0 and quanity = 0";
-        Query query2 = session.createQuery(hql2);
-        int orderDetailsID = (int) query2.uniqueResult();
-
-        currentCart.setOrderNum(orderDetailsID);
-
-        session.beginTransaction();
-        session.update(currentCart); // need to add OrderDetails id to order num here
-        session.getTransaction().commit();
-
-        return (Orders) query.uniqueResult();
+    private boolean getAvalabilityInInventory(int product_id, int quantity) {
+        return ((Products) session.get(Products.class, product_id)).getQuantity() >= quantity;
     }
 
     @Override
     public boolean updateCreditWhenBuying(int user_id) {
         Users user = (Users) session.get(Users.class, user_id);
-        Orders currentOrder = getCart(user_id);
-        Double totalPrice = currentOrder.getAmount();
-        Double userCredit = user.getCreditLimit();
-        Double amount = userCredit - totalPrice;
-        if (amount < 0) {
-            System.out.println("credit not enough");
-            return false;
-        } else {
-            System.out.println("credit enough" + "total is" + amount);
-            currentOrder.setBought(2); // order is bought
-            user.setCreditLimit(amount);
-            session.beginTransaction();
-            session.update(user);
-            session.update(currentOrder);
-            session.getTransaction().commit();
-            return true;
+        Set<Orders> currentOrder = getCart(user_id);
+        Set<OrderDetails> items;
+        Set<OrderDetails> allItems = new HashSet<>();
+        for (Orders order : currentOrder) {
+            items = order.getOrderDetailses();
+            allItems.addAll(items);
         }
-    }
+        boolean isProductsAvailable = true;
+        for (OrderDetails item : allItems) {
+            isProductsAvailable = getAvalabilityInInventory(item.getProducts().getProductId(), item.getQuanity());
+            if (!isProductsAvailable) {
+                break;
+            }
+        }
+        if (isProductsAvailable) {
+            Double totalPrice = 0.0;
+            for (OrderDetails thing : allItems) {
+                totalPrice += thing.getPrice();
+            }
+            Double userCredit = user.getCreditLimit();
+            Double amount = userCredit - totalPrice;
+            if (amount < 0) {
+                System.out.println("credit not enough");
+                return false;
+            } else {
+                System.out.println("credit enough" + "total is" + amount);
 
+                for (Orders thing2 : currentOrder) {
+                    if (thing2.getOrderNum() != 0) {
+                        thing2.setBought(2); // order is bought
+                    }
+                }
+                user.setCreditLimit(amount);
+                session.beginTransaction();
+                session.update(user);
+                session.getTransaction().commit();
+                UserImp userImp = new UserImp();
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public int getUserIdByMail(String mail) {
         String hql = "select id from com.brands.dao.Users c where c.email=?";
