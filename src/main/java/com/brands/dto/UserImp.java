@@ -270,6 +270,20 @@ public class UserImp implements UserDto {
         return false;
     }
 
-
+    @Override // ok
+    public boolean checkCredit(String code) {
+       String hql = "select value from com.brands.dao.CreditAdding c where c.code=?";
+        Query query = session.createQuery(hql).setParameter(0, code);
+        Double value = (Double) query.uniqueResult();
+        if (value != null) {
+            CreditAdding credit = (CreditAdding) session.get(CreditAdding.class, code);
+            session.beginTransaction();
+            session.getTransaction().commit();
+            session.clear();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
