@@ -31,6 +31,8 @@
 
 <body onload="loadCart()">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -63,9 +65,11 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="images/home/logo.png" alt=""/></a>
+                        <a href="index.jsp"><img src="images/home/logo.png" alt=""/></a>
                     </div>
+                    <div class="btn-group pull-right">
 
+                    </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
@@ -74,14 +78,18 @@
                                 <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i
+                                    class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <cnour:if test="${empty sessionScope.userId}" var="userId">
+                                <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                            </cnour:if>
                             <cnour:if test="${!empty sessionScope.userId}" var="userId">
                                 <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
 
                             </cnour:if>
 
                         </ul>
+
 
                     </div>
                 </div>
@@ -102,18 +110,19 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
+
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="indexLogin.jsp">Home</a></li>
-
+                            <li><a href="${pageContext.servletContext.contextPath}/HomeServlet" class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+                            <cnour:if test="${sessionScope.role.equals('ADMIN')}">
 
-                            <li ><a href="manageUser.jsp">Manage Users</a>
+                            <li><a href="ManageUsersServlet">Manage Users</a>
                             </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
-                                </cnour:if>t role equal Admin end-->
+                            <li><a href="ManageProduct">Manage Products</a>
+                                </cnour:if>
+                                <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
                             <li><a href="contact-us.jsp">Contact</a></li>
@@ -121,9 +130,17 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                    <div>
+                        <form action="SearchServlet">
+                            <div class="search_box " style="display: inline">
+
+                                <input type="text" placeholder="Search" name="search"/>
+                            </div>
+                            <input type="submit" value="search" id="searchButton"
+                                   style="  height: 35px;border-radius: 5px; background: #fdb45e;">
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -134,12 +151,12 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li><a href="indexLogin.jsp" >Home</a></li>
+                <li><a href="indexLogin.jsp">Home</a></li>
                 <li class="active">Shopping Cart</li>
             </ol>
         </div>
         <div class="table-responsive cart_info">
-            <table class="table table-condensed">
+            <table class="table table-condensed" id="CartTable">
                 <thead>
                 <tr class="cart_menu">
                     <td class="image">Item</td>
@@ -152,39 +169,41 @@
                 </thead>
                 <tbody>
 
-                <c:forEach items="${sessionScope.cartItems}" var="item" >
+                <c:forEach items="${sessionScope.cartItems}" var="item">
                     <tr>
                         <td class="cart_product">
                             <a href=""><img src="data:image/jpg;base64,${item.products.imageName}
 " alt=""></a> <!-- ask for getting the img source-->
                         </td>
                         <td class="cart_description">
-                            <h4><a href="">${item.products.description}</a></h4>
+                            <h3>${item.products.name}</h3>
+                            <h4>${item.products.description}</h4>
                         </td>
                         <td class="cart_price">
-                            <p>${item.products.price} LE</p>
+                            <p id="${item.products.productId}p">${item.products.price} LE</p>
                         </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
-                                <a id="${item.products.productId}i" class="cart_quantity_up"  onclick="increase(this)"> + </a> <!-- should make fn to update quantity AJAX-->
-                                    <input id="${item.products.productId}" class="cart_quantity_input" type="text" name="quantity" value="${item.quanity}"
-                                       size="2" onchange="updateQuantity(this)">
-                                <!--   <span class="quantityNeeded"> -->
-                                <a id="${item.products.productId}d" class="cart_quantity_down" onclick="decrease(this)"> - </a>
+                                <a id="${item.products.productId}i" name="plusX" class="cart_quantity_up"
+                                   onclick="increase(this)"> + </a> <!-- should make fn to update quantity AJAX-->
+                                <input id="${item.products.productId}" class="cart_quantity_input" type="text"
+                                       name="quantity" value="${item.quanity}" disabled="true"
+                                       size="2" onchange="quantityGetting(this)">
+                                <a id="${item.products.productId}d" class="cart_quantity_down" onclick="decrease(this)">
+                                    - </a>
                                 <input type="hidden" id="${sessionScope.userId}" class="userIdHidden">
-                                <span id="errorMsg"></span>
+                                <span id="errorMsg${item.products.productId}" style="font-size:10px; color:red;"></span>
                             </div>
                         </td>
                         <td class="cart_total">
-                            <p class="cart_total_price">${item.amount} LE </p>
+                            <p class="cart_total_price" id="${item.products.productId}a">${item.amount} LE </p>
                         </td>
                         <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>  <!-- should make fn to remove item AJAX-->
+                            <a class="cart_quantity_delete"  id="${item.products.productId}r" onclick="removeItem(this)"><i class="fa fa-times" ></i></a>
+                            <!-- should make fn to remove item AJAX  -->
                         </td>
                     </tr>
                 </c:forEach>
-
-
                 </tbody>
             </table>
         </div>
@@ -195,8 +214,7 @@
     <div class="container">
         <div class="heading">
             <h3>What would you like to do next?</h3>
-            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your
-                delivery cost.</p>
+            <p>Enter Your voucher Code to Earn Credit ! </p>
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -205,16 +223,18 @@
                         <li class="single_field">
                             <label>Use Coupon Code</label>
                             <input type="text" id="code" onblur="checkCode()">
-                            <label id="userCreditValidation" ></label> <!-- should view if valid code or not-->
+                            <label id="userCreditValidation"></label> <!-- should view if valid code or not-->
                         </li>
                         <li class="single_field">
-                            <label id="userCreditValue" ></label> <!-- should view user Credit before and after update -->
+                            <label id="userCreditValue"></label>
+                            <!-- should view user Credit before and after update -->
                         </li>
                     </ul>
                     <ul class="user_info">
                         <li class="single_field">
                             <label>Shipping address:</label>
-                            <textarea id="address">${sessionScope.userAddress}</textarea>
+                            <label style="font-size:14px; color:forestgreen;" id="ShippingNote">(Don't Worry, Your default Address Will not Change)</label>
+                            <textarea id="shippingAddress">${sessionScope.userAddress}</textarea>
                         </li>
                     </ul>
                 </div>
@@ -223,9 +243,10 @@
                 <div class="total_area">
                     <ul>
                         <li>Shipping Cost <span>Free !</span></li>
-                        <li>Total <span id="totalPrice" >${sessionScope.totalAmount} LE </span></li>
+                        <li>Total <span id="totalPrice">${sessionScope.totalAmount} LE</span></li>
                     </ul>
-                       <a class="btn btn-default check_out" onclick="buyCart" href="indexLogin.jsp">Check Out</a>
+                    <a class="btn btn-default check_out" onclick="buyCart()" >Check Out</a>
+                    <label id="buyingResult"></label>
                 </div>
             </div>
         </div>
@@ -397,6 +418,6 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/main.js"></script>
+<%--<script src="js/main.js"></script>--%>
 </body>
 </html>

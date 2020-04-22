@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 public class CartHandlerServlet3 extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //("userId="+userId+"&prodId"+prodId+"&quantitiy"+quantitiy)
         int userId = Integer.parseInt(request.getParameter("userId"));
         int prodId = Integer.parseInt(request.getParameter("prodId"));

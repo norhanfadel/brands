@@ -219,6 +219,34 @@
         <url-pattern>/CartHandlerServlet3</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>BuyingServlet</servlet-name>
+        <servlet-class>com.brands.servlets.BuyingServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BuyingServlet</servlet-name>
+        <url-pattern>/BuyingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <servlet-class>com.brands.servlets.RemoveFromCartServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <url-pattern>/RemoveFromCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>com.brands.servlets.AddToCartServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>

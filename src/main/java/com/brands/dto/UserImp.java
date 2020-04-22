@@ -52,7 +52,6 @@ public class UserImp implements UserDto {
                 currentCart.add(cart);
             }
         }
-
         if (currentCart.size() != 0) {
             return currentCart;
         } else {
@@ -79,12 +78,8 @@ public class UserImp implements UserDto {
         return actualCart;
     }
 
-    private boolean getAvalabilityInInventory(int product_id, int quantity) {
-        return ((Products) session.get(Products.class, product_id)).getQuantity() >= quantity;
-    }
-
     @Override
-    public boolean updateCreditWhenBuying(int user_id) {
+    public boolean updateCreditWhenBuying(int user_id,String address) {
         Users user = (Users) session.get(Users.class, user_id);
         Set<Orders> currentOrder = getCart(user_id);
         Set<OrderDetails> items;
@@ -93,14 +88,6 @@ public class UserImp implements UserDto {
             items = order.getOrderDetailses();
             allItems.addAll(items);
         }
-        boolean isProductsAvailable = true;
-        for (OrderDetails item : allItems) {
-            isProductsAvailable = getAvalabilityInInventory(item.getProducts().getProductId(), item.getQuanity());
-            if (!isProductsAvailable) {
-                break;
-            }
-        }
-        if (isProductsAvailable) {
             Double totalPrice = 0.0;
             for (OrderDetails thing : allItems) {
                 totalPrice += thing.getPrice();
@@ -116,18 +103,18 @@ public class UserImp implements UserDto {
                 for (Orders thing2 : currentOrder) {
                     if (thing2.getOrderNum() != 0) {
                         thing2.setBought(2); // order is bought
+                        thing2.setCustomerAddress(address);
+                        thing2.setOrderDate(new Date());
                     }
                 }
                 user.setCreditLimit(amount);
                 session.beginTransaction();
                 session.update(user);
                 session.getTransaction().commit();
-                UserImp userImp = new UserImp();
                 return true;
             }
         }
-        return false;
-    }
+
     @Override
     public int getUserIdByMail(String mail) {
         String hql = "select id from com.brands.dao.Users c where c.email=?";
@@ -211,6 +198,7 @@ public class UserImp implements UserDto {
         session.clear();
         session.persist(user);
         session.getTransaction().commit();
+        makeCart(getUserIdByMail(user.getEmail()));// nehal
         session.clear();
         System.out.println("register here ");
         return true;
