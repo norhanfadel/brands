@@ -34,7 +34,8 @@ public interface UserDto {
  /*nehal*/
  public boolean addCredit(String code, int user_id);
 
-    public boolean updateCreditWhenBuying(int user_id);
+    public boolean updateCreditWhenBuying(int user_id,String address);
+    public boolean checkCredit(String code);
 
  public boolean updateUser(Users user);
 

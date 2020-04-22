@@ -39,9 +39,11 @@ public class CartHandlerServlet2 extends HttpServlet {
             for (Orders order : cart){
                 actualCart.addAll(order.getOrderDetailses());
             }
-
             for (OrderDetails item : actualCart
             ) {
+               // System.out.println(item.getProducts().getImage());
+                System.out.println(item.getProducts());
+                System.out.println(item);
                 String base64Image = getEncoder().encodeToString(item.getProducts().getImage());
                 item.getProducts().setImageName(base64Image);
                 System.out.println(item.getProducts());

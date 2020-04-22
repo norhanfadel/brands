@@ -116,7 +116,7 @@ public class OrdersImp implements OrdersDto {
         return actualCart;
     }
 
-    private void updateOnFirstCart(int product_id, int user_id, int quantity, Set<Orders> cart, Orders actualCart) {
+    private void updateOnFirstCart(int product_id, int user_id, int quantity, Orders actualCart) {
         Products products = (Products) session.get(Products.class, product_id);
         Double price = products.getPrice();
         OrderDetails orderDetails2 = new OrderDetails(actualCart, products, price * quantity, price, quantity);
@@ -142,23 +142,23 @@ public class OrdersImp implements OrdersDto {
 
     private boolean addProductByProductIdToCart(int product_id, int user_id, int quantity) {
         Users user = (Users) session.get(Users.class, user_id);
+        Set<Orders> cart = getCart(user_id);
         if (!ValidateUser.isExist(user)) {
             return false;
         } else if (getProductQuantity(product_id) >= quantity) {
-            Set<Orders> cart = getCart(user_id);
+            cart = getCart(user_id);
             Orders actualCart = cart.iterator().next();
 
             if (cart.size() == 1 && actualCart.getOrderNum() == 0) {
-                updateOnFirstCart(product_id, user_id, quantity, cart, actualCart);
+                updateOnFirstCart(product_id, user_id, quantity, actualCart);
             } else {
-                Set<Orders> cart2 = getCart(user_id);
-                Orders actualCart2 =null ;
-                for (Orders order:cart2) {
-                    if (order.getOrderNum() == 0){
-                        actualCart2 = order ;
+                Orders actualCart2 = null;
+                for (Orders order : cart) {
+                    if (order.getOrderNum() == 0) {
+                        actualCart2 = order;
                     }
                 }
-                updateOnFirstCart(product_id, user_id, quantity, cart2, actualCart2);
+                updateOnFirstCart(product_id, user_id, quantity, actualCart2);
             }
 
             return true;
@@ -218,8 +218,12 @@ public class OrdersImp implements OrdersDto {
         Set<OrderDetails> items;
         Set<OrderDetails> cartProducts = new HashSet<>();
         for (Orders order : cart) {
-            items = order.getOrderDetailses();
-            cartProducts.addAll(items);
+            if (order.getOrderNum() == 0) {
+                continue;
+            } else {
+                items = order.getOrderDetailses();
+                cartProducts.addAll(items);
+            }
         }
         for (OrderDetails item : cartProducts) {
             if (item.getProducts().getProductId() == product.getProductId()) {
@@ -241,11 +245,12 @@ public class OrdersImp implements OrdersDto {
 
     @Override
     public boolean updateQuantityByProductId(int product_id, int user_id, int quantity) { //
+        session.clear();
         Products product = (Products) session.get(Products.class, product_id);
         Set<Orders> cart = getCart(user_id);
         Set<OrderDetails> itemsI;
         Set<OrderDetails> cartProducts = new HashSet<>();
-        boolean done =false ;
+        boolean done = false;
         for (Orders order : cart) {
             itemsI = order.getOrderDetailses();
             cartProducts.addAll(itemsI);
@@ -255,37 +260,41 @@ public class OrdersImp implements OrdersDto {
             return false;
         } else {
             if (!isProductRemovedFromCart(product, user)) {
-
-                Double total = 0.0;
                 int prevQuantity = 0;
                 OrderDetails neededItem = null;
                 Set<OrderDetails> newOrder = new HashSet<>();
                 for (OrderDetails item : cartProducts) {
-                    if (item.getProducts().equals(product) && (getProductQuantity(product_id) >= quantity)) {
+
+                    if (item.getProducts().getProductId() == product.getProductId()) {
                         prevQuantity = item.getQuanity();
-                        item.setQuanity(quantity);
-                        item.setPrice(item.getProducts().getPrice());
-                        item.setAmount(quantity * item.getPrice());
-                        neededItem = item;
+                        if ((getProductQuantity(product_id) - (quantity - prevQuantity)) >= 0) {
+                            item.setQuanity(quantity);
+                            item.setPrice(item.getProducts().getPrice());
+                            item.setAmount(quantity * item.getPrice());
+                            String hql = "from com.brands.dao.Orders o where o.orderNum =?";
+                            Query query = session.createQuery(hql).setParameter(0, item.getId());
+                            Orders neededOrder = (Orders) query.uniqueResult();
+                            neededOrder.setOrderDetailses(newOrder);
+                            neededOrder.setAmount(item.getAmount());
+                            session.beginTransaction();
+                            session.merge(item);
+                            session.update(neededOrder);
+                            session.getTransaction().commit();
+                        }
                     }
                 }
                 newOrder.add(neededItem);
 
                 //search for order tied to this product and make order details updated
-                String hql = "from com.brands.dao.Orders o where o.orderNum =?";
-                Query query = session.createQuery(hql).setParameter(0, neededItem.getId());
-                Orders neededOrder = (Orders) query.uniqueResult();
-                neededOrder.setOrderDetailses(newOrder);
-                neededOrder.setAmount(neededItem.getAmount());
-                session.beginTransaction();
-                session.update(neededOrder);
-                session.getTransaction().commit();
+
                 int nowQuantity = product.getQuantity() - (quantity - prevQuantity);
+
                 if (nowQuantity >= 0) {
                     product.setQuantity(nowQuantity);
                     session.beginTransaction();
-                    session.update(product);
+                    session.merge(product);
                     session.getTransaction().commit();
+                    session.clear();
                 } else {
                     return false;
                 }
@@ -301,8 +310,8 @@ public class OrdersImp implements OrdersDto {
     public boolean addproductsAndMakeOrder(boolean orderDetailsAdded, int user_id) {
         if (orderDetailsAdded) {
             makeCart(user_id);
-            return true ;
-        }else {
+            return true;
+        } else {
             return false;
         }
     }

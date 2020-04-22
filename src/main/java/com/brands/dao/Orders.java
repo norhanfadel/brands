@@ -128,7 +128,7 @@ public class Orders  implements java.io.Serializable {
     }
 
     
-    @Column(name="Order_Num", unique=true, nullable=false)
+    @Column(name="Order_Num", unique=false, nullable=false)
     public int getOrderNum() {
         return this.orderNum;
     }
