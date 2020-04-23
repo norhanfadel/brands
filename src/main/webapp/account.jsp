@@ -224,6 +224,8 @@
                                                    name="codeedit" id="codeedit">
                                             <input type="text" placeholder="Phone"  value="${requestScope.phoneprofile}"
                                                    name="phoneedit" id="phoneedit" required>
+                                            <input type="text" placeholder="credit"  value="${requestScope.credit}"
+                                                   name="credit" id="credit" disabled="disabled">
                                             <br><br>
 
                                             <Br>
