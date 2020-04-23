@@ -80,7 +80,7 @@
         }
 
         .image-preview{
-            widows: 300;
+            width: 300px;
             min-height: 200px;
             border: 2px solid #dddddd;
             margin-top: 15px;
@@ -93,33 +93,11 @@
 
         .image-preview__image{
             display: none;
-            width: 100px;
+            width: 300px;
         }
 
     </style>
-    <script>
-        const inpFile = document.getElementById("inpFile");
-        const previewContainer = document.getElementById("imagePreview");
-        const previewImage = previewContainer.querySelector(".image-preview__image");
-        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-        inpFile.addEventListener("change",function () {
-           const file = this.files[0];
-           if(file){
-               const reader = new FileReader();
-               previewDefaultText.style.display = "none";
-               previewImage.style.display = "block";
-               reader.addEventListener("load",function () {
-                  previewImage.setAttribute("src",this.result);
-               });
-               reader.readAsDataURL(file);
-           }
-           // else {
-           //     previewDefaultText.style.display = null;
-           //     previewImage.style.display = null;
-           //     previewImage.setAttribute("src","");
-           // }
-        });
-    </script>
+
 </head><!--/head-->
 
 <body>
@@ -325,5 +303,29 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/main.js"></script>
+<script>
+    const inpFile = document.getElementById("inpFile");
+    const previewContainer = document.getElementById("imagePreview");
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+    inpFile.addEventListener("change",function () {
+        const file = this.files[0];
+        if(file){
+            const reader = new FileReader();
+            previewDefaultText.style.display = "none";
+            previewImage.style.display = "block";
+            reader.addEventListener("load",function () {
+                previewImage.setAttribute("src",this.result);
+            });
+            reader.readAsDataURL(file);
+        }
+        else {
+            previewDefaultText.style.display = null;
+            previewImage.style.display = null;
+            previewImage.setAttribute("src","");
+        }
+    });
+</script>
+
 </body>
 </html>
