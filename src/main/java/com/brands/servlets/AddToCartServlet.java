@@ -19,7 +19,7 @@ public class AddToCartServlet extends HttpServlet {
         OrdersImp ordersImp = new OrdersImp();
         System.out.println(productId + "            " + userId );
         boolean isAdded = ordersImp.updateQuantityByProductId(productId, userId, 1);
-        out.println(String.valueOf(isAdded));
+        out.println(""+isAdded);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,6 +30,6 @@ public class AddToCartServlet extends HttpServlet {
         OrdersImp ordersImp = new OrdersImp();
         System.out.println(productId + "            " + userId + "             "+quantity);
         boolean isAdded = ordersImp.updateQuantityByProductId(productId, userId, quantity);
-        out.println(String.valueOf(isAdded));
+        out.println(""+isAdded);
     }
 }

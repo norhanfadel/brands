@@ -287,6 +287,7 @@
                                                    class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
+                                            <b id="errorMsg" style="color:red;"></b>
                                         </div>
                                     </div>
                                 </div>
@@ -350,9 +351,17 @@
     }
 
     function handle() {
-        debugger;
+        debugger
         if (req.readyState == 4 && req.status == 200) {
             console.log("here");
+            updateResult = req.responseText;
+            if (updateResult == "false"){
+                console.log("handleStateChange : " + updateResult);
+                document.getElementById("errorMsg").innerHTML = "Product not available (currently)!"; // will show error msg here
+            }else{
+                console.log("handleStateChange : " + updateResult);
+                //document.getElementById("errorMsg").innerHTML = "";
+            }
         }
     }
 

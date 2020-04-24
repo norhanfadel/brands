@@ -26,22 +26,10 @@ public class ProductImp implements ProductDto {
     public List<Products> searchProductByName(String name) {
         boolean numeric = true;
         Double price = 0.0;
-        String hql = " from com.brands.dao.Products p where p.name=? OR p.price= ?";
+        String hql = " from com.brands.dao.Products p where p.name like ? OR p.description like ?";
         Query query = session.createQuery(hql);
-        query.setParameter(0, name);
-        try {
-            price = Double.parseDouble(name);
-        } catch (NumberFormatException e) {
-            numeric = false;
-        }
-
-        if (numeric) {
-            System.out.println("jjjjk"+hql);
-            query.setParameter(1, price);
-        }else {
-            query.setParameter(1, 0.0);
-        }
-
+        query.setParameter(0, "%"+ name+"%");
+        query.setParameter(1, "%"+ name+"%");
         List<Products> products = query.list();
         return products;
     }
