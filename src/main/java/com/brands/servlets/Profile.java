@@ -18,8 +18,6 @@ public class Profile extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
-        out.println("-----------------here-----------");
-
         UserImp userImp = new UserImp();
 
         HttpSession session = request.getSession();
@@ -75,24 +73,24 @@ public class Profile extends HttpServlet {
             if (codeEdit.equals("")) {
                 codeEdit = "notValid";
             } else {
-                userImp.addCredit(codeEdit, userId);}
-             user2 = userImp.getUserById(userId);
-                user2.setPhone(phoneEdit);
-                user2.setUserName(nameEdit);
-                user2.setAddress(addressEdit);
-               Double creditt= user2.getCreditLimit();
-                session.setAttribute("credit",creditt);
-                session.setAttribute("nameprofile",nameEdit);
-                user2.setPassword(passwordEdit);
+                userImp.addCredit(codeEdit, userId);
+            }
+            user2 = userImp.getUserById(userId);
+            user2.setPhone(phoneEdit);
+            user2.setUserName(nameEdit);
+            user2.setAddress(addressEdit);
+            Double creditt = user2.getCreditLimit();
+            session.setAttribute("credit", creditt);
+            session.setAttribute("nameprofile", nameEdit);
+            user2.setPassword(passwordEdit);
 
 
-
-                if (userImp.updateUser(user2)) {
-                    System.out.println("valid");
-                    String paramName2 = "true1";
-                    request.setAttribute("true2", paramName2);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
-                    dispatcher.forward(request, response);
+            if (userImp.updateUser(user2)) {
+                System.out.println("valid");
+                String paramName2 = "true1";
+                request.setAttribute("true2", paramName2);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
+                dispatcher.forward(request, response);
 
 
             }
