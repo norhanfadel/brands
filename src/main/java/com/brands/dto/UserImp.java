@@ -90,7 +90,7 @@ public class UserImp implements UserDto {
         }
             Double totalPrice = 0.0;
             for (OrderDetails thing : allItems) {
-                totalPrice += thing.getPrice();
+                totalPrice += thing.getAmount();
             }
             Double userCredit = user.getCreditLimit();
             Double amount = userCredit - totalPrice;

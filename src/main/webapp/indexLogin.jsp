@@ -8,7 +8,7 @@
 
 <%@ taglib prefix="cnour" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <html>
 <head>
@@ -35,7 +35,6 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-
 
 
 <header id="header"><!--header-->
@@ -83,9 +82,10 @@
                                 <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i
+                                    class="fa fa-shopping-cart"></i> Cart</a></li>
                             <cnour:if test="${empty sessionScope.userId}" var="userId">
-                            <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
                             </cnour:if>
                             <cnour:if test="${!empty sessionScope.userId}" var="userId">
                                 <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
@@ -120,12 +120,12 @@
                             <li><a href="${pageContext.servletContext.contextPath}/HomeServlet" class="active">Home</a>
                             </li>
                             <!--                                    check that role equal Admin start-->
-                                <cnour:if test="${sessionScope.role.equals('ADMIN')}"  >
+                            <cnour:if test="${sessionScope.role.equals('ADMIN')}">
 
-                                      <li ><a href="ManageUsersServlet">Manage Users</a>
-                                </li>
-                                <li><a href="ManageProduct">Manage Products</a>
-                                    </cnour:if>
+                            <li><a href="ManageUsersServlet">Manage Users</a>
+                            </li>
+                            <li><a href="ManageProduct">Manage Products</a>
+                                </cnour:if>
                                 <!--                                    check that role equal Admin end-->
                             </li>
                             <!--                                    <li><a href="404.html">404</a></li>-->
@@ -140,7 +140,8 @@
 
                                 <input type="text" placeholder="Search" name="search"/>
                             </div>
-                            <input type="submit" value="search" id="searchButton"  style="  height: 35px;border-radius: 5px; background: #fdb45e;">
+                            <input type="submit" value="search" id="searchButton"
+                                   style="  height: 35px;border-radius: 5px; background: #fdb45e;">
                         </form>
                     </div>
 
@@ -225,20 +226,26 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading" id="menLink">
-                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/MenProductServlet" onclick="showMenProduct()" style="width: 100%">MEN</a>
+                                <h4 class="panel-title"><a
+                                        href="${pageContext.servletContext.contextPath }/MenProductServlet"
+                                        onclick="showMenProduct()" style="width: 100%">MEN</a>
                                 </h4>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading" id="womenLink">
-                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/WomenProductServlet" onclick="showWomenProduct()"
-                                                           style="width: 100%">WOMEN</a></h4>
+                                <h4 class="panel-title"><a
+                                        href="${pageContext.servletContext.contextPath }/WomenProductServlet"
+                                        onclick="showWomenProduct()"
+                                        style="width: 100%">WOMEN</a></h4>
                             </div>
                         </div>
 
                         <div class="panel panel-default">
                             <div class="panel-heading" id="kidsLink">
-                                <h4 class="panel-title"><a href="${pageContext.servletContext.contextPath }/KidsProductServlet" onclick="showKidsProduct()" style="width: 100%">Kids</a>
+                                <h4 class="panel-title"><a
+                                        href="${pageContext.servletContext.contextPath }/KidsProductServlet"
+                                        onclick="showKidsProduct()" style="width: 100%">Kids</a>
                                 </h4>
                             </div>
                         </div>
@@ -261,19 +268,23 @@
                                                  alt=""/>
                                             <h2><c:out value="${productsList.price}"/></h2>
                                             <p><c:out value="${productsList.name}"/></p>
-                                            <a href="ProductDetailsServlet?pid=${productsList.productId}" class="btn btn-default add-to-cart"><i
+                                            <a href="ProductDetailsServlet?pid=${productsList.productId}"
+                                               class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Show Details</a>
 
-                                            <a href="#" class="btn btn-default add-to-cart"><i
+                                            <a onclick="addCart(${sessionScope.userId},${productsList.productId})"
+                                               class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         <div class="product-overlay">
                                             <div class="overlay-content">
                                                 <h2><c:out value="${productsList.price}"/></h2>
                                                 <p><c:out value="${productsList.description}"/></p>
-                                                <a href="ProductDetailsServlet?pid=${productsList.productId}" class="btn btn-default add-to-cart"><i
+                                                <a href="ProductDetailsServlet?pid=${productsList.productId}"
+                                                   class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>Show Details</a>
-                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                <a onclick="addCart(${sessionScope.userId},${productsList.productId})"
+                                                   class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>
@@ -284,139 +295,6 @@
 
                     </div>
                 </c:if>
-                <!--                men category product start               -->
-<%--                <c:if test="${requestScope.menList !=null}">--%>
-<%--                    <div class="features_items" id="men" ><!--features_items-->--%>
-<%--                        <h2 class="title text-center">Features Items</h2>--%>
-
-<%--                        <c:forEach var="menList" items="${requestScope.menList}">--%>
-<%--                            <div class="col-sm-4">--%>
-<%--                                <div class="product-image-wrapper">--%>
-<%--                                    <div class="single-products">--%>
-<%--                                        <div class="productinfo text-center">--%>
-<%--                                            <img src="data:image/jpg;base64,${menList.imageName}" height="170px"--%>
-<%--                                                 alt=""/>--%>
-<%--                                            <h2><c:out value="${menList.price}"/></h2>--%>
-<%--                                            <p><c:out value="${menList.description}"/></p>--%>
-<%--                                            <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                    class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="product-overlay">--%>
-<%--                                            <div class="overlay-content">--%>
-<%--                                                <h2><c:out value="${menList.price}"/></h2>--%>
-<%--                                                <p><c:out value="${menList.description}"/></p>--%>
-<%--                                                <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                        class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </c:forEach>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-
-<%--                <!--                men category product end--%>
-
-<%--                               womenList result start               -->--%>
-<%--                <c:if test="${requestScope.womenList !=null}">--%>
-<%--                    <div class="features_items" id="searchResult" ><!--features_items-->--%>
-<%--                        <h2 class="title text-center">Features Items</h2>--%>
-
-<%--                        <c:forEach var="womenList" items="${requestScope.womenList}">--%>
-<%--                            <div class="col-sm-4">--%>
-<%--                                <div class="product-image-wrapper">--%>
-<%--                                    <div class="single-products">--%>
-<%--                                        <div class="productinfo text-center">--%>
-<%--                                            <img src="data:image/jpg;base64,${womenList.imageName}" height="170px"--%>
-<%--                                                 alt=""/>--%>
-<%--                                            <h2><c:out value="${womenList.price}"/></h2>--%>
-<%--                                            <p><c:out value="${womenList.description}"/></p>--%>
-<%--                                            <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                    class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="product-overlay">--%>
-<%--                                            <div class="overlay-content">--%>
-<%--                                                <h2><c:out value="${womenList.price}"/></h2>--%>
-<%--                                                <p><c:out value="${womenList.description}"/></p>--%>
-<%--                                                <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                        class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </c:forEach>--%>
-<%--                    </div>--%>
-
-<%--                </c:if>--%>
-<%--                <!--                women category product end               -->--%>
-
-<%--                <!--                kids category product start               -->--%>
-
-<%--                <c:if test="${requestScope.kidsList !=null}">--%>
-<%--                    <div class="features_items" id="kids" ><!--features_items-->--%>
-<%--                        <h2 class="title text-center">Features Items</h2>--%>
-<%--                        <c:forEach var="kidsList" items="${requestScope.kidsList}">--%>
-<%--                            <div class="col-sm-4">--%>
-<%--                                <div class="product-image-wrapper">--%>
-<%--                                    <div class="single-products">--%>
-<%--                                        <div class="productinfo text-center">--%>
-<%--                                            <img src="data:image/jpg;base64,${kidsList.imageName}" height="170px"--%>
-<%--                                                 alt=""/>--%>
-<%--                                            <h2><c:out value="${kidsList.price}"/></h2>--%>
-<%--                                            <p><c:out value="${kidsList.description}"/></p>--%>
-<%--                                            <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                    class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="product-overlay">--%>
-<%--                                            <div class="overlay-content">--%>
-<%--                                                <h2><c:out value="${kidsList.price}"/></h2>--%>
-<%--                                                <p><c:out value="${kidsList.description}"/></p>--%>
-<%--                                                <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                        class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </c:forEach>--%>
-<%--                    </div>--%>
-
-<%--                </c:if>--%>
-<%--                <!--                kids category product end               -->--%>
-<%--                <!--                search Result start               -->--%>
-<%--                <c:if test="${requestScope.list !=null}">--%>
-<%--                    <div class="features_items" id="searchResult" style="display: block"><!--features_items-->--%>
-<%--                        <h2 class="title text-center">Features Items</h2>--%>
-<%--                        <c:forEach var="searchList" items="${requestScope.list}">--%>
-<%--                            <div class="col-sm-4">--%>
-<%--                                <div class="product-image-wrapper">--%>
-<%--                                    <div class="single-products">--%>
-<%--                                        <div class="productinfo text-center">--%>
-<%--                                            <img src="data:image/jpg;base64,${searchList.imageName}" height="170px"--%>
-<%--                                                 alt=""/>--%>
-<%--                                            <h2><c:out value="${searchList.price}"/></h2>--%>
-<%--                                            <p><c:out value="${searchList.description}"/></p>--%>
-<%--                                            <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                    class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="product-overlay">--%>
-<%--                                            <div class="overlay-content">--%>
-<%--                                                <h2><c:out value="${searchList.price}"/></h2>--%>
-<%--                                                <p><c:out value="${searchList.description}"/></p>--%>
-<%--                                                <a href="#" class="btn btn-default add-to-cart"><i--%>
-<%--                                                        class="fa fa-shopping-cart"></i>Add to cart</a>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </c:forEach>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
-<%--                <!--               search reasult end               -->--%>
-
             </div>
         </div>
     </div>
@@ -452,5 +330,33 @@
         $("#kidsLink").css("background-color", "white");
     });
 </script>
-    </body>
-    < /html>
+<script>
+    function addCart(userId, productId) {
+        debugger
+        console.log("here" + userId);
+        if (window.XMLHttpRequest)
+            req = new XMLHttpRequest();
+        else if
+        (window.ActiveXObject)
+            req = new ActiveXObject(Microsoft.XMLHTTP);
+        url = "AddToCartServlet";
+        console.log("here req" + userId);
+        req.open("POST", url, true);
+        req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        req.onreadystatechange = handle;
+        console.log("here req done");
+        alert(userId + "         " + productId)
+        req.send("userId=" + userId + "&productId=" + productId);
+    }
+
+    function handle() {
+        debugger;
+        if (req.readyState == 4 && req.status == 200) {
+            console.log("here");
+        }
+    }
+
+
+</script>
+</body>
+< /html>
