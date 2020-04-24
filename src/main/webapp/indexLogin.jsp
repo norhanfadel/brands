@@ -287,6 +287,7 @@
                                                    class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
+                                            <b id="errorMsg" style="color:red;"></b>
                                         </div>
                                     </div>
                                 </div>
@@ -345,14 +346,22 @@
         req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
         req.onreadystatechange = handle;
         console.log("here req done");
-        alert(userId + "         " + productId)
+        //alert(userId + "         " + productId)
         req.send("userId=" + userId + "&productId=" + productId);
     }
 
     function handle() {
-        debugger;
+        debugger
         if (req.readyState == 4 && req.status == 200) {
             console.log("here");
+            updateResult = req.responseText;
+            if (updateResult.trim() == "false"){
+                console.log("handleStateChange : " + updateResult);
+                document.getElementById("errorMsg").innerHTML = "Product not available (currently)!"; // will show error msg here
+            }else{
+                console.log("handleStateChange : " + updateResult);
+                //document.getElementById("errorMsg").innerHTML = "";
+            }
         }
     }
 

@@ -239,7 +239,6 @@
             document.getElementById("errorMsg").innerHTML = "can't be less than 1 !";
         }else{
             debugger
-            document.getElementById("errorMsg").innerHTML = "";
             makeOBJ();
             req.onreadystatechange = handleStateChange;
             url = "AddToCartServlet" + "?quantity=" + quantity+"&productId="+productId+"&userId="+userId;
@@ -250,7 +249,16 @@
 
     }
     function handleStateChange() {
-        console.log("in handling method");
+
+        if (req.readyState === 4 && req.status === 200) {
+            updateResult = req.responseText;
+            console.log("handleStateChange : " + updateResult);
+            if (updateResult.trim() == "false"){
+                document.getElementById("errorMsg").innerHTML = "Quantity not available"; // will show error msg here
+            }else{
+                document.getElementById("errorMsg").innerHTML = "";
+            }
+        }
     }
 </script>
 </body>

@@ -281,6 +281,7 @@ public class OrdersImp implements OrdersDto {
                             session.update(neededOrder);
                             session.getTransaction().commit();
                         }
+                        return false ;
                     }
                 }
                 newOrder.add(neededItem);
@@ -299,11 +300,13 @@ public class OrdersImp implements OrdersDto {
                     return false;
                 }
             } else {
-                addProductByProductIdToCart(product_id, user_id, quantity);
-                makeCart(user_id);
+               if( addProductByProductIdToCart(product_id, user_id, quantity)){
+                   makeCart(user_id);
+                   return true ;
+               }
+                else{return false ;}
             }
         }
-
         return true;
     }
 
