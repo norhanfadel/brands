@@ -157,13 +157,13 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="indexLogin.jsp">Home</a></li>
+                            <li><a href="HomeServlet">Home</a></li>
 
-                            <cnour:if test="${requestScope.role.equals('ADMIN')}"  >
+                            <cnour:if test="${sessionScope.role.equals('ADMIN')}"  >
 
-                            <li ><a href="manageUser.jsp">Manage Users</a>
+                            <li ><a href="ManageUsersServlet">Manage Users</a>
                             </li>
-                            <li><a href="manageProduct.jsp">Manage Products</a>
+                            <li><a href="ManageProduct">Manage Products</a>
                                 </cnour:if>
 
                             <li><a href="contact-us.jsp">Contact</a></li>
@@ -171,11 +171,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -224,6 +220,8 @@
                                                    name="codeedit" id="codeedit">
                                             <input type="text" placeholder="Phone"  value="${requestScope.phoneprofile}"
                                                    name="phoneedit" id="phoneedit" required>
+                                            <input type="text" placeholder="credit"  value="${requestScope.credit}"
+                                                   name="credit" id="credit" disabled="disabled">
                                             <br><br>
 
                                             <Br>

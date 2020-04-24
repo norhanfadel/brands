@@ -31,19 +31,22 @@ public class Profile extends HttpServlet {
             Users user2 = userImp.getUserById(userId);
             System.out.println("***********" + user2);
             System.out.println("***********" + user2.getUserName());
+            System.out.println("--------------------" + user2.getCreditLimit());
             String email = user2.getEmail();
             String name = user2.getUserName();
             String address = user2.getAddress();
             String phone = user2.getPhone();
             Double code = user2.getCreditLimit();
             String password = user2.getPassword();
+            Double credit = user2.getCreditLimit();
             request.setAttribute("emailprofile", email);
             request.setAttribute("nameprofile", name);
             request.setAttribute("addressprofile", address);
             request.setAttribute("phoneprofile", phone);
             request.setAttribute("codeprofile", code);
             request.setAttribute("passwordprofile", password);
-            request.setAttribute("id1",userId);
+            request.setAttribute("id1", userId);
+            request.setAttribute("credit", credit);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
             dispatcher.forward(request, response);
@@ -62,36 +65,38 @@ public class Profile extends HttpServlet {
         int userId = (int) session.getAttribute("userId");
         System.out.println("userId" + userId);
         if (userId != 0) {
-
             Users user2 = userImp.getUserById(userId);
             String nameEdit = request.getParameter("nameedit");
-
             String phoneEdit = request.getParameter("phoneedit");
-
             String passwordEdit = request.getParameter("passwordedit");
             String addressEdit = request.getParameter("Addressedit");
             String codeEdit = request.getParameter("codeedit");
-if(codeEdit.equals("")){
-    codeEdit="notValid";
-}
-           userImp.addCredit(codeEdit,userId);
-            user2.setPhone(phoneEdit);
-            user2.setUserName(nameEdit);
-            user2.setAddress(addressEdit);
 
-            user2.setPassword(passwordEdit);
+            if (codeEdit.equals("")) {
+                codeEdit = "notValid";
+            } else {
+                userImp.addCredit(codeEdit, userId);}
+             user2 = userImp.getUserById(userId);
+                user2.setPhone(phoneEdit);
+                user2.setUserName(nameEdit);
+                user2.setAddress(addressEdit);
+               Double creditt= user2.getCreditLimit();
+                session.setAttribute("credit",creditt);
+                session.setAttribute("nameprofile",nameEdit);
+                user2.setPassword(passwordEdit);
 
 
-            if (userImp.updateUser(user2)) {
-                System.out.println("valid");
-                String paramName2 = "true1";
-                request.setAttribute("true2", paramName2);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
-                dispatcher.forward(request, response);
+
+                if (userImp.updateUser(user2)) {
+                    System.out.println("valid");
+                    String paramName2 = "true1";
+                    request.setAttribute("true2", paramName2);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
+                    dispatcher.forward(request, response);
+
 
             }
         }
-
 
     }
 
