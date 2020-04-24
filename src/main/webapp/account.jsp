@@ -215,15 +215,18 @@
                                             <input type="text" name="Addressedit"
                                                    value="${requestScope.addressprofile}"  required id="Addressedit"
                                                    placeholder="Address">
-                                            <br><br>
-                                            <input type="number" placeholder="Code"
-                                                   name="codeedit" id="codeedit">
+
                                             <input type="text" placeholder="Phone"  value="${requestScope.phoneprofile}"
                                                    name="phoneedit" id="phoneedit" required>
                                             <input type="text" placeholder="credit"  value="${requestScope.credit}"
                                                    name="credit" id="credit" disabled="disabled">
                                             <br><br>
 
+                                            <input type="number" placeholder="Code"
+                                                   name="codeedit" id="codeedit"  onblur="submitForm2()">
+                                            <br>
+                                            <label id="codeLabel" style="color: orange"></label>
+                                            <br>
                                             <Br>
                                             <button type="submit" value = "Submit" class="btn btn-default">EDIT</button>
                                         </cnour:if>
@@ -256,6 +259,36 @@
         </div>
     </div>
 </footer><!--/Footer-->
+<script>
+    function submitForm2() {
+        if (window.XMLHttpRequest)
+            req = new XMLHttpRequest();
+        else if
+        (window.ActiveXObject)
+            req = new ActiveXObject(Microsoft.XMLHTTP);
+        yourvaluee = document.getElementById("codeedit").value;
+        url = "CodeProfile";
+        req.open("POST", url, true);
+        req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        req.onreadystatechange = handleStateChange2;
+        req.send("codeedit=" + yourvaluee);
+    }
+
+    function handleStateChange2() {
+        console.log("from statechage");
+        if (req.status == 200) {
+
+            xmlvalue = req.responseText;
+            console.log("from statechage2" + xmlvalue);
+            document.getElementById("codeLabel").innerHTML = xmlvalue;
+
+
+
+        }
+    }
+
+</script>
+
 <script src="js/jquery.js"></script>
 <script src="js/price-range.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>
