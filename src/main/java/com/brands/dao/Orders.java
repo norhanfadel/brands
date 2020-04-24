@@ -34,7 +34,7 @@ public class Orders  implements java.io.Serializable {
      private String customerAddress;
      private Date orderDate;
      private int orderNum;
-     private Integer bought;
+     private Integer bought = 1;
      private Set<OrderDetails> orderDetailses = new HashSet<OrderDetails>(0);
 
     public Orders() {

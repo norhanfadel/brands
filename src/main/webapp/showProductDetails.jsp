@@ -253,13 +253,12 @@
         if (req.readyState === 4 && req.status === 200) {
             updateResult = req.responseText;
             console.log("handleStateChange : " + updateResult);
-            if (updateResult == "false"){
+            if (updateResult.trim() == "false"){
                 document.getElementById("errorMsg").innerHTML = "Quantity not available"; // will show error msg here
             }else{
                 document.getElementById("errorMsg").innerHTML = "";
             }
         }
-
     }
 </script>
 </body>
