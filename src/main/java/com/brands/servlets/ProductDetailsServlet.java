@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static java.util.Base64.getEncoder;
+
 public class ProductDetailsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -22,6 +24,11 @@ public class ProductDetailsServlet extends HttpServlet {
       int p_id=Integer.parseInt(pid);
         ProductDto productDto =new ProductImp();
        Products products= productDto.getProductById(p_id);
+        if(products.getImage() != null) {
+            String base64Image = getEncoder().encodeToString(products.getImage());
+            products.setImageName(base64Image);
+        }
+
         request.setAttribute("productDetails",products);
 
         RequestDispatcher rd = request.getRequestDispatcher("showProductDetails.jsp");
