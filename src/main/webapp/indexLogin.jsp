@@ -35,7 +35,13 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-
+<%response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+    if(request.getSession().getAttribute("userId")==null){
+        response.sendRedirect("login.jsp");
+    }
+%>
 
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
@@ -78,6 +84,7 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
+
                             <cnour:if test="${!empty sessionScope.nameprofile}">
                                 <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
@@ -368,4 +375,4 @@
 
 </script>
 </body>
-< /html>
+</html>
