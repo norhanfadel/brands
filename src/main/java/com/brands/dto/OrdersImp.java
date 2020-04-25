@@ -1,6 +1,9 @@
 package com.brands.dto;
 
-import com.brands.dao.*;
+import com.brands.dao.OrderDetails;
+import com.brands.dao.Orders;
+import com.brands.dao.Products;
+import com.brands.dao.Users;
 import com.brands.utils.ValidateUser;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -160,9 +163,10 @@ public class OrdersImp implements OrdersDto {
                 }
                 updateOnFirstCart(product_id, user_id, quantity, actualCart2);
             }
-
+            session.clear();
             return true;
         } else {
+            session.clear();
             return false;
         }
     }
@@ -281,7 +285,7 @@ public class OrdersImp implements OrdersDto {
                             session.update(neededOrder);
                             session.getTransaction().commit();
                         }
-                        return false ;
+                        return false;
                     }
                 }
                 newOrder.add(neededItem);
@@ -300,11 +304,13 @@ public class OrdersImp implements OrdersDto {
                     return false;
                 }
             } else {
-               if( addProductByProductIdToCart(product_id, user_id, quantity)){
-                   makeCart(user_id);
-                   return true ;
-               }
-                else{return false ;}
+                if (addProductByProductIdToCart(product_id, user_id, quantity)) {
+
+                    makeCart(user_id);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         return true;

@@ -82,12 +82,13 @@
                                 <li><a href="profile"><i class="fa fa-user"></i>Welcome ${sessionScope.nameprofile}
                                 </a></li>
                             </cnour:if>
-                            <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i
-                                    class="fa fa-shopping-cart"></i> Cart</a></li>
+
                             <cnour:if test="${empty sessionScope.userId}" var="userId">
                                 <li><a href="login.jsp"><i class="fa fa-lock"></i> Login</a></li>
                             </cnour:if>
                             <cnour:if test="${!empty sessionScope.userId}" var="userId">
+                                <li><a href="${pageContext.servletContext.contextPath }/CartHandlerServlet2"><i
+                                        class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <li><a href="logOut"><i class="fa fa-user"></i>Log out </a></li>
 
                             </cnour:if>
@@ -271,10 +272,16 @@
                                             <a href="ProductDetailsServlet?pid=${productsList.productId}"
                                                class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Show Details</a>
-
+                                            <cnour:if test="${!empty sessionScope.userId}" var="userId">
                                             <a onclick="addCart(${sessionScope.userId},${productsList.productId})"
                                                class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </cnour:if>
+                                            <cnour:if test="${sessionScope.role==null}">
+                                                <a href="login.jsp" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </cnour:if>
+
                                         </div>
                                         <div class="product-overlay">
                                             <div class="overlay-content">
@@ -283,11 +290,18 @@
                                                 <a href="ProductDetailsServlet?pid=${productsList.productId}"
                                                    class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>Show Details</a>
-                                                <a onclick="addCart(${sessionScope.userId},${productsList.productId})"
-                                                   class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <cnour:if test="${!empty sessionScope.userId}" var="userId">
+                                                    <a onclick="addCart(${sessionScope.userId},${productsList.productId})"
+                                                       class="btn btn-default add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                </cnour:if>
+                                                <cnour:if test="${sessionScope.role==null}">
+                                                    <a href="login.jsp" class="btn btn-default add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                </cnour:if>
+                                                <b id="${productsList.productId}" style="color:red;"></b>
+
                                             </div>
-                                            <b id="errorMsg" style="color:red;"></b>
                                         </div>
                                     </div>
                                 </div>
@@ -332,8 +346,10 @@
     });
 </script>
 <script>
+    var product_Id;
     function addCart(userId, productId) {
         debugger
+        product_Id=productId;
         console.log("here" + userId);
         if (window.XMLHttpRequest)
             req = new XMLHttpRequest();
@@ -357,7 +373,7 @@
             updateResult = req.responseText;
             if (updateResult.trim() == "false"){
                 console.log("handleStateChange : " + updateResult);
-                document.getElementById("errorMsg").innerHTML = "Product not available (currently)!"; // will show error msg here
+                document.getElementById(product_Id).innerHTML = "Product not available (currently)!"; // will show error msg here
             }else{
                 console.log("handleStateChange : " + updateResult);
                 //document.getElementById("errorMsg").innerHTML = "";
@@ -368,4 +384,4 @@
 
 </script>
 </body>
-< /html>
+</html>

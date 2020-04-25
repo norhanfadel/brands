@@ -30,6 +30,6 @@ public class AddToCartServlet extends HttpServlet {
         OrdersImp ordersImp = new OrdersImp();
         System.out.println(productId + "            " + userId + "             "+quantity);
         boolean isAdded = ordersImp.updateQuantityByProductId(productId, userId, quantity);
-        out.println(""+isAdded);
+        out.println(isAdded);
     }
 }

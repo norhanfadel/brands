@@ -21,37 +21,43 @@ public class Profile extends HttpServlet {
         UserImp userImp = new UserImp();
 
         HttpSession session = request.getSession();
+        if (session.getAttribute("userId") != null) {
+            int userId = (int) session.getAttribute("userId");
 
-        int userId = (int) session.getAttribute("userId");
-        System.out.println("userId" + userId);
-        if (userId != 0) {
+            System.out.println("userId" + userId);
+            if (userId != 0) {
 
-            Users user2 = userImp.getUserById(userId);
-            System.out.println("***********" + user2);
-            System.out.println("***********" + user2.getUserName());
-            System.out.println("--------------------" + user2.getCreditLimit());
-            String email = user2.getEmail();
-            String name = user2.getUserName();
-            String address = user2.getAddress();
-            String phone = user2.getPhone();
-            Double code = user2.getCreditLimit();
-            String password = user2.getPassword();
-            Double credit = user2.getCreditLimit();
-            request.setAttribute("emailprofile", email);
-            request.setAttribute("nameprofile", name);
-            request.setAttribute("addressprofile", address);
-            request.setAttribute("phoneprofile", phone);
-            request.setAttribute("codeprofile", code);
-            request.setAttribute("passwordprofile", password);
-            request.setAttribute("id1", userId);
-            request.setAttribute("credit", credit);
+                Users user2 = userImp.getUserById(userId);
+                System.out.println("***********" + user2);
+                System.out.println("***********" + user2.getUserName());
+                System.out.println("--------------------" + user2.getCreditLimit());
+                String email = user2.getEmail();
+                String name = user2.getUserName();
+                String address = user2.getAddress();
+                String phone = user2.getPhone();
+                Double code = user2.getCreditLimit();
+                String password = user2.getPassword();
+                Double credit = user2.getCreditLimit();
+                request.setAttribute("emailprofile", email);
+                request.setAttribute("nameprofile", name);
+                request.setAttribute("addressprofile", address);
+                request.setAttribute("phoneprofile", phone);
+                request.setAttribute("codeprofile", code);
+                request.setAttribute("passwordprofile", password);
+                request.setAttribute("id1", userId);
+                request.setAttribute("credit", credit);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("account.jsp");
+                dispatcher.forward(request, response);
+
+            }
+        } else {
+            System.out.println("mkkkkkk");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("404.html");
             dispatcher.forward(request, response);
-
         }
-
     }
+
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
