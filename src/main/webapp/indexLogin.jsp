@@ -353,7 +353,7 @@
         req.setRequestHeader("content-type", "application/x-www-form-urlencoded");
         req.onreadystatechange = handle;
         console.log("here req done");
-        alert(userId + "         " + productId)
+        //alert(userId + "         " + productId)
         req.send("userId=" + userId + "&productId=" + productId);
     }
 
@@ -362,7 +362,7 @@
         if (req.readyState == 4 && req.status == 200) {
             console.log("here");
             updateResult = req.responseText;
-            if (updateResult == "false"){
+            if (updateResult.trim() == "false"){
                 console.log("handleStateChange : " + updateResult);
                 document.getElementById("errorMsg").innerHTML = "Product not available (currently)!"; // will show error msg here
             }else{
